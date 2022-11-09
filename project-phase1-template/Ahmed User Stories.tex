@@ -1,0 +1,82 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{url}
+\usepackage{emoji}
+\usepackage{float}
+\fancyhf{}
+
+\title{Ahmed User Stories}
+\author{Look Down}
+\date{They're in the Next page}
+
+\begin{document}
+
+\maketitle
+
+
+    \begin{center}
+      \begin{tabular}{|p{2cm}|p{0.5cm}|p{1.5cm}|p{3cm}|p{3.5cm}|p{1.75cm}|p{1.25cm}|}
+        \hline
+        \textbf{Name}&\textbf{ID} &\textbf{Owner}&\textbf{Description}&\textbf{Implementation Details}&\textbf{Priority}&\textbf{Effort}
+        \\\hline    
+        Boggle board GUI	
+        &1.1
+        &Jane
+        &As a user, I want to better view my boggle board. I want the ability to interactively select the letters in a boggle board, instead of typing them out.
+        &Using JavaFx, implement a GUI that displays the letters in a boggle board in a grid-like shape. The individual letters will be implemented as JavaFX buttons.
+        &1
+        &4
+        \\\hline    
+        Red/green color adjustment	
+        &1.2
+        &Fred
+        &As a user with red/green color blindness, I want the ability to clearly distinguish the letters in my boggle board from the board itself.
+        &Create a version of the GUI that avoids red/green color combinations. Using the MVC design pattern, the event-handler will directly change the view to reflect this version of the GUI.
+        &9
+        &3      
+        \\\hline        
+        Font Change
+        &1.3
+        &Abdu
+        &As a user with dyslexia, changing the font of a text can help me read more effectively. 
+        &Present a list of fonts to the user. After the user selects the desired font, every character in the application will change to that font. 
+        &6
+        &3      
+        \\\hline  
+         Letter Highlight
+        &1.4
+        &Salah
+        &As a player, I want to see the letters I have selected on the boggle board. 
+        &Highlight letters with a different color as a user selects them. Using the MVC design pattern, the event hangler will directly change the view as the letter selection occurs. 
+
+        &5
+        &3      
+        \\\hline  
+    
+      \end{tabular}
+    \end{center}
+    
+    \begin{center}
+      \begin{tabular}{|p{2cm}|p{0.5cm}|p{1.5cm}|p{3cm}|p{3.5cm}|p{1.75cm}|p{1.25cm}|}
+        \hline
+        \textbf{Name}&\textbf{ID} &\textbf{Owner}&\textbf{Description}&\textbf{Implementation Details}&\textbf{Priority}&\textbf{Effort}
+        \\\hline
+        Keep Track of Score
+        &1.5
+        &Abutreka
+        &As a user, I want to keep track of my current score as I find new valid words. 
+        &Once a valid word is submitted, the score will be updated using the observer design pattern. The dictionary of valid words will notify the “Score” GUI element to change.
+        &10
+        &2   
+        \\\hline
+        \end{tabular}
+    \end{center}
+
+\end{document}
