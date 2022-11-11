@@ -1,0 +1,61 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{url}
+\usepackage{emoji}
+\usepackage{float}
+\fancyhf{}
+
+\title{Raghav UserStories}
+\author{Look Down}
+\date{They're in the Next page}
+
+\begin{document}
+
+    \begin{center}
+      \begin{tabular}{|p{2cm}|p{0.5cm}|p{1.5cm}|p{3cm}|p{3.5cm}|p{1.75cm}|p{1.25cm}|}
+        \hline
+        \textbf{Name}&\textbf{ID} &\textbf{Owner}&\textbf{Description}&\textbf{Implementation Details}&\textbf{Priority}&\textbf{Effort}
+        \\\hline    
+        Saved Boards	
+        &2.1
+        &Luffy
+        & As a user, I would like to save a board and start a new one whenever I want. I would also like to come back to that older board and continue playing on that, with my progress saved.
+        &The user will be able to save a board by clicking the button on the UI element then entering the preferred name, this will save the board along with its scores, found words and all\_words dictionary and exit the UI. When we start to play the game again, the UI will prompt the user if the player wants to play on a saved board or start a new one. This will be implemented using the memento design pattern.
+        &1
+        &5
+        \\\hline    
+        Memory saving
+        &2.2
+        &Naruto
+        &As the size of the board increases, it tends to increase the memory required to save the board, no of available words on the board (all word dictionary) and also ever changing properties like human words.
+        &I will use the Singleton design pattern to save all the above-mentioned variables in one spot and thus will save memory as it ensures a class has only one instance, and provides a global point of access to it.
+        &2
+        &4  
+        \\\hline        
+    
+      \end{tabular}
+    \end{center}
+    
+    \begin{center}
+      \begin{tabular}{|p{2cm}|p{0.5cm}|p{1.5cm}|p{3cm}|p{3.5cm}|p{1.75cm}|p{1.25cm}|}
+        \hline
+        \textbf{Name}&\textbf{ID} &\textbf{Owner}&\textbf{Description}&\textbf{Implementation Details}&\textbf{Priority}&\textbf{Effort}
+        \\\hline
+        Bigger Font
+        &2.3
+        &Goku
+        &As a user that uses spectacles, i would like to play the game without using them too, to accomplish that, i would like to be able to change the size of the font on the boggle board.
+        &To implement this, the UI will prompt the user if he/she wants to change the font size, if said yes, the user will be given three size options: default , medium and large. This will change the size on the boggle board UI.
+        &3
+        &3  
+        \\\hline
+        \end{tabular}
+    \end{center}
+\end{document}
