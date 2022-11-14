@@ -3,7 +3,6 @@ import boggle.BoggleGame;
 /**
  * The Main class for the first Assignment in CSC207, Fall 2022
  * Team Members are: Rav, Chris, Justin, Ahmed.
- * Test branch3
  */
 public class Main {
     /**
