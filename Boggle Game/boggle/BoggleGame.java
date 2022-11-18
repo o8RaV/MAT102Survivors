@@ -15,6 +15,7 @@ public class BoggleGame {
      * stores game statistics
      */
     private BoggleStats gameStats;
+    private String boggleboard;
 
     /**
      * dice used to randomize letter assignments for a small grid
@@ -88,7 +89,8 @@ public class BoggleGame {
             }
 
             if (choiceLetters.equals("1")) {
-                playRound(boardSize, randomizeLetters(boardSize));
+                this.boggleboard = randomizeLetters(boardSize);
+                playRound(boardSize, boggleboard);
             } else {
                 System.out.println("Input a list of " + boardSize * boardSize + " letters:");
                 choiceLetters = scanner.nextLine();
@@ -174,6 +176,7 @@ public class BoggleGame {
         for (char i: random) {
             ans += i;
         }
+
         return ans;
     }
 
