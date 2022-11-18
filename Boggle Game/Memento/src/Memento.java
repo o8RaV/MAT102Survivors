@@ -7,8 +7,8 @@ import boggle.*;
 public class Memento {
     private List state;
 
-    public Memento(BoggleGrid boggleboard, BoggleStats boggleStats){
-        List state = new ArrayList(Arrays.asList(boggleboard, boggleStats));
+    public Memento(String name, String boggleboard, BoggleStats boggleStats){
+        List state = new ArrayList(Arrays.asList(name, boggleboard, boggleStats));
         this.state = state;
     }
 

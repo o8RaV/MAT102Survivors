@@ -1,6 +1,10 @@
 package boggle;
 
+import Memento.src.Caretaker;
+import Memento.src.Memento;
+
 import java.util.*;
+
 
 /**
  * The BoggleGame class for the first Assignment in CSC207, Fall 2022
@@ -16,6 +20,8 @@ public class BoggleGame {
      */
     private BoggleStats gameStats;
     private String boggleboard;
+    private List state = new ArrayList<>();
+    private Caretaker caretaker = new Caretaker().getcaretaker();
 
     /**
      * dice used to randomize letter assignments for a small grid
@@ -61,21 +67,45 @@ public class BoggleGame {
      * It will loop until the user indicates they are done playing.
      */
     public void playGame() {
-        int boardSize;
+        int boardSize = 0;
         while (true) {
-            System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
+            System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one; 3 to play on a saved board:");
             String choiceGrid = scanner.nextLine();
 
             //get grid size preference
             if (choiceGrid == "") break; //end game if user inputs nothing
-            while (!choiceGrid.equals("1") && !choiceGrid.equals("2")) {
+            while (!choiceGrid.equals("1") && !choiceGrid.equals("2") && !choiceGrid.equals("3")) {
                 System.out.println("Please try again.");
-                System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
+                System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one; 3 to play on a saved board:");
                 choiceGrid = scanner.nextLine();
             }
 
-            if (choiceGrid.equals("1")) boardSize = 5;
-            else boardSize = 4;
+            if (choiceGrid.equals("1")){
+                boardSize = 5;
+            }
+            else if (choiceGrid.equals("2")) {
+                boardSize = 4;
+            }
+            else {
+                for (Memento i: caretaker.getlist()){
+                    System.out.println(i.getState().get(0));
+                }
+                System.out.println("Enter name of the board you want to play on:");
+                choiceGrid = scanner.nextLine();
+                while (!caretaker.getnames().contains(choiceGrid)){
+                    System.out.println("Sorry, bad input. Please try again.");
+                    choiceGrid = scanner.nextLine();
+                }
+                int i = caretaker.getnames().indexOf(choiceGrid);
+                int j = 0;
+                String name = (String) caretaker.get(i).getState().get(1);
+                if (name.length() == 25)
+                    j = 5;
+                else if (name.length() == 16)
+                    j = 4;
+
+                playRound(j, name);
+            }
 
             //get letter choice preference
             System.out.println("Enter 1 to randomly assign letters to the grid; 2 to provide your own.");
@@ -91,7 +121,7 @@ public class BoggleGame {
             if (choiceLetters.equals("1")) {
                 this.boggleboard = randomizeLetters(boardSize);
                 playRound(boardSize, boggleboard);
-            } else {
+            } else if (choiceLetters.equals("2")) {
                 System.out.println("Input a list of " + boardSize * boardSize + " letters:");
                 choiceLetters = scanner.nextLine();
                 while (!(choiceLetters.length() == boardSize * boardSize)) {
@@ -142,6 +172,7 @@ public class BoggleGame {
         Map<String, ArrayList<Position>> allWords = new HashMap<String, ArrayList<Position>>();
         findAllWords(allWords, boggleDict, grid);
         //step 4. allow the user to try to find some words on the grid
+        System.out.println("Type 101 to save the board");
         humanMove(grid, allWords);
         //step 5. allow the computer to identify remaining words
         computerMove(allWords);
@@ -269,6 +300,11 @@ public class BoggleGame {
             if (allWords.containsKey(temp.toUpperCase())) {
                 gameStats.addWord(temp.toUpperCase(), BoggleStats.Player.Human);
             }
+            if (temp.equals("101")){
+                System.out.println("Enter Board name:");
+                String i = input.nextLine();
+                caretaker.add(savestatetomemento(i));
+            }
         }
     }
 
@@ -299,5 +335,25 @@ public class BoggleGame {
         for (String i: temp) {
             gameStats.addWord(i, BoggleStats.Player.Computer);
         }
+    }
+
+
+
+
+
+    public void setState(List state){
+        this.state = state;
+    }
+
+    public List getState(){
+        return state;
+    }
+
+    public Memento savestatetomemento(String name){
+        return new Memento(name, boggleboard, gameStats);
+    }
+
+    public void getstatefrommemento(Memento memento) {
+        state = memento.getState();
     }
 }

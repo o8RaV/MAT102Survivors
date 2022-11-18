@@ -15,4 +15,20 @@ public class Caretaker {
     public Memento get(int index){
         return mementoList.get(index);
     }
+    public List<Memento> getlist(){
+        return mementoList;
+    }
+    public List<String> getnames(){
+        List<String> temp = new ArrayList<>();
+        for (Memento i : mementoList){
+            temp.add((String) i.getState().get(0));
+        }
+        return temp;
+    }
+    public int size(){
+        return mementoList.size();
+    }
+    public Caretaker getcaretaker(){
+        return this;
+    }
 }
