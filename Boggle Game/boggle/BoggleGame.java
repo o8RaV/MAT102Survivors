@@ -81,87 +81,43 @@ public class BoggleGame {
                 System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one; 3 to play on a saved board:");
                 choiceGrid = scanner.nextLine();
             }
-
-            if (choiceGrid.equals("1")){
-                boardSize = 5;
-            }
-            else if (choiceGrid.equals("2")) {
-                boardSize = 4;
-            }
-            else {
-                try {
-                    File temp = new File("C:\\Users\\ragha\\OneDrive\\Desktop\\MAT102Survivors\\Boggle Game\\saved");
-                    System.out.println("These are the available boards");
-                    String[] b = temp.list();
-                    List<String> a = new ArrayList<String>();
-                    assert b != null;
-                    for (String i : b) {
-                        if (i.endsWith(".bbg"))
-                            a.add(i);
-                            System.out.println(i);
-                    }
-                    System.out.println("Type the board name please:");
-                    choiceGrid = scanner.nextLine();
-                    while (!a.contains(choiceGrid)) {
-                        System.out.println("Invalid input");
-                        choiceGrid = scanner.nextLine();
-                    }
-                    Memento i = Caretaker.get(choiceGrid);
-                    getstatefrommemento(i);
-                    gameStats = (BoggleStats) state.get(2);
-                    boggleboard = (String) state.get(1);
-                    boardSize = (int) Math.sqrt(boggleboard.length());
-                    playRound(boardSize, boggleboard);
+            if (choiceGrid.equals("1") || choiceGrid.equals("2")) {
+                if (choiceGrid.equals("1")) {
+                    boardSize = 5;
                 }
-                catch(Exception e){
-                    throw new RuntimeException("idk some error");
+                else if (choiceGrid.equals("2")) {
+                    boardSize = 4;
                 }
-                this.gameStats.summarizeRound();
-                this.gameStats.endRound();
-
-                //Shall we repeat?
-                System.out.println("Play again? Type 'Y' or 'N'");
-                String choiceRepeat = scanner.nextLine().toUpperCase();
-
-                if (choiceRepeat == "") break; //end game if user inputs nothing
-                while (!choiceRepeat.equals("Y") && !choiceRepeat.equals("N")) {
-                    System.out.println("Please try again.");
-                    System.out.println("Play again? Type 'Y' or 'N'");
-                    choiceRepeat = scanner.nextLine().toUpperCase();
-                }
-
-                if (choiceRepeat == "" || choiceRepeat.equals("N")) break; //end game if user inputs nothing
-            }
-
-            //get letter choice preference
-            System.out.println("Enter 1 to randomly assign letters to the grid; 2 to provide your own.");
-            String choiceLetters = scanner.nextLine();
-
-            if (choiceLetters == "") break; //end game if user inputs nothing
-            while (!choiceLetters.equals("1") && !choiceLetters.equals("2")) {
-                System.out.println("Please try again.");
                 System.out.println("Enter 1 to randomly assign letters to the grid; 2 to provide your own.");
-                choiceLetters = scanner.nextLine();
-            }
-
-            if (choiceLetters.equals("1")) {
-                this.boggleboard = randomizeLetters(boardSize);
-                playRound(boardSize, boggleboard);
-            } else if (choiceLetters.equals("2")) {
-                System.out.println("Input a list of " + boardSize * boardSize + " letters:");
-                choiceLetters = scanner.nextLine();
-                while (!(choiceLetters.length() == boardSize * boardSize)) {
-                    System.out.println("Sorry, bad input. Please try again.");
-                    System.out.println("Input a list of " + boardSize * boardSize + " letters:");
+                String choiceLetters = scanner.nextLine();
+                if (choiceLetters == "") break; //end game if user inputs nothing
+                while (!choiceLetters.equals("1") && !choiceLetters.equals("2")) {
+                    System.out.println("Please try again.");
+                    System.out.println("Enter 1 to randomly assign letters to the grid; 2 to provide your own.");
                     choiceLetters = scanner.nextLine();
                 }
-                playRound(boardSize, choiceLetters.toUpperCase());
+                if (choiceLetters.equals("1")) {
+                    this.boggleboard = randomizeLetters(boardSize);
+                    playRound(boardSize, boggleboard);
+                } else if (choiceLetters.equals("2")) {
+                    System.out.println("Input a list of " + boardSize * boardSize + " letters:");
+                    choiceLetters = scanner.nextLine();
+                    while (!(choiceLetters.length() == boardSize * boardSize)) {
+                        System.out.println("Sorry, bad input. Please try again.");
+                        System.out.println("Input a list of " + boardSize * boardSize + " letters:");
+                        choiceLetters = scanner.nextLine();
+                    }
+                    playRound(boardSize, choiceLetters.toUpperCase());
+                }
+
+                //round is over! So, store the statistics, and end the round.
             }
 
-            //round is over! So, store the statistics, and end the round.
+            else {
+                playsaved();
+            }
             this.gameStats.summarizeRound();
             this.gameStats.endRound();
-
             //Shall we repeat?
             System.out.println("Play again? Type 'Y' or 'N'");
             String choiceRepeat = scanner.nextLine().toUpperCase();
@@ -172,16 +128,40 @@ public class BoggleGame {
                 System.out.println("Play again? Type 'Y' or 'N'");
                 choiceRepeat = scanner.nextLine().toUpperCase();
             }
-
-            if (choiceRepeat == "" || choiceRepeat.equals("N")) break; //end game if user inputs nothing
-
+            if (choiceRepeat.equals("N")) break; //end game if user inputs nothing
         }
-
         //we are done with the game! So, summarize all the play that has transpired and exit.
         this.gameStats.summarizeGame();
         System.out.println("Thanks for playing!");
     }
-
+    private void playsaved(){
+        try {
+            System.out.println("These are the available boards");
+            String[] b = Caretaker.getfile().list();
+            List<String> a = new ArrayList<String>();
+            assert b != null;
+            for (String i : b) {
+                if (i.endsWith(".bbg"))
+                    a.add(i);
+                System.out.println(i);
+            }
+            System.out.println("Type the board name please:");
+            String choiceGrid = scanner.nextLine();
+            while (!a.contains(choiceGrid)) {
+                System.out.println("Invalid input");
+                choiceGrid = scanner.nextLine();
+            }
+            Memento i = Caretaker.get(choiceGrid);
+            getstatefrommemento(i);
+            gameStats = (BoggleStats) state.get(2);
+            boggleboard = (String) state.get(1);
+            setState(i.getState());
+            playRound((int) Math.sqrt(boggleboard.length()), boggleboard);
+        }
+        catch(Exception e){
+            throw new RuntimeException("idk some error");
+        }
+    }
     /*
      * Play a round of Boggle.
      * This initializes the main objects: the board, the dictionary, the map of all

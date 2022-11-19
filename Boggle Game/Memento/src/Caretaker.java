@@ -3,6 +3,10 @@ package Memento.src;
 import java.io.*;
 
 public class Caretaker {
+    private final File saved = new File("./saved/");
+    public File getfile(){
+        return saved;
+    }
     public void save(String name, Memento memento){
         try {
             FileOutputStream fout = new FileOutputStream("./saved/"+name);
