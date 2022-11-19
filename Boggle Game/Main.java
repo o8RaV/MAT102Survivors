@@ -14,5 +14,4 @@ public class Main {
         b.giveInstructions();
         b.playGame();
     }
-
 }
