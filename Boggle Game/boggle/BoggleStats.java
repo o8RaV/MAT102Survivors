@@ -1,5 +1,6 @@
 package boggle;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,7 +8,7 @@ import java.util.Set;
  * The BoggleStats class for the first Assignment in CSC207, Fall 2022
  * The BoggleStats will contain statsitics related to game play Boggle 
  */
-public class BoggleStats {
+public class BoggleStats implements Serializable {
 
     /**
      * set of words the player finds in a given round 
@@ -24,7 +25,7 @@ public class BoggleStats {
     /**
      * the computer's score for the current round
      */  
-    private int cScore; 
+    private int cScore;
     /**
      * the player's total score across every round
      */  

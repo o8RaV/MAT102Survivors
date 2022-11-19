@@ -3,6 +3,7 @@ package boggle;
 import Memento.src.Caretaker;
 import Memento.src.Memento;
 
+import java.io.File;
 import java.util.*;
 
 
@@ -20,8 +21,9 @@ public class BoggleGame {
      */
     private BoggleStats gameStats;
     private String boggleboard;
-    private List state = new ArrayList<>();
-    private Caretaker caretaker = new Caretaker().getcaretaker();
+    private Caretaker Caretaker = new Caretaker();
+    private List state ;
+
 
     /**
      * dice used to randomize letter assignments for a small grid
@@ -66,7 +68,7 @@ public class BoggleGame {
      * Gets information from the user to initialize a new Boggle game.
      * It will loop until the user indicates they are done playing.
      */
-    public void playGame() {
+    public void playGame(){
         int boardSize = 0;
         while (true) {
             System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one; 3 to play on a saved board:");
@@ -87,24 +89,48 @@ public class BoggleGame {
                 boardSize = 4;
             }
             else {
-                for (Memento i: caretaker.getlist()){
-                    System.out.println(i.getState().get(0));
-                }
-                System.out.println("Enter name of the board you want to play on:");
-                choiceGrid = scanner.nextLine();
-                while (!caretaker.getnames().contains(choiceGrid)){
-                    System.out.println("Sorry, bad input. Please try again.");
+                try {
+                    File temp = new File("C:\\Users\\ragha\\OneDrive\\Desktop\\MAT102Survivors\\Boggle Game\\saved");
+                    System.out.println("These are the available boards");
+                    String[] b = temp.list();
+                    List<String> a = new ArrayList<String>();
+                    assert b != null;
+                    for (String i : b) {
+                        if (i.endsWith(".bbg"))
+                            a.add(i);
+                            System.out.println(i);
+                    }
+                    System.out.println("Type the board name please:");
                     choiceGrid = scanner.nextLine();
+                    while (!a.contains(choiceGrid)) {
+                        System.out.println("Invalid input");
+                        choiceGrid = scanner.nextLine();
+                    }
+                    Memento i = Caretaker.get(choiceGrid);
+                    getstatefrommemento(i);
+                    gameStats = (BoggleStats) state.get(2);
+                    boggleboard = (String) state.get(1);
+                    boardSize = (int) Math.sqrt(boggleboard.length());
+                    playRound(boardSize, boggleboard);
                 }
-                int i = caretaker.getnames().indexOf(choiceGrid);
-                int j = 0;
-                String name = (String) caretaker.get(i).getState().get(1);
-                if (name.length() == 25)
-                    j = 5;
-                else if (name.length() == 16)
-                    j = 4;
+                catch(Exception e){
+                    throw new RuntimeException("idk some error");
+                }
+                this.gameStats.summarizeRound();
+                this.gameStats.endRound();
 
-                playRound(j, name);
+                //Shall we repeat?
+                System.out.println("Play again? Type 'Y' or 'N'");
+                String choiceRepeat = scanner.nextLine().toUpperCase();
+
+                if (choiceRepeat == "") break; //end game if user inputs nothing
+                while (!choiceRepeat.equals("Y") && !choiceRepeat.equals("N")) {
+                    System.out.println("Please try again.");
+                    System.out.println("Play again? Type 'Y' or 'N'");
+                    choiceRepeat = scanner.nextLine().toUpperCase();
+                }
+
+                if (choiceRepeat == "" || choiceRepeat.equals("N")) break; //end game if user inputs nothing
             }
 
             //get letter choice preference
@@ -303,7 +329,11 @@ public class BoggleGame {
             if (temp.equals("101")){
                 System.out.println("Enter Board name:");
                 String i = input.nextLine();
-                caretaker.add(savestatetomemento(i));
+                while (!i.endsWith(".bbg")) {
+                    System.out.println("Invalid name");
+                    i = scanner.nextLine();
+                }
+                Caretaker.save(i, getaMemento(i));
             }
         }
     }
@@ -349,7 +379,7 @@ public class BoggleGame {
         return state;
     }
 
-    public Memento savestatetomemento(String name){
+    public Memento getaMemento(String name){
         return new Memento(name, boggleboard, gameStats);
     }
 

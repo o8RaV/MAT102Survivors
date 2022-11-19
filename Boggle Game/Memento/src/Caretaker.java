@@ -1,34 +1,31 @@
 package Memento.src;
 
-import Memento.src.Memento;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
 
 public class Caretaker {
-    private List<Memento> mementoList = new ArrayList<Memento>();
-
-    public void add(Memento state){
-        mementoList.add(state);
-    }
-
-    public Memento get(int index){
-        return mementoList.get(index);
-    }
-    public List<Memento> getlist(){
-        return mementoList;
-    }
-    public List<String> getnames(){
-        List<String> temp = new ArrayList<>();
-        for (Memento i : mementoList){
-            temp.add((String) i.getState().get(0));
+    public void save(String name, Memento memento){
+        try {
+            FileOutputStream fout = new FileOutputStream("./saved/"+name);
+            ObjectOutputStream oos = new ObjectOutputStream(fout);
+            oos.writeObject(memento);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return temp;
     }
-    public int size(){
-        return mementoList.size();
-    }
-    public Caretaker getcaretaker(){
-        return this;
+
+    public Memento get(String name) throws IOException {
+        FileInputStream file = null;
+        ObjectInputStream in = null;
+        try {
+            file = new FileInputStream("./saved/"+name);
+            in = new ObjectInputStream(file);
+            return (Memento) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } finally {
+            assert in != null;
+            in.close();
+            file.close();
+        }
     }
 }
