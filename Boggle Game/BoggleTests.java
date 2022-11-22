@@ -9,6 +9,7 @@ import java.lang.reflect.Field;
 
 import boggle.*;
 import boggle.Dictionary;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +22,7 @@ public class BoggleTests {
     //BoggleGame  Test
     @Test
     void findAllWords_small() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        BoggleGame game = new BoggleGame();
+        BoggleGame game = new BoggleGame(new Stage());
         Method method = game.getClass().getDeclaredMethod("findAllWords", Map.class, Dictionary.class, BoggleGrid.class);
         method.setAccessible(true);
 

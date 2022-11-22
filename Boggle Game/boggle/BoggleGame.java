@@ -1,5 +1,14 @@
 package boggle;
 
+import javafx.animation.PauseTransition;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.util.*;
 
 /**
@@ -7,6 +16,7 @@ import java.util.*;
  */
 public class BoggleGame {
 
+    Stage primaryStage;
     /**
      * scanner used to interact with the user via console
      */
@@ -33,25 +43,39 @@ public class BoggleGame {
     /*
      * BoggleGame constructor
      */
-    public BoggleGame() {
+    public BoggleGame(Stage stage) {
         this.scanner = new Scanner(System.in);
         this.gameStats = new BoggleStats();
+        primaryStage = stage;
     }
 
     /*
      * Provide instructions to the user, so they know how to play the game.
      */
     public void giveInstructions() {
-        System.out.println("The Boggle board contains a grid of letters that are randomly placed.");
-        System.out.println("We're both going to try to find words in this grid by joining the letters.");
-        System.out.println("You can form a word by connecting adjoining letters on the grid.");
-        System.out.println("Two letters adjoin if they are next to each other horizontally, ");
-        System.out.println("vertically, or diagonally. The words you find must be at least 4 letters long, ");
-        System.out.println("and you can't use a letter twice in any single word. Your points ");
-        System.out.println("will be based on word length: a 4-letter word is worth 1 point, 5-letter");
-        System.out.println("words earn 2 points, and so on. After you find as many words as you can,");
-        System.out.println("I will find all the remaining words.");
-        System.out.println("\nHit return when you're ready...");
+        Text instructions = new Text(
+                "The Boggle board contains a grid of letters that are randomly placed."
+                +"We're both going to try to find words in this grid by joining the letters."
+                +"You can form a word by connecting adjoining letters on the grid."
+                +"Two letters adjoin if they are next to each other horizontally,"
+                +"vertically, or diagonally. The words you find must be at least 4 letters long,"
+                +"and you can't use a letter twice in any single word. Your points"
+                +"will be based on word length: a 4-letter word is worth 1 point, 5-letter"
+                +"words earn 2 points, and so on. After you find as many words as you can,"
+                +"I will find all the remaining words.\n"
+
+                +"Hit return when you're ready...");
+
+        instructions.setFont(Font.font("Times new roman", FontWeight.BOLD, 20));
+        BorderPane pane = new BorderPane();
+        pane.setCenter(instructions);
+        Scene instructionScene = new Scene(pane, 450, 550);
+        instructions.wrappingWidthProperty().bind(instructionScene.widthProperty());
+        primaryStage.setScene(instructionScene);
+        primaryStage.show();
+        PauseTransition pause = new PauseTransition(Duration.seconds(10));
+        pause.play();
+
     }
 
 
