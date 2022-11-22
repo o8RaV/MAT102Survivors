@@ -69,8 +69,7 @@ public class BoggleGame {
         primaryStage.setMinWidth(windowMinWidth);
         primaryStage.setMinHeight(windowMinHeight);
         primaryStage.setWidth(700);
-
-        double x = Screen.getPrimary().getVisualBounds().getWidth();
+        primaryStage.setHeight(400);
     }
 
     /*
@@ -149,6 +148,8 @@ public class BoggleGame {
         Scene selectionScene = new Scene(mainPane);
         primaryStage.setScene(selectionScene);
         System.out.println(bottomBox.getWidth());
+
+
 //        int boardSize;
 //        while (true) {
 //            System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
