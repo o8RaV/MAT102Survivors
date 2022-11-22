@@ -1,11 +1,17 @@
 package boggle;
 
 import javafx.animation.PauseTransition;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -16,7 +22,17 @@ import java.util.*;
  */
 public class BoggleGame {
 
-    Stage primaryStage;
+    private Stage primaryStage;
+    private final int instrucMargin = 40;
+
+    private ToggleGroup gridSizeToggle;
+    private final int windowMinWidth = 600;
+    private final int windowMinHeight = 400;
+
+    private ToggleGroup typeToggle;
+
+    private final int minBoardSize = 4;
+    private final int maxBoardSize = 6;
     /**
      * scanner used to interact with the user via console
      */
@@ -40,6 +56,7 @@ public class BoggleGame {
                     "BJKQXZ", "CCNSTW", "CEIILT", "CEILPT", "CEIPST", "DDLNOR", "DDHNOT", "DHHLOR",
                     "DHLNOR", "EIIITT", "EMOTTT", "ENSSSU", "FIPRSY", "GORRVW", "HIPRRY", "NOOTUW", "OOOTTU"};
 
+
     /*
      * BoggleGame constructor
      */
@@ -47,6 +64,12 @@ public class BoggleGame {
         this.scanner = new Scanner(System.in);
         this.gameStats = new BoggleStats();
         primaryStage = stage;
+        primaryStage.setMinWidth(windowMinWidth);
+        primaryStage.setMinHeight(windowMinHeight);
+        primaryStage.setWidth(700);
+        primaryStage.setHeight(400);
+
+        double x = Screen.getPrimary().getVisualBounds().getWidth();
     }
 
     /*
@@ -54,26 +77,28 @@ public class BoggleGame {
      */
     public void giveInstructions() {
         Text instructions = new Text(
-                "The Boggle board contains a grid of letters that are randomly placed."
-                +"We're both going to try to find words in this grid by joining the letters."
-                +"You can form a word by connecting adjoining letters on the grid."
-                +"Two letters adjoin if they are next to each other horizontally,"
-                +"vertically, or diagonally. The words you find must be at least 4 letters long,"
-                +"and you can't use a letter twice in any single word. Your points"
-                +"will be based on word length: a 4-letter word is worth 1 point, 5-letter"
-                +"words earn 2 points, and so on. After you find as many words as you can,"
+                "The Boggle board contains a grid of letters that are randomly placed. "
+                +"We're both going to try to find words in this grid by joining the letters. "
+                +"You can form a word by connecting adjoining letters on the grid. "
+                +"Two letters adjoin if they are next to each other horizontally, "
+                +"vertically, or diagonally. The words you find must be at least 4 letters long, "
+                +"and you can't use a letter twice in any single word. Your points "
+                +"will be based on word length: a 4-letter word is worth 1 point, 5-letter "
+                +"words earn 2 points, and so on. After you find as many words as you can, "
                 +"I will find all the remaining words.\n"
 
                 +"Hit return when you're ready...");
 
-        instructions.setFont(Font.font("Times new roman", FontWeight.BOLD, 20));
+        instructions.setFont(Font.font("arial", FontWeight.BOLD, 20));
         BorderPane pane = new BorderPane();
         pane.setCenter(instructions);
-        Scene instructionScene = new Scene(pane, 450, 550);
-        instructions.wrappingWidthProperty().bind(instructionScene.widthProperty());
+
+        Scene instructionScene = new Scene(pane);
+        instructions.wrappingWidthProperty().bind(instructionScene.widthProperty().add(-1*instrucMargin));
         primaryStage.setScene(instructionScene);
         primaryStage.show();
-        PauseTransition pause = new PauseTransition(Duration.seconds(10));
+        PauseTransition pause = new PauseTransition(Duration.seconds(5));
+        pause.setOnFinished(e -> playGame());
         pause.play();
 
     }
@@ -84,68 +109,124 @@ public class BoggleGame {
      * It will loop until the user indicates they are done playing.
      */
     public void playGame() {
-        int boardSize;
-        while (true) {
-            System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
-            String choiceGrid = scanner.nextLine();
+        BorderPane mainPane = new BorderPane();
+        mainPane.setPadding(new Insets(20));
 
-            //get grid size preference
-            if (choiceGrid == "") break; //end game if user inputs nothing
-            while (!choiceGrid.equals("1") && !choiceGrid.equals("2")) {
-                System.out.println("Please try again.");
-                System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
-                choiceGrid = scanner.nextLine();
-            }
+        GridPane selectionPane = new GridPane();
+        mainPane.setCenter(selectionPane);
+        selectionPane.setVgap(20);
+        selectionPane.setHgap(10);
 
-            if (choiceGrid.equals("1")) boardSize = 5;
-            else boardSize = 4;
+        Text gridSizeText = new Text("Please select what size boggle board you'd like to play on.");
+        selectionPane.add(gridSizeText, 0, 0);
 
-            //get letter choice preference
-            System.out.println("Enter 1 to randomly assign letters to the grid; 2 to provide your own.");
-            String choiceLetters = scanner.nextLine();
-
-            if (choiceLetters == "") break; //end game if user inputs nothing
-            while (!choiceLetters.equals("1") && !choiceLetters.equals("2")) {
-                System.out.println("Please try again.");
-                System.out.println("Enter 1 to randomly assign letters to the grid; 2 to provide your own.");
-                choiceLetters = scanner.nextLine();
-            }
-
-            if (choiceLetters.equals("1")) {
-                playRound(boardSize, randomizeLetters(boardSize));
-            } else {
-                System.out.println("Input a list of " + boardSize * boardSize + " letters:");
-                choiceLetters = scanner.nextLine();
-                while (!(choiceLetters.length() == boardSize * boardSize)) {
-                    System.out.println("Sorry, bad input. Please try again.");
-                    System.out.println("Input a list of " + boardSize * boardSize + " letters:");
-                    choiceLetters = scanner.nextLine();
-                }
-                playRound(boardSize, choiceLetters.toUpperCase());
-            }
-
-            //round is over! So, store the statistics, and end the round.
-            this.gameStats.summarizeRound();
-            this.gameStats.endRound();
-
-            //Shall we repeat?
-            System.out.println("Play again? Type 'Y' or 'N'");
-            String choiceRepeat = scanner.nextLine().toUpperCase();
-
-            if (choiceRepeat == "") break; //end game if user inputs nothing
-            while (!choiceRepeat.equals("Y") && !choiceRepeat.equals("N")) {
-                System.out.println("Please try again.");
-                System.out.println("Play again? Type 'Y' or 'N'");
-                choiceRepeat = scanner.nextLine().toUpperCase();
-            }
-
-            if (choiceRepeat == "" || choiceRepeat.equals("N")) break; //end game if user inputs nothing
-
+        gridSizeToggle = new ToggleGroup();
+        int numOfGrids = maxBoardSize-minBoardSize+1;
+        String[] gridSizes = new String[numOfGrids];
+        for (int i = 0; i<numOfGrids; i++ ){
+            String currentGridSize = Integer.toString(i + minBoardSize);
+            gridSizes[i] = currentGridSize + "x" + currentGridSize + " Grid";
         }
 
-        //we are done with the game! So, summarize all the play that has transpired and exit.
-        this.gameStats.summarizeGame();
-        System.out.println("Thanks for playing!");
+        HBox gridBox = selectHBoxMaker(gridSizes, gridSizeToggle);
+        selectionPane.add(gridBox, 0, 1);
+
+
+        Text typeText = new Text("Please select if you'd like random letters, or if you'd like to select them yourself.");
+        selectionPane.add(typeText, 0, 3);
+        typeToggle = new ToggleGroup();
+        String[] types = {"Random", "Custom"};
+        HBox typesBox = selectHBoxMaker(types, typeToggle);
+        selectionPane.add(typesBox, 0, 4);
+
+        Button continueButton = new Button("Continue");
+        HBox bottomSelect = new HBox();
+        bottomSelect.setAlignment(Pos.CENTER_RIGHT);
+        bottomSelect.getChildren().add(continueButton);
+        mainPane.setBottom(bottomSelect);
+
+        Scene selectionScene = new Scene(mainPane);
+        primaryStage.setScene(selectionScene);
+
+//        int boardSize;
+//        while (true) {
+//            System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
+//            String choiceGrid = scanner.nextLine();
+//
+//            //get grid size preference
+//            if (choiceGrid == "") break; //end game if user inputs nothing
+//            while (!choiceGrid.equals("1") && !choiceGrid.equals("2")) {
+//                System.out.println("Please try again.");
+//                System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
+//                choiceGrid = scanner.nextLine();
+//            }
+//
+//            if (choiceGrid.equals("1")) boardSize = 5;
+//            else boardSize = 4;
+//
+//            //get letter choice preference
+//            System.out.println("Enter 1 to randomly assign letters to the grid; 2 to provide your own.");
+//            String choiceLetters = scanner.nextLine();
+//
+//            if (choiceLetters == "") break; //end game if user inputs nothing
+//            while (!choiceLetters.equals("1") && !choiceLetters.equals("2")) {
+//                System.out.println("Please try again.");
+//                System.out.println("Enter 1 to randomly assign letters to the grid; 2 to provide your own.");
+//                choiceLetters = scanner.nextLine();
+//            }
+//
+//            if (choiceLetters.equals("1")) {
+//                playRound(boardSize, randomizeLetters(boardSize));
+//            } else {
+//                System.out.println("Input a list of " + boardSize * boardSize + " letters:");
+//                choiceLetters = scanner.nextLine();
+//                while (!(choiceLetters.length() == boardSize * boardSize)) {
+//                    System.out.println("Sorry, bad input. Please try again.");
+//                    System.out.println("Input a list of " + boardSize * boardSize + " letters:");
+//                    choiceLetters = scanner.nextLine();
+//                }
+//                playRound(boardSize, choiceLetters.toUpperCase());
+//            }
+//
+//            //round is over! So, store the statistics, and end the round.
+//            this.gameStats.summarizeRound();
+//            this.gameStats.endRound();
+//
+//            //Shall we repeat?
+//            System.out.println("Play again? Type 'Y' or 'N'");
+//            String choiceRepeat = scanner.nextLine().toUpperCase();
+//
+//            if (choiceRepeat == "") break; //end game if user inputs nothing
+//            while (!choiceRepeat.equals("Y") && !choiceRepeat.equals("N")) {
+//                System.out.println("Please try again.");
+//                System.out.println("Play again? Type 'Y' or 'N'");
+//                choiceRepeat = scanner.nextLine().toUpperCase();
+//            }
+//
+//            if (choiceRepeat == "" || choiceRepeat.equals("N")) break; //end game if user inputs nothing
+//
+//        }
+//
+//        //we are done with the game! So, summarize all the play that has transpired and exit.
+//        this.gameStats.summarizeGame();
+//        System.out.println("Thanks for playing!");
+    }
+
+    private HBox selectHBoxMaker (String[] choices, ToggleGroup toggleGroup) {
+        HBox selectHbox = new HBox();
+        selectHbox.setSpacing(20);
+
+        for (int i = 0; i<choices.length; i++) {
+            RadioButton radioButton = new RadioButton(choices[i]);
+            radioButton.setToggleGroup(toggleGroup);
+            selectHbox.getChildren().add(radioButton);
+
+            if (i == 0) {
+                radioButton.setSelected(true);
+            }
+        }
+
+        return selectHbox;
     }
 
     /*

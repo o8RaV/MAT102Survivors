@@ -17,8 +17,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        stage.setTitle("and his name is JOOOHHHN CENAAAA");
         BoggleGame b = new BoggleGame(stage);
         b.giveInstructions();
-        b.playGame();
     }
 }
