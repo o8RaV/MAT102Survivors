@@ -8,11 +8,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.util.*;
@@ -67,7 +69,6 @@ public class BoggleGame {
         primaryStage.setMinWidth(windowMinWidth);
         primaryStage.setMinHeight(windowMinHeight);
         primaryStage.setWidth(700);
-        primaryStage.setHeight(400);
 
         double x = Screen.getPrimary().getVisualBounds().getWidth();
     }
@@ -97,7 +98,7 @@ public class BoggleGame {
         instructions.wrappingWidthProperty().bind(instructionScene.widthProperty().add(-1*instrucMargin));
         primaryStage.setScene(instructionScene);
         primaryStage.show();
-        PauseTransition pause = new PauseTransition(Duration.seconds(5));
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
         pause.setOnFinished(e -> playGame());
         pause.play();
 
@@ -140,14 +141,14 @@ public class BoggleGame {
         selectionPane.add(typesBox, 0, 4);
 
         Button continueButton = new Button("Continue");
-        HBox bottomSelect = new HBox();
-        bottomSelect.setAlignment(Pos.CENTER_RIGHT);
-        bottomSelect.getChildren().add(continueButton);
-        mainPane.setBottom(bottomSelect);
+        HBox bottomBox = new HBox();
+        bottomBox.getChildren().add(continueButton);
+        bottomBox.setAlignment(Pos.CENTER_RIGHT);
+        mainPane.setBottom(bottomBox);
 
         Scene selectionScene = new Scene(mainPane);
         primaryStage.setScene(selectionScene);
-
+        System.out.println(bottomBox.getWidth());
 //        int boardSize;
 //        while (true) {
 //            System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
