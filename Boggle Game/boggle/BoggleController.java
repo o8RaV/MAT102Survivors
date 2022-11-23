@@ -12,19 +12,14 @@ import views.BoggleView;
  */
 public class BoggleController {
 
-    /**
-     * reference to the boggle view
-     */
-    BoggleView boggleView;
-    /**
-     * reference to boggle game, the application's model.
-     */
-    BoggleGame boggleGame;
+
+    BoggleView boggleView; // the boggle view
+    BoggleGame boggleGame; // the game's model.
 
     /**
      * constructor
-     * @param boggleView
-     * @param boggleGame
+     * @param boggleView reference to boggleView, the game's view
+     * @param boggleGame reference to boggleGame, the game's model
      */
     public BoggleController (BoggleView boggleView, BoggleGame boggleGame) {
         this.boggleView = boggleView;
@@ -32,7 +27,7 @@ public class BoggleController {
     }
 
     /**
-     * starts the game; displays instructions
+     * starts the game
      */
     public void startGame() {
         boggleView.displayScene(boggleView.instrucSMaker());

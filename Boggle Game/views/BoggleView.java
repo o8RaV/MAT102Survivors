@@ -12,24 +12,23 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ *  displays the main game window, where the user selects a boggle board and plays boggle.
+ */
 public class BoggleView {
 
-    private final int windowMinWidth = 600;
+    private final int windowMinWidth = 600; // sets the window's minimum width and height
     private final int windowMinHeight = 400;
-    Button instrucCont;
-    Button boarSCont;
-    private Stage primaryStage;
+    Button instrucCont; // continue button in the instructions scene
+    Button boardSCont; // continue button in the board select scene.
+    private Stage primaryStage; // the main game window
+     ToggleGroup gridSizeToggle; // toggle group housing the grid sizes toggles (radio buttons)
 
-     ToggleGroup gridSizeToggle;
+     ToggleGroup typeToggle; // toggle group housing the board type toggles
 
-     ToggleGroup typeToggle;
-
-    private final int minBoardSize = 4;
+    private final int minBoardSize = 4; // a boggle board's minimum and maximum sizes.
     private final int maxBoardSize = 6;
 
-    GridPane pane;
-    int size;
-    String letters;
     /**
      * Constructor
      * @param stage reference to the main application Stage
@@ -52,13 +51,13 @@ public class BoggleView {
     /**
      * initializes the main UI with the boggleBoard
      */
-    private void playScene (){
+    private void playScene (int size, String letters){
         MenuBar menuBar = new MenuBar();
         Menu newGame = new Menu("New Game");
         menuBar.getMenus().add(newGame);
 
 
-        pane = new GridPane();
+        GridPane pane = new GridPane();
         int index = 0;
         for (int x = 0; x< size; x++) {
             for (int y = 0; y<size; y++) {
@@ -77,8 +76,9 @@ public class BoggleView {
 
     }
 
-    /*
-     * Provide instructions to the user, so they know how to play the game.
+    /**
+     * constructs a pane with the boggle game's instructions
+     * @return the root pane of the instructions scene
      */
     public Pane instrucSMaker() {
         Text instructions = new Text(
@@ -94,35 +94,43 @@ public class BoggleView {
 
 
                         +"Click continue when you're ready...");
-
         instructions.setFont(Font.font("arial", FontWeight.BOLD, 16));
+
         BorderPane pane = new BorderPane();
         int padding = 20;
         pane.setPadding(new Insets(padding));
+        // sets the instructions in the center of the scene
         pane.setCenter(instructions);
+
         instrucCont = new Button("Continue");
         pane.setBottom(contHBoxMaker(instrucCont));
 
+        // lets the instructions text to wrap around the window when the window is resized
         instructions.wrappingWidthProperty().bind(pane.widthProperty().add(-2*padding));
         return pane;
 
     }
 
+    /**
+     * Constructs a pane with toggles that allows user to select the type of boggle board.
+     * @return the root pane of the board select scene
+     */
     public Pane boardSMaker() {
-        BorderPane mainPane = new BorderPane();
-        mainPane.setPadding(new Insets(20));
-
+        // grid pane to house toggles (radio buttons) and their respective text
         GridPane selectionPane = new GridPane();
-        mainPane.setCenter(selectionPane);
         selectionPane.setVgap(20);
         selectionPane.setHgap(10);
 
-        Text gridSizeText = new Text("Please select what size boggle board you'd like to play on.");
+        Text gridSizeText = new Text(
+                "Please select what size boggle board you'd like to play on.");
         selectionPane.add(gridSizeText, 0, 0);
 
+        // groups the grid size toggles together
         gridSizeToggle = new ToggleGroup();
+
         int numOfGrids = maxBoardSize-minBoardSize+1;
         String[] gridSizes = new String[numOfGrids];
+        // generates the grid size names, ex: 4x4 grid
         for (int i = 0; i<numOfGrids; i++ ){
             String currentGridSize = Integer.toString(i + minBoardSize);
             gridSizes[i] = currentGridSize + "x" + currentGridSize + " Grid";
@@ -132,20 +140,31 @@ public class BoggleView {
         selectionPane.add(gridBox, 0, 1);
 
 
-        Text typeText = new Text("Please select if you'd like random letters, or if you'd like to select them yourself.");
+        Text typeText = new Text(
+                "Please select if you'd like random letters, or if you'd like to select them yourself.");
         selectionPane.add(typeText, 0, 3);
+
         typeToggle = new ToggleGroup();
         String[] types = {"Random", "Custom"};
         HBox typesBox = radioHBoxMaker(types, typeToggle);
         selectionPane.add(typesBox, 0, 4);
 
-        boarSCont = new Button("Continue");
-        mainPane.setBottom(contHBoxMaker(boarSCont));
-
+        // root pane
+        BorderPane mainPane = new BorderPane();
+        mainPane.setPadding(new Insets(20));
+        mainPane.setCenter(selectionPane);
+        boardSCont = new Button("Continue");
+        mainPane.setBottom(contHBoxMaker(boardSCont));
 
         return mainPane;
     }
 
+    /**
+     * constructs an HBox that spaces out radio buttons evently
+     * @param choices the labels of each radio button
+     * @param toggleGroup  the group that the toggles will be added to
+     * @return the HBox that houses the buttons
+     */
     private HBox radioHBoxMaker(String[] choices, ToggleGroup toggleGroup) {
         HBox selectHbox = new HBox();
         selectHbox.setSpacing(20);
@@ -155,6 +174,7 @@ public class BoggleView {
             radioButton.setToggleGroup(toggleGroup);
             selectHbox.getChildren().add(radioButton);
 
+            // ensures at least one toggle is always selected
             if (i == 0) {
                 radioButton.setSelected(true);
             }
@@ -163,6 +183,11 @@ public class BoggleView {
         return selectHbox;
     }
 
+    /**
+     * constructs an HBox that centers the continue Button
+     * @param continueButton the button that triggers the next scene to be displayed
+     * @return an HBox housing continueButton
+     */
     private HBox contHBoxMaker(Button continueButton) {
         continueButton.setPrefSize(80, 40);
         HBox bottomBox = new HBox();
@@ -171,16 +196,28 @@ public class BoggleView {
         return bottomBox;
     }
 
+    /**
+     * adds an event handler to the button in the instructions scene
+     * @param handler handles the button's action event
+     */
     public void addInstrucHandler(EventHandler<ActionEvent> handler) {
         instrucCont.setOnAction(handler);
 
     }
 
+    /**
+     *  adds an event handler to the button in the board selection scene
+     * @param handler handles the button's action event
+     */
     public void addBoardSHandler(EventHandler<ActionEvent> handler) {
-        boarSCont.setOnAction(handler);
+        boardSCont.setOnAction(handler);
 
     }
 
+    /**
+     * sets the current scene by changing the root pane to the inputted Pane
+     * @param pane the root pane of the next scene
+     */
     public void displayScene(Pane pane) {
         primaryStage.getScene().setRoot(pane);
         if (!primaryStage.isShowing()) {
@@ -188,14 +225,20 @@ public class BoggleView {
         }
     }
 
+    /**
+     * gridSizeToggle getter method
+     * @return gridSize toggle group
+     */
     public ToggleGroup getSizeToggle () {
         return gridSizeToggle;
     }
 
+    /**
+     * typeToggle getter method
+     * @return the types toggle group
+     */
     public ToggleGroup getTypeToggle() {
         return typeToggle;
     }
-
-
 
 }
