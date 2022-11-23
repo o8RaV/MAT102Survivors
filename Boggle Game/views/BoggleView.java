@@ -14,8 +14,10 @@ import javafx.stage.Stage;
 
 public class BoggleView {
 
-    Button instructContinue;
-    Button typeSelCont;
+    private final int windowMinWidth = 600;
+    private final int windowMinHeight = 400;
+    Button instrucCont;
+    Button boarSCont;
     private Stage primaryStage;
 
      ToggleGroup gridSizeToggle;
@@ -34,8 +36,16 @@ public class BoggleView {
      */
     public BoggleView(Stage stage) {
         primaryStage = stage;
-        instructContinue = new Button("Continue");
-        typeSelCont = new Button("Continue");
+        primaryStage.setTitle("and his name is JOOOHHHN CENAAAA");
+
+        Pane pane = new Pane();
+        Scene scene = new Scene(pane);
+        primaryStage.setScene(scene);
+
+        primaryStage.setMinWidth(windowMinWidth);
+        primaryStage.setMinHeight(windowMinHeight);
+        primaryStage.setWidth(windowMinWidth);
+        primaryStage.setHeight(windowMinHeight);
 
     }
 
@@ -70,7 +80,7 @@ public class BoggleView {
     /*
      * Provide instructions to the user, so they know how to play the game.
      */
-    public Pane instructionsScene() {
+    public Pane instrucSMaker() {
         Text instructions = new Text(
                 "The Boggle board contains a grid of letters that are randomly placed. "
                         +"We're both going to try to find words in this grid by joining the letters. "
@@ -80,24 +90,25 @@ public class BoggleView {
                         +"and you can't use a letter twice in any single word. Your points "
                         +"will be based on word length: a 4-letter word is worth 1 point, 5-letter "
                         +"words earn 2 points, and so on. After you find as many words as you can, "
-                        +"I will find all the remaining words.\n"
+                        +"I will find all the remaining words.\n\n"
 
 
-                        +"Hit return when you're ready...");
+                        +"Click continue when you're ready...");
 
-        instructions.setFont(Font.font("arial", FontWeight.BOLD, 20));
+        instructions.setFont(Font.font("arial", FontWeight.BOLD, 16));
         BorderPane pane = new BorderPane();
-        int pading = 20;
-        pane.setPadding(new Insets(pading));
+        int padding = 20;
+        pane.setPadding(new Insets(padding));
         pane.setCenter(instructions);
-        pane.setBottom(contButtonBox(instructContinue));
+        instrucCont = new Button("Continue");
+        pane.setBottom(contHBoxMaker(instrucCont));
 
-        instructions.wrappingWidthProperty().bind(pane.widthProperty().add(-2*pading));
+        instructions.wrappingWidthProperty().bind(pane.widthProperty().add(-2*padding));
         return pane;
 
     }
 
-    public Pane selectionScene () {
+    public Pane boardSMaker() {
         BorderPane mainPane = new BorderPane();
         mainPane.setPadding(new Insets(20));
 
@@ -117,7 +128,7 @@ public class BoggleView {
             gridSizes[i] = currentGridSize + "x" + currentGridSize + " Grid";
         }
 
-        HBox gridBox = selectHBoxMaker(gridSizes, gridSizeToggle);
+        HBox gridBox = radioHBoxMaker(gridSizes, gridSizeToggle);
         selectionPane.add(gridBox, 0, 1);
 
 
@@ -125,16 +136,17 @@ public class BoggleView {
         selectionPane.add(typeText, 0, 3);
         typeToggle = new ToggleGroup();
         String[] types = {"Random", "Custom"};
-        HBox typesBox = selectHBoxMaker(types, typeToggle);
+        HBox typesBox = radioHBoxMaker(types, typeToggle);
         selectionPane.add(typesBox, 0, 4);
 
-        mainPane.setBottom(contButtonBox(typeSelCont));
+        boarSCont = new Button("Continue");
+        mainPane.setBottom(contHBoxMaker(boarSCont));
 
 
         return mainPane;
     }
 
-    private HBox selectHBoxMaker (String[] choices, ToggleGroup toggleGroup) {
+    private HBox radioHBoxMaker(String[] choices, ToggleGroup toggleGroup) {
         HBox selectHbox = new HBox();
         selectHbox.setSpacing(20);
 
@@ -151,7 +163,7 @@ public class BoggleView {
         return selectHbox;
     }
 
-    private HBox contButtonBox(Button continueButton) {
+    private HBox contHBoxMaker(Button continueButton) {
         continueButton.setPrefSize(80, 40);
         HBox bottomBox = new HBox();
         bottomBox.getChildren().add(continueButton);
@@ -159,13 +171,13 @@ public class BoggleView {
         return bottomBox;
     }
 
-    public void addInstructHandler(EventHandler<ActionEvent> handler) {
-        instructContinue.setOnAction(handler);
+    public void addInstrucHandler(EventHandler<ActionEvent> handler) {
+        instrucCont.setOnAction(handler);
 
     }
 
-    public void addTypeSelHandler(EventHandler<ActionEvent> handler) {
-        typeSelCont.setOnAction(handler);
+    public void addBoardSHandler(EventHandler<ActionEvent> handler) {
+        boarSCont.setOnAction(handler);
 
     }
 
