@@ -62,14 +62,9 @@ public class BoggleGame {
     /*
      * BoggleGame constructor
      */
-    public BoggleGame(Stage stage) {
+    public BoggleGame() {
         this.scanner = new Scanner(System.in);
         this.gameStats = new BoggleStats();
-        primaryStage = stage;
-        primaryStage.setMinWidth(windowMinWidth);
-        primaryStage.setMinHeight(windowMinHeight);
-        primaryStage.setWidth(700);
-        primaryStage.setHeight(400);
     }
 
     /*
@@ -87,17 +82,17 @@ public class BoggleGame {
                 +"words earn 2 points, and so on. After you find as many words as you can, "
                 +"I will find all the remaining words.\n"
 
+
                 +"Hit return when you're ready...");
 
         instructions.setFont(Font.font("arial", FontWeight.BOLD, 20));
         BorderPane pane = new BorderPane();
         pane.setCenter(instructions);
 
-        Scene instructionScene = new Scene(pane);
-        instructions.wrappingWidthProperty().bind(instructionScene.widthProperty().add(-1*instrucMargin));
-        primaryStage.setScene(instructionScene);
+        instructions.wrappingWidthProperty().bind(primaryStage.widthProperty().add(-1*instrucMargin));
+        primaryStage.getScene().setRoot(pane);
         primaryStage.show();
-        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        PauseTransition pause = new PauseTransition(Duration.seconds(5));
         pause.setOnFinished(e -> playGame());
         pause.play();
 
@@ -140,13 +135,13 @@ public class BoggleGame {
         selectionPane.add(typesBox, 0, 4);
 
         Button continueButton = new Button("Continue");
+        continueButton.setPrefSize(80, 40);
         HBox bottomBox = new HBox();
         bottomBox.getChildren().add(continueButton);
         bottomBox.setAlignment(Pos.CENTER_RIGHT);
         mainPane.setBottom(bottomBox);
 
-        Scene selectionScene = new Scene(mainPane);
-        primaryStage.setScene(selectionScene);
+        primaryStage.getScene().setRoot(mainPane);
         System.out.println(bottomBox.getWidth());
 
 

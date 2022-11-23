@@ -22,7 +22,7 @@ public class BoggleTests {
     //BoggleGame  Test
     @Test
     void findAllWords_small() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        BoggleGame game = new BoggleGame(new Stage());
+        BoggleGame game = new BoggleGame();
         Method method = game.getClass().getDeclaredMethod("findAllWords", Map.class, Dictionary.class, BoggleGrid.class);
         method.setAccessible(true);
 
