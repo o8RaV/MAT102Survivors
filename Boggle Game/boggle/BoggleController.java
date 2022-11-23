@@ -17,51 +17,16 @@ public class BoggleController {
     BoggleGame boggleGame; // the game's model.
 
     /**
-     * constructor
+     * constructor, starts the game application
      * @param boggleView reference to boggleView, the game's view
      * @param boggleGame reference to boggleGame, the game's model
      */
     public BoggleController (BoggleView boggleView, BoggleGame boggleGame) {
         this.boggleView = boggleView;
         this.boggleGame = boggleGame;
+
+        this.boggleView.startGame();
     }
 
-    /**
-     * starts the game
-     */
-    public void startGame() {
-        boggleView.displayScene(boggleView.instrucSMaker());
-        this.boggleView.addInstrucHandler(new InstrucSHandler());
-    }
-
-    /**
-     * Handles action events from the "Continue" button in the board select scene.
-     */
-    public class BoardSHandler implements EventHandler <ActionEvent> {
-        /**
-         * implements handle method
-         * @param actionEvent button action event
-         */
-        @Override
-        public void handle(ActionEvent actionEvent) {
-            System.out.println(((RadioButton) boggleView.getSizeToggle().getSelectedToggle()).getText());
-            System.out.println(((RadioButton) boggleView.getTypeToggle().getSelectedToggle()).getText());
-        }
-    }
-
-    /**
-     * Handles action events from the "Continue" button in the instructions scene.
-     */
-    public class InstrucSHandler implements EventHandler<ActionEvent> {
-        /**
-         * implements handle method
-         * @param actionEvent button action event
-         */
-        @Override
-        public void handle(ActionEvent actionEvent) {
-            boggleView.displayScene(boggleView.boardSMaker());
-            boggleView.addBoardSHandler(new BoardSHandler());
-        }
-    }
 
 }

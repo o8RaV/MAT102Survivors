@@ -27,7 +27,5 @@ public class Main extends Application {
         BoggleView boggleView = new BoggleView(gameStage);
         BoggleGame boggleGame = new BoggleGame();
         BoggleController controller = new BoggleController(boggleView, boggleGame);
-
-        controller.startGame();
     }
 }

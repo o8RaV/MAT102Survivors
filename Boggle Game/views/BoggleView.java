@@ -49,6 +49,14 @@ public class BoggleView {
     }
 
     /**
+     * starts the game
+     */
+    public void startGame() {
+        displayScene(instrucSMaker());
+    }
+
+
+    /**
      * initializes the main UI with the boggleBoard
      */
     private void playScene (int size, String letters){
@@ -103,6 +111,7 @@ public class BoggleView {
         pane.setCenter(instructions);
 
         instrucCont = new Button("Continue");
+        instrucCont.setOnAction(e -> displayScene(boardSMaker()));
         pane.setBottom(contHBoxMaker(instrucCont));
 
         // lets the instructions text to wrap around the window when the window is resized
@@ -154,6 +163,10 @@ public class BoggleView {
         mainPane.setPadding(new Insets(20));
         mainPane.setCenter(selectionPane);
         boardSCont = new Button("Continue");
+        boardSCont.setOnAction(e-> {
+            System.out.println(((RadioButton) getSizeToggle().getSelectedToggle()).getText());
+            System.out.println(((RadioButton)getTypeToggle().getSelectedToggle()).getText());
+        });
         mainPane.setBottom(contHBoxMaker(boardSCont));
 
         return mainPane;
@@ -196,23 +209,6 @@ public class BoggleView {
         return bottomBox;
     }
 
-    /**
-     * adds an event handler to the button in the instructions scene
-     * @param handler handles the button's action event
-     */
-    public void addInstrucHandler(EventHandler<ActionEvent> handler) {
-        instrucCont.setOnAction(handler);
-
-    }
-
-    /**
-     *  adds an event handler to the button in the board selection scene
-     * @param handler handles the button's action event
-     */
-    public void addBoardSHandler(EventHandler<ActionEvent> handler) {
-        boardSCont.setOnAction(handler);
-
-    }
 
     /**
      * sets the current scene by changing the root pane to the inputted Pane
