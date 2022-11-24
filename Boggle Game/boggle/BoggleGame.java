@@ -24,10 +24,15 @@ import java.util.*;
  */
 public class BoggleGame {
 
+    String letters;
+
+    int score;
+    Dictionary dict;
     /**
      * scanner used to interact with the user via console
      */
     public Scanner scanner;
+
     /**
      * stores game statistics
      */
@@ -54,6 +59,7 @@ public class BoggleGame {
     public BoggleGame() {
         this.scanner = new Scanner(System.in);
         this.gameStats = new BoggleStats();
+        this.dict = new Dictionary("wordlist.txt");
     }
 
 
@@ -176,6 +182,7 @@ public class BoggleGame {
         for (char i: random) {
             ans += i;
         }
+        letters = ans;
         return ans;
     }
 
@@ -208,7 +215,7 @@ public class BoggleGame {
      * @param boggleDict A dictionary of legal words
      * @param boggleGrid A boggle grid, with a letter at each position on the grid
      */
-    private void findAllWords(Map<String, ArrayList<Position>> allWords, Dictionary boggleDict, BoggleGrid boggleGrid) {
+    public void findAllWords(Map<String, ArrayList<Position>> allWords, Dictionary boggleDict, BoggleGrid boggleGrid) {
         // Mark all characters as not visited
         // Initialize current string
         // Consider every character and look for all words
@@ -299,4 +306,18 @@ public class BoggleGame {
             gameStats.addWord(i, BoggleStats.Player.Computer);
         }
     }
+
+    public String getLetters() {
+        return letters;
+    }
+
+    public void setLetters(String letters) {
+        this.letters = letters;
+    }
+
+
+    public BoggleStats getGameStats() {
+        return gameStats;
+    }
+
 }

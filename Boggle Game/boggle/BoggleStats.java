@@ -87,6 +87,7 @@ public class BoggleStats {
             this.playerWords.add(word);
             if (word.length() >= 4) {
                 this.pScore += word.length() - 3;
+
             }
         } else if (Player.Computer == player) {
             this.computerWords.add(word);

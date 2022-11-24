@@ -20,7 +20,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *  displays the main game window, where the user selects a boggle board and plays boggle.
@@ -47,6 +49,15 @@ public class BoggleView {
     private final int defaultPadding = 20;
 
     private Label boggleLabel = new Label("");
+
+    private List<Button> selButtonsList = new ArrayList<>();
+    private HashMap<Button, int[]> allButtons = new HashMap<>();
+
+    Button submit = new Button("Submit");
+    
+    Label score = new Label();
+
+    Button newGameButton = new Button("New Game");
 
 
     /**
@@ -80,22 +91,71 @@ public class BoggleView {
      * initializes the main UI with the boggleBoard
      */
     public Pane playScene (int size, String letters){
+        // construct menu bar at the top
         MenuBar menuBar = new MenuBar();
         Menu newGame = new Menu();
-        Button menuLabel = new Button("New game");
-
-        newGame.setGraphic(menuLabel);
-        menuLabel.setOnAction(e-> {
-            displayScene(boardSMaker());
-            boggleLabel.setText("");
-        });
-        menuLabel.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        newGame.setGraphic(newGameButton);
         menuBar.getMenus().add(newGame);
 
+        // construct the score graphic; consists of the score, and its string title
+        Label scoreTitle = new Label("Score:");
+        scoreTitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        scoreTitle.setAlignment(Pos.CENTER);
+        setDefaultSize(scoreTitle);
+        score.setText("0");
+        setDefaultSize(score);
+        score.setFont(Font.font(18));
+        score.setAlignment(Pos.CENTER);
+        score.setBackground(Background.fill(Color.LIGHTGREEN));
+        VBox scoreGraphic = new VBox(scoreTitle, score);
 
-        GridPane boggleButtons = new GridPane();
-        boggleButtons.setVgap(5);
-        boggleButtons.setHgap(5);
+        // initialize/resize submit and backspace buttons
+        Button backspace = new Button("Backspace");
+        backspace.setOnAction(e -> backspaceBoggle());
+        setDefaultSize(backspace);
+        setDefaultSize(submit);
+
+        // forms the sidebar
+        VBox sidebar = new VBox(scoreGraphic, submit, backspace);
+        sidebar.setSpacing(20);
+        sidebar.setAlignment(Pos.TOP_CENTER);
+
+        // Constructs the label that displays user input
+        // Rectangle serves as a background
+        Rectangle rectangle = new Rectangle();
+        rectangle.setHeight(50);
+        rectangle.widthProperty().bind(primaryStage.getScene().widthProperty().multiply(0.75).subtract(defaultPadding));
+        rectangle.setFill(Color.LIGHTBLUE);
+        boggleLabel.setFont(Font.font("arial", FontWeight.BOLD, 20));
+        boggleLabel.prefWidthProperty().bind(rectangle.widthProperty());
+        boggleLabel.setAlignment(Pos.CENTER);
+        StackPane rectLabel = new StackPane(rectangle, boggleLabel);
+        rectLabel.setAlignment(Pos.CENTER_LEFT);
+
+        // Constructs the boggle baord
+        GridPane buttonsPane = new GridPane();
+        buttonsPane.maxWidthProperty().bind(rectangle.widthProperty());
+        buttonsPane.setVgap(5);
+        buttonsPane.setHgap(5);
+        initBoggleButtons(buttonsPane, size, letters);
+
+        // forms the pane housing the input label and the boggle board
+        VBox labelBoard = new VBox(rectLabel, buttonsPane);
+        labelBoard.setSpacing(20);
+        labelBoard.setPadding(new Insets(defaultPadding));
+
+        // constructs the play area
+        HBox playArea = new HBox(labelBoard, sidebar);
+        playArea.setSpacing(20);
+
+        VBox rootPane = new VBox(menuBar, playArea);
+        rootPane.setSpacing(10);
+        return rootPane;
+
+    }
+
+    private void initBoggleButtons(GridPane buttonsPane, int size, String letters)
+    {
         int index = 0;
         for (int x = 0; x< size; x++) {
             for (int y = 0; y<size; y++) {
@@ -105,43 +165,23 @@ public class BoggleView {
                 letterButton.prefWidthProperty().bind(primaryStage.widthProperty());
                 letterButton.setMinWidth(20);
                 letterButton.setMinHeight(25);
-                letterButton.setOnAction(e -> addBoggleInput(((Button) e.getSource()).getText().charAt(0)));
-                boggleButtons.add(letterButton, x, y);
+                letterButton.setBackground(Background.fill(Color.LIGHTGREY));
+                allButtons.put(letterButton, new int[]{x, y});
+                letterButton.setOnAction(e -> {
+                    Button selectedButton = (Button) e.getSource();
+                    // if not already selected, and if it's close enough as per Boggle rules:
+                    if (!selButtonsList.contains(selectedButton) && checkProximity(selectedButton)) {
+                        addBoggleInput(selectedButton.getText().charAt(0));
+                        selectedButton.setBackground(Background.fill(Color.GOLD));
+                        selButtonsList.add(selectedButton);
+                    }
+
+                });
+                buttonsPane.add(letterButton, x, y);
                 index++;
             }
         }
-
-        Button backspace = new Button("Backspace");
-        backspace.setPrefWidth(50);
-        VBox sidebar = new VBox(backspace);
-        backspace.setOnAction(e -> backspaceBoggle());
-        sidebar.setAlignment(Pos.CENTER);
-
-        double labelBoardWidth = primaryStage.getWidth()/1.5;
-        Rectangle rectangle = new Rectangle();
-        rectangle.setHeight(50);
-        rectangle.setWidth(labelBoardWidth);
-        rectangle.setFill(Color.GOLD);
-
-        boggleLabel.setFont(Font.font(20));
-        HBox labelContainer = new HBox(boggleLabel);
-        labelContainer.setAlignment(Pos.CENTER);
-        StackPane rectLabel = new StackPane(rectangle, labelContainer);
-
-        VBox labelBoard = new VBox(rectLabel, boggleButtons);
-        labelBoard.setPrefWidth(labelBoardWidth);
-        labelBoard.setSpacing(20);
-        labelBoard.setPadding(new Insets(defaultPadding));
-
-        HBox playArea = new HBox(labelBoard, sidebar);;
-        playArea.setSpacing(20);
-
-        VBox rootPane = new VBox(menuBar, playArea);
-        rootPane.setSpacing(10);
-        return rootPane;
-
     }
-
     /**
      * constructs a pane with the boggle game's instructions
      * @return the root pane of the instructions scene
@@ -225,17 +265,20 @@ public class BoggleView {
     }
 
     public Pane customSMaker () {
-        Text prompt = new Text("Please input the letters you would like to use on your Boggle Board.");
+        Label prompt = new Label("Please input the letters you would like to use on your Boggle Board.");
         prompt.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-        HBox promptContainer = new HBox(prompt);
-        promptContainer.setAlignment(Pos.CENTER);
-        promptContainer.setPrefHeight(100);
+        prompt.setPrefWidth(primaryStage.getWidth());
+        prompt.setAlignment(Pos.BOTTOM_CENTER);
         inputLetters = new TextField();
         inputLetters.setPrefHeight(100);
         inputLetters.setMaxWidth(400);
         inputLetters.setFont(Font.font(20));
-
         inputLetters.setPromptText("Type " + (int) Math.pow(getBoardSize(), 2) + " letters here...");
+
+        VBox titleAInput = new VBox(prompt, inputLetters);
+        titleAInput.setAlignment(Pos.BOTTOM_CENTER);
+        titleAInput.setPrefHeight(primaryStage.getWidth()/3);
+        titleAInput.setSpacing(30);
 
         Button customBack = new Button("Back");
         customBack.setOnAction(e -> displayScene(boardSMaker()));
@@ -251,9 +294,7 @@ public class BoggleView {
         // padding on top and bottom + prefHeight
         bottomPanel.setPrefHeight(defButtonHeight + bottomPanel.getPadding().getBottom()*2);
         rootPane.setBottom(bottomPanel);
-        rootPane.setCenter(inputLetters);
-        promptContainer.setPrefHeight(defButtonHeight + promptContainer.getPadding().getBottom()*2);
-        rootPane.setTop(promptContainer);
+        rootPane.setTop(titleAInput);
         prompt.setTextAlignment(TextAlignment.CENTER);
 
         return rootPane;
@@ -312,10 +353,14 @@ public class BoggleView {
         }
     }
 
-    private void backspaceBoggle() {
+    public void backspaceBoggle() {
         if (boggleLabel.getText().length() > 0) {
             int length = boggleLabel.getText().length();
             boggleLabel.setText(boggleLabel.getText().substring(0, length-1));
+            int lastIndex = selButtonsList.size()-1;
+            Button button = new Button();
+            selButtonsList.get(lastIndex).setBackground(Background.fill(Color.LIGHTGREY));
+            selButtonsList.remove(lastIndex);
         }
     }
 
@@ -330,9 +375,34 @@ public class BoggleView {
         }
     }
 
-    private void setDefaultSize (Button button) {
+    private boolean checkProximity (Button b) {
+        if (selButtonsList.size() == 0) {
+            return true;
+        }
+        else {
+            Button compareButton = selButtonsList.get(selButtonsList.size()-1);
+            int[] compareCoordinates = allButtons.get(compareButton);
+            int[] bCoordinates = allButtons.get(b);
+
+            return (Math.abs(compareCoordinates[0] - bCoordinates[0]) <=1)
+                    && (Math.abs(compareCoordinates[1] - bCoordinates[1]) <=1);
+        }
+    }
+
+    private void setDefaultSize (Control button) {
         button.setPrefWidth(defButtonWidth);
         button.setPrefHeight(defButtonHeight);
+    }
+    
+    public void updateScore (int numScore) {
+        score.setText(Integer.toString(numScore));
+    }
+
+    public void clearValues () {
+        boggleLabel.setText("");
+        selButtonsList.clear();
+        allButtons.clear();
+        score.setText("");
     }
 
     /**
@@ -347,6 +417,14 @@ public class BoggleView {
         boardSCont.setOnAction(handler);
     }
 
+    public void addSubmitHandler (EventHandler<ActionEvent> handler) {
+        submit.setOnAction(handler);
+    }
+
+    public void addNewGameHandler (EventHandler<ActionEvent> handler) {
+        newGameButton.setOnAction(handler);
+    }
+
     public String getBoardType () {
         return ((RadioButton) typeToggle.getSelectedToggle()).getText().toLowerCase();
     }
@@ -359,4 +437,9 @@ public class BoggleView {
     public String getInputLetters() {
         return inputLetters.getText();
     }
+
+    public String getBoggleLabel() {
+        return boggleLabel.getText();
+    }
+
 }

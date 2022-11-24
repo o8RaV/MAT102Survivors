@@ -7,6 +7,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import views.BoggleView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * The application's main controller. Processes events from BoggleView.
@@ -33,6 +37,8 @@ public class BoggleController {
     private void addEventHandlers () {
         boggleView.addBoardSHandler(new handleBoardSelect());
         boggleView.addCustomHandler(new handleCustomSelect());
+        boggleView.addSubmitHandler(new handleSubmit());
+        boggleView.addNewGameHandler(new handleNewGame());
     }
 
     public class handleBoardSelect implements EventHandler<ActionEvent> {
@@ -49,6 +55,8 @@ public class BoggleController {
         }
     }
 
+
+
     public class handleCustomSelect implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -56,6 +64,7 @@ public class BoggleController {
             String inputtedLetters = boggleView.getInputLetters();
             if (checkString(inputtedLetters, boardSize)){
                 boggleView.displayScene(boggleView.playScene(boardSize, inputtedLetters));
+                boggleGame.setLetters(inputtedLetters);
             }
             else {
                 boggleView.sendCustomAlert();
@@ -70,6 +79,36 @@ public class BoggleController {
                 }
             }
             return (int) Math.pow(boardSize, 2) == input.length();
+        }
+    }
+
+    public class handleSubmit implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            Map <String, ArrayList<Position>> allWords = new HashMap<>();
+            BoggleGrid grid = new BoggleGrid(boggleView.getBoardSize());
+            grid.initalizeBoard(boggleGame.getLetters());
+            boggleGame.findAllWords(allWords, boggleGame.dict, grid);
+
+            String word = boggleView.getBoggleLabel();
+            if (boggleGame.dict.containsWord(word)){
+                boggleGame.getGameStats().addWord(word, BoggleStats.Player.Human);
+                boggleView.updateScore(boggleGame.getGameStats().getScore());
+            }
+
+            while (boggleView.getBoggleLabel().length() > 0) {
+                boggleView.backspaceBoggle();
+            }
+
+        }
+    }
+
+    public class handleNewGame implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            boggleView.displayScene(boggleView.boardSMaker());
+            boggleGame.getGameStats().endRound();
+            boggleView.clearValues();
         }
     }
 
