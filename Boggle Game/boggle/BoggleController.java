@@ -2,6 +2,7 @@ package boggle;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import views.BoggleView;
@@ -26,7 +27,52 @@ public class BoggleController {
         this.boggleGame = boggleGame;
 
         this.boggleView.startGame();
+        addEventHandlers();
+    }
+
+    private void addEventHandlers () {
+        boggleView.addBoardSHandler(new handleBoardSelect());
+        boggleView.addCustomHandler(new handleCustomSelect());
+    }
+
+    public class handleBoardSelect implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            if (boggleView.getBoardType().equals("custom")) {
+                boggleView.displayScene(boggleView.customSMaker());
+            }
+            else {
+                int boardSize = boggleView.getBoardSize();
+                String letters = boggleGame.randomizeLetters(boardSize);
+                boggleView.displayScene(boggleView.playScene(boardSize, letters));
+            }
+        }
+    }
+
+    public class handleCustomSelect implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            int boardSize = boggleView.getBoardSize();
+            String inputtedLetters = boggleView.getInputLetters();
+            if (checkString(inputtedLetters, boardSize)){
+                boggleView.displayScene(boggleView.playScene(boardSize, inputtedLetters));
+            }
+            else {
+                boggleView.sendCustomAlert();
+            }
+
+        }
+
+        private boolean checkString (String input, int boardSize) {
+            for (char c: input.toCharArray()) {
+                if (!Character.isLetter(c)) {
+                    return false;
+                }
+            }
+            return (int) Math.pow(boardSize, 2) == input.length();
+        }
+    }
+
     }
 
 
-}
