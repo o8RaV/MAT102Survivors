@@ -28,6 +28,11 @@ public class BoggleGame {
 
     int score;
     Dictionary dict;
+
+    private final int minBoardSize = 4; // a boggle board's minimum and maximum sizes.
+
+    private final int maxBoardSize = 6;
+
     /**
      * scanner used to interact with the user via console
      */
@@ -318,6 +323,14 @@ public class BoggleGame {
 
     public BoggleStats getGameStats() {
         return gameStats;
+    }
+
+    public int getMinBoardSize() {
+        return minBoardSize;
+    }
+
+    public int getMaxBoardSize() {
+        return maxBoardSize;
     }
 
 }

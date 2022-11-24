@@ -2,9 +2,6 @@ package boggle;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import views.BoggleView;
 
 import java.util.ArrayList;
@@ -30,6 +27,7 @@ public class BoggleController {
         this.boggleView = boggleView;
         this.boggleGame = boggleGame;
 
+        this.boggleView.setBoardRange(this.boggleGame.getMinBoardSize(), this.boggleGame.getMaxBoardSize());
         this.boggleView.startGame();
         addEventHandlers();
     }
@@ -50,7 +48,7 @@ public class BoggleController {
             else {
                 int boardSize = boggleView.getBoardSize();
                 String letters = boggleGame.randomizeLetters(boardSize);
-                boggleView.displayScene(boggleView.playScene(boardSize, letters));
+                boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
             }
         }
     }
@@ -61,9 +59,9 @@ public class BoggleController {
         @Override
         public void handle(ActionEvent actionEvent) {
             int boardSize = boggleView.getBoardSize();
-            String inputtedLetters = boggleView.getInputLetters();
+            String inputtedLetters = boggleView.getCusLettersField();
             if (checkString(inputtedLetters, boardSize)){
-                boggleView.displayScene(boggleView.playScene(boardSize, inputtedLetters));
+                boggleView.displayScene(boggleView.playSMaker(boardSize, inputtedLetters));
                 boggleGame.setLetters(inputtedLetters);
             }
             else {
@@ -90,18 +88,17 @@ public class BoggleController {
             grid.initalizeBoard(boggleGame.getLetters());
             boggleGame.findAllWords(allWords, boggleGame.dict, grid);
 
-            String word = boggleView.getBoggleLabel();
+            String word = boggleView.getGameInputDisplay();
             if (boggleGame.dict.containsWord(word)){
                 boggleGame.getGameStats().addWord(word, BoggleStats.Player.Human);
                 boggleView.updateScore(boggleGame.getGameStats().getScore());
             }
 
-            while (boggleView.getBoggleLabel().length() > 0) {
-                boggleView.backspaceBoggle();
+            boggleView.clearBoggle();
             }
 
         }
-    }
+
 
     public class handleNewGame implements EventHandler<ActionEvent> {
         @Override
