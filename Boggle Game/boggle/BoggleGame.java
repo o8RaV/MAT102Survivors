@@ -1,22 +1,5 @@
 package boggle;
 
-import javafx.animation.PauseTransition;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
-
 import java.util.*;
 
 /**
@@ -67,76 +50,6 @@ public class BoggleGame {
         this.gameStats = new BoggleStats();
         this.dict = new Dictionary("wordlist.txt");
         this.allWords = new HashMap<>();
-    }
-
-
-    /*
-     * Gets information from the user to initialize a new Boggle game.
-     * It will loop until the user indicates they are done playing.
-     */
-    public void playGame() {
-        int boardSize;
-        while (true) {
-            System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
-            String choiceGrid = scanner.nextLine();
-
-            //get grid size preference
-            if (choiceGrid == "") break; //end game if user inputs nothing
-            while (!choiceGrid.equals("1") && !choiceGrid.equals("2")) {
-                System.out.println("Please try again.");
-                System.out.println("Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one:");
-                choiceGrid = scanner.nextLine();
-            }
-
-            if (choiceGrid.equals("1")) boardSize = 5;
-            else boardSize = 4;
-
-            //get letter choice preference
-            System.out.println("Enter 1 to randomly assign letters to the grid; 2 to provide your own.");
-            String choiceLetters = scanner.nextLine();
-
-            if (choiceLetters == "") break; //end game if user inputs nothing
-            while (!choiceLetters.equals("1") && !choiceLetters.equals("2")) {
-                System.out.println("Please try again.");
-                System.out.println("Enter 1 to randomly assign letters to the grid; 2 to provide your own.");
-                choiceLetters = scanner.nextLine();
-            }
-
-            if (choiceLetters.equals("1")) {
-                playRound(boardSize, randomizeLetters(boardSize));
-            } else {
-                System.out.println("Input a list of " + boardSize * boardSize + " letters:");
-                choiceLetters = scanner.nextLine();
-                while (!(choiceLetters.length() == boardSize * boardSize)) {
-                    System.out.println("Sorry, bad input. Please try again.");
-                    System.out.println("Input a list of " + boardSize * boardSize + " letters:");
-                    choiceLetters = scanner.nextLine();
-                }
-                playRound(boardSize, choiceLetters.toUpperCase());
-            }
-
-            //round is over! So, store the statistics, and end the round.
-            this.gameStats.summarizeRound();
-            this.gameStats.endRound();
-
-            //Shall we repeat?
-            System.out.println("Play again? Type 'Y' or 'N'");
-            String choiceRepeat = scanner.nextLine().toUpperCase();
-
-            if (choiceRepeat == "") break; //end game if user inputs nothing
-            while (!choiceRepeat.equals("Y") && !choiceRepeat.equals("N")) {
-                System.out.println("Please try again.");
-                System.out.println("Play again? Type 'Y' or 'N'");
-                choiceRepeat = scanner.nextLine().toUpperCase();
-            }
-
-            if (choiceRepeat == "" || choiceRepeat.equals("N")) break; //end game if user inputs nothing
-
-        }
-
-        //we are done with the game! So, summarize all the play that has transpired and exit.
-        this.gameStats.summarizeGame();
-        System.out.println("Thanks for playing!");
     }
 
     /*

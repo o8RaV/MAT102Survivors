@@ -56,8 +56,6 @@ public class BoggleController {
         }
     }
 
-
-
     public class handleCustomSelect implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {

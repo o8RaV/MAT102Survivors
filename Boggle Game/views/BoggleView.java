@@ -456,7 +456,10 @@ public class BoggleView {
         selectedButtons.clear();
         allButtons.clear();
         scoreDisplay.setText("");
-        ((Text) roundFacts.getContent()).setText("");
+
+        if (roundFacts.getContent() != null) {
+            ((Text) roundFacts.getContent()).setText("");
+        }
     }
 
     public void displayRoundFacts (String facts){
