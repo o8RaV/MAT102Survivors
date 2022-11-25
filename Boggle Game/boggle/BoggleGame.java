@@ -24,7 +24,6 @@ import java.util.*;
  */
 public class BoggleGame {
 
-    String letters;
 
     int score;
     Dictionary dict;
@@ -42,6 +41,8 @@ public class BoggleGame {
      * stores game statistics
      */
     private BoggleStats gameStats;
+
+    private HashMap<String, ArrayList<Position>> allWords;
 
     /**
      * dice used to randomize letter assignments for a small grid
@@ -65,6 +66,7 @@ public class BoggleGame {
         this.scanner = new Scanner(System.in);
         this.gameStats = new BoggleStats();
         this.dict = new Dictionary("wordlist.txt");
+        this.allWords = new HashMap<>();
     }
 
 
@@ -153,9 +155,9 @@ public class BoggleGame {
         Map<String, ArrayList<Position>> allWords = new HashMap<String, ArrayList<Position>>();
         findAllWords(allWords, boggleDict, grid);
         //step 4. allow the user to try to find some words on the grid
-        humanMove(grid, allWords);
+//        humanMove(grid, allWords);
         //step 5. allow the computer to identify remaining words
-        computerMove(allWords);
+//        computerMove(allWords);
     }
 
     /*
@@ -187,7 +189,6 @@ public class BoggleGame {
         for (char i: random) {
             ans += i;
         }
-        letters = ans;
         return ans;
     }
 
@@ -267,21 +268,12 @@ public class BoggleGame {
      * @param board The boggle board
      * @param allWords A mutable list of all legal words that can be found, given the boggleGrid grid letters
      */
-    private void humanMove(BoggleGrid board, Map<String,ArrayList<Position>> allWords){
-        System.out.println("It's your turn to find some words!\n\n");
-        System.out.println(board.toString() + "\n\n");
-        Scanner input = new Scanner(System.in);
-        while(true) {
-            System.out.println("Type Input : ");
-            String temp = input.nextLine();
-            if (temp.length() == 0) {
-                break;
+    public int humanMove(String word){
+            if (word.length() > 0 && allWords.containsKey(word.toUpperCase())) {
+                gameStats.addWord(word.toUpperCase(), BoggleStats.Player.Human);
             }
-            if (allWords.containsKey(temp.toUpperCase())) {
-                gameStats.addWord(temp.toUpperCase(), BoggleStats.Player.Human);
-            }
+            return this.gameStats.getScore();
         }
-    }
 
     //You write code here!
     //step 1. Print the board for the user, so they can scan it for words
@@ -300,24 +292,22 @@ public class BoggleGame {
      *
      * @param allWords A mutable list of all legal words that can be found, given the boggleGrid grid letters
      */
-    private void computerMove(Map<String,ArrayList<Position>> all_words){
-        Set<String> temp = all_words.keySet();
+    public void computerMove(){
+        Set<String> temp = allWords.keySet();
         for (String i : gameStats.getPlayerWords()) {
-            if (temp.contains(i)) {
-                temp.remove(i);
-            }
+            temp.remove(i);
         }
         for (String i: temp) {
             gameStats.addWord(i, BoggleStats.Player.Computer);
         }
-    }
 
-    public String getLetters() {
-        return letters;
+
     }
 
     public void setLetters(String letters) {
-        this.letters = letters;
+        BoggleGrid grid  = new BoggleGrid((int) Math.sqrt(letters.length()));
+        grid.initalizeBoard(letters);
+        this.findAllWords(allWords, dict, grid);
     }
 
 

@@ -59,6 +59,13 @@ public class BoggleView {
 
     Button newGameButton = new Button("New Game"); // button that allows user to start a new game
 
+    Button endRoundButton = new Button("End Round");
+
+    ScrollPane roundFacts = new ScrollPane();
+
+
+    boolean gameOn;
+
 
     /**
      * Constructor
@@ -160,7 +167,7 @@ public class BoggleView {
                 letterButton.setOnAction(e -> {
                     Button selectedButton = (Button) e.getSource();
                     // if not already selected, and if it's close enough as per Boggle rules:
-                    if (!selectedButtons.contains(selectedButton) && checkProximity(selectedButton)) {
+                    if (!selectedButtons.contains(selectedButton) && checkProximity(selectedButton) && gameOn) {
                         addBoggleInput(selectedButton.getText().charAt(0));
                         selectedButton.setBackground(Background.fill(Color.GOLD));
                         selectedButtons.add(selectedButton);
@@ -174,6 +181,7 @@ public class BoggleView {
     }
 
     private VBox initSidebar () {
+        Pos elementAlign = Pos.CENTER_LEFT;
         // construct the score graphic; consists of the score, and its string title
         Label scoreTitle = new Label("Score:");
         scoreTitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
@@ -185,6 +193,7 @@ public class BoggleView {
         scoreDisplay.setAlignment(Pos.CENTER);
         scoreDisplay.setBackground(Background.fill(Color.LIGHTGREEN));
         VBox scoreGraphic = new VBox(scoreTitle, scoreDisplay);
+        scoreGraphic.setAlignment(elementAlign);
         scoreGraphic.setSpacing(10);
 
         // initialize/resize submit and backspace buttons
@@ -192,9 +201,16 @@ public class BoggleView {
         backspace.setOnAction(e -> backspaceBoggle());
         setDefaultSize(backspace);
         setDefaultSize(submitButton);
+        setDefaultSize(endRoundButton);
+        VBox vbox = new VBox(scoreGraphic, submitButton, backspace, endRoundButton);
+        vbox.setSpacing(20);
+        vbox.setAlignment(Pos.TOP_LEFT);
+        vbox.setMinHeight(260);
+        roundFacts.prefWidthProperty().bind(primaryStage.widthProperty());
+        roundFacts.prefHeightProperty().bind(primaryStage.getScene().heightProperty());
 
         // forms the sidebar
-        VBox sidebar = new VBox(scoreGraphic, submitButton, backspace);
+        VBox sidebar = new VBox(vbox, roundFacts);
         sidebar.setSpacing(20);
         sidebar.setAlignment(Pos.TOP_CENTER);
         return sidebar;
@@ -217,6 +233,7 @@ public class BoggleView {
 
 
                         +"Click continue when you're ready...");
+        instructions.setLineSpacing(5);
         instructions.setFont(Font.font("arial", FontWeight.BOLD, 16));
 
         BorderPane pane = new BorderPane();
@@ -378,7 +395,7 @@ public class BoggleView {
         }
     }
 
-    public void clearBoggle() {
+    public void resetBoard() {
         if (gameInputDisplay.getText().length() > 0) {
             gameInputDisplay.setText("");
             for (Button b: selectedButtons) {
@@ -426,6 +443,14 @@ public class BoggleView {
         selectedButtons.clear();
         allButtons.clear();
         scoreDisplay.setText("");
+        ((Text) roundFacts.getContent()).setText("");
+    }
+
+    public void displayRoundFacts (String facts){
+        Text textFacts = new Text(facts);
+        textFacts.wrappingWidthProperty().bind(roundFacts.widthProperty());
+        roundFacts.setContent(textFacts);
+        roundFacts.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
     /**
@@ -448,10 +473,23 @@ public class BoggleView {
         newGameButton.setOnAction(handler);
     }
 
+    public void addEndRoundHandler (EventHandler<ActionEvent> handler) {
+        endRoundButton.setOnAction(handler);
+    }
+
     public void setBoardRange (int minSize, int maxSize) {
         minBoardSize = minSize;
         maxBoardSize = maxSize;
     }
+
+    public boolean isGameOn() {
+        return gameOn;
+    }
+
+    public void setGameOn(boolean gameOn) {
+        this.gameOn = gameOn;
+    }
+
 
     public String getBoardType () {
         return ((RadioButton) boardTypeGroup.getSelectedToggle()).getText().toLowerCase();
