@@ -52,26 +52,6 @@ public class BoggleGame {
         this.allWords = new HashMap<>();
     }
 
-    /*
-     * Play a round of Boggle.
-     * This initializes the main objects: the board, the dictionary, the map of all
-     * words on the board, and the set of words found by the user. These objects are
-     * passed by reference from here to many other functions.
-     */
-    public void playRound(int size, String letters) {
-        //step 1. initialize the grid
-        BoggleGrid grid = new BoggleGrid(size);
-        grid.initalizeBoard(letters);
-        //step 2. initialize the dictionary of legal words
-        Dictionary boggleDict = new Dictionary("wordlist.txt"); //you may have to change the path to the wordlist, depending on where you place it.
-        //step 3. find all legal words on the board, given the dictionary and grid arrangement.
-        Map<String, ArrayList<Position>> allWords = new HashMap<String, ArrayList<Position>>();
-        findAllWords(allWords, boggleDict, grid);
-        //step 4. allow the user to try to find some words on the grid
-//        humanMove(grid, allWords);
-        //step 5. allow the computer to identify remaining words
-//        computerMove(allWords);
-    }
 
     /*
      * This method should return a String of letters (length 16 or 25 depending on the size of the grid).
