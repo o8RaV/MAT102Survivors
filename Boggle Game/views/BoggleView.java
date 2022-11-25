@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class BoggleView {
 
-    private final int windowMinWidth = 600; // sets the window's minimum width and height
+    private final int windowMinWidth = 700; // sets the window's minimum width and height
     private final int windowMinHeight = 500;
 
     TextField cusLettersField; // textfield that allows user to input custom set of letters
@@ -114,7 +114,7 @@ public class BoggleView {
         Rectangle rectangle = new Rectangle();
         rectangle.setHeight(50);
         rectangle.widthProperty().bind(
-                primaryStage.getScene().widthProperty().multiply(0.75).subtract(defaultPadding));
+                primaryStage.getScene().widthProperty().multiply(0.6).subtract(defaultPadding));
         rectangle.setFill(Color.LIGHTBLUE);
         gameInputDisplay.setFont(Font.font("arial", FontWeight.BOLD, 20));
         gameInputDisplay.prefWidthProperty().bind(rectangle.widthProperty());
@@ -257,13 +257,12 @@ public class BoggleView {
      */
     public Pane boardSMaker() {
         // grid pane to house toggles (radio buttons) and their respective text
-        GridPane selectionPane = new GridPane();
-        selectionPane.setVgap(20);
-        selectionPane.setHgap(10);
+        VBox selectionPane = new VBox();
 
+        Font textFont = Font.font("Arial", 16);
         Text gridSizeText = new Text(
                 "Please select what size boggle board you'd like to play on.");
-        selectionPane.add(gridSizeText, 0, 0);
+        gridSizeText.setFont(textFont);
 
         // groups the grid size toggles together
         boardSizeGroup = new ToggleGroup();
@@ -277,21 +276,34 @@ public class BoggleView {
         }
 
         HBox gridBox = radioHBoxMaker(gridSizes, boardSizeGroup);
-        selectionPane.add(gridBox, 0, 1);
+        VBox sizeSelection = new VBox(gridSizeText, gridBox);
+        sizeSelection.setSpacing(15);
+        selectionPane.getChildren().add(sizeSelection);
 
 
         Text typeText = new Text(
                 "Please select if you'd like random letters, or if you'd like to select them yourself.");
-        selectionPane.add(typeText, 0, 3);
+        typeText.setFont(textFont);
 
         boardTypeGroup = new ToggleGroup();
         String[] types = {"Random", "Custom"};
         HBox typesBox = radioHBoxMaker(types, boardTypeGroup);
-        selectionPane.add(typesBox, 0, 4);
+
+        VBox typeSelection = new VBox(typeText, typesBox);
+        typeSelection.setSpacing(15);
+        selectionPane.getChildren().add(typeSelection);
+        selectionPane.setSpacing(50);
+        selectionPane.setPadding(new Insets(40, 0, 0, 0));
 
         // root pane
         BorderPane mainPane = new BorderPane();
+        Label title = new Label("Board Selection");
+        title.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        title.prefWidthProperty().bind(primaryStage.widthProperty());
+        title.setPrefHeight(50);
+        title.setAlignment(Pos.CENTER);
         mainPane.setPadding(new Insets(defaultPadding));
+        mainPane.setTop(title);
         mainPane.setCenter(selectionPane);
         mainPane.setBottom(contHBoxMaker(boardSCont));
 
@@ -363,6 +375,7 @@ public class BoggleView {
             if (i == 0) {
                 radioButton.setSelected(true);
             }
+            radioButton.setFont(Font.font("Arial", 14));
         }
 
         return selectHbox;
@@ -448,7 +461,7 @@ public class BoggleView {
 
     public void displayRoundFacts (String facts){
         Text textFacts = new Text(facts);
-        textFacts.wrappingWidthProperty().bind(roundFacts.widthProperty());
+        textFacts.wrappingWidthProperty().bind(roundFacts.widthProperty().subtract(20));
         roundFacts.setContent(textFacts);
         roundFacts.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
