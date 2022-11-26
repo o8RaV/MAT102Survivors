@@ -1,26 +1,31 @@
 package boggle;
 
-import Memento.src.Caretaker;
-import Memento.src.Memento;
 import java.util.*;
-
 
 /**
  * The BoggleGame class for the first Assignment in CSC207, Fall 2022
  */
 public class BoggleGame {
 
+
+    int score;
+    Dictionary dict;
+
+    private final int minBoardSize = 4; // a boggle board's minimum and maximum sizes.
+
+    private final int maxBoardSize = 6;
+
     /**
      * scanner used to interact with the user via console
      */
     public Scanner scanner;
+
     /**
      * stores game statistics
      */
     private BoggleStats gameStats;
-    private String boggleboard;
-    private Caretaker Caretaker = new Caretaker();
-    private List state ;
+
+    private HashMap<String, ArrayList<Position>> allWords;
 
     /**
      * dice used to randomize letter assignments for a small grid
@@ -35,164 +40,18 @@ public class BoggleGame {
             {"AAAFRS", "AAEEEE", "AAFIRS", "ADENNN", "AEEEEM", "AEEGMU", "AEGMNN", "AFIRSY",
                     "BJKQXZ", "CCNSTW", "CEIILT", "CEILPT", "CEIPST", "DDLNOR", "DDHNOT", "DHHLOR",
                     "DHLNOR", "EIIITT", "EMOTTT", "ENSSSU", "FIPRSY", "GORRVW", "HIPRRY", "NOOTUW", "OOOTTU"};
-    /**
-     * dice used to randomize letter assignments for a massive grid
-     */
-    private final String[] dice_massive_grid = {"AAAFRS", "AAEEEE", "AAEEOO", "AAFIRS", "ABDEIO", "ADENNN",
-            "AEEEEM", "AEEGMU", "AEGMNN", "AEILMN", "AEINOU", "AFIRSY", "AEHIQT", "BBJKXZ", "CCENST",
-            "CDDLNN", "CEIITT", "CEIPST", "CFGNUY", "DDHNOT", "DHHLOR", "DHHNOW", "DHLNOR", "EHILRS",
-            "EIILST", "EILPST", "EIOAUA", "EMTTTO", "ENSSSU", "GORRVW", "HIRSTV", "HOPRST", "IPRSYY",
-            "JKQuWXZ", "NOOTUW","OOOTTU"};
+
+
     /*
      * BoggleGame constructor
      */
     public BoggleGame() {
         this.scanner = new Scanner(System.in);
         this.gameStats = new BoggleStats();
+        this.dict = new Dictionary("wordlist.txt");
+        this.allWords = new HashMap<>();
     }
 
-    /*
-     * Provide instructions to the user, so they know how to play the game.
-     */
-    public void giveInstructions() {
-        System.out.println("The Boggle board contains a grid of letters that are randomly placed.");
-        System.out.println("We're both going to try to find words in this grid by joining the letters.");
-        System.out.println("You can form a word by connecting adjoining letters on the grid.");
-        System.out.println("Two letters adjoin if they are next to each other horizontally, ");
-        System.out.println("vertically, or diagonally. The words you find must be at least 4 letters long, ");
-        System.out.println("and you can't use a letter twice in any single word. Your points ");
-        System.out.println("will be based on word length: a 4-letter word is worth 1 point, 5-letter");
-        System.out.println("words earn 2 points, and so on. After you find as many words as you can,");
-        System.out.println("I will find all the remaining words.");
-        System.out.println("\nHit return when you're ready...");
-    }
-
-
-    /*
-     * Gets information from the user to initialize a new Boggle game.
-     * It will loop until the user indicates they are done playing.
-     */
-    public void playGame(){
-        int boardSize = 0;
-        while (true) {
-            System.out.println("Enter 0 to play on a massive (6x6) grid; Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one; 3 to play on a saved board:");
-            String choiceGrid = scanner.nextLine();
-
-            //get grid size preference
-            if (choiceGrid == "") break; //end game if user inputs nothing
-            while (!choiceGrid.equals("0") && !choiceGrid.equals("1") && !choiceGrid.equals("2") && !choiceGrid.equals("3")) {
-                System.out.println("Please try again.");
-                System.out.println("Enter 0 to play on a massive (6x6) grid; Enter 1 to play on a big (5x5) grid; 2 to play on a small (4x4) one; 3 to play on a saved board:");
-                choiceGrid = scanner.nextLine();
-            }
-            if (choiceGrid.equals("0") || choiceGrid.equals("1") || choiceGrid.equals("2")) {
-                if (choiceGrid.equals("1")) {
-                    boardSize = 5;
-                }
-                else if (choiceGrid.equals("2")) {
-                    boardSize = 4;
-                }
-                else {
-                    boardSize = 6;
-                }
-                System.out.println("Enter 1 to randomly assign letters to the grid; 2 to provide your own.");
-                String choiceLetters = scanner.nextLine();
-                if (choiceLetters == "") break; //end game if user inputs nothing
-                while (!choiceLetters.equals("1") && !choiceLetters.equals("2")) {
-                    System.out.println("Please try again.");
-                    System.out.println("Enter 1 to randomly assign letters to the grid; 2 to provide your own.");
-                    choiceLetters = scanner.nextLine();
-                }
-                if (choiceLetters.equals("1")) {
-                    this.boggleboard = randomizeLetters(boardSize);
-                    playRound(boardSize, boggleboard);
-                } else {
-                    System.out.println("Input a list of " + boardSize * boardSize + " letters:");
-                    choiceLetters = scanner.nextLine();
-                    while (!(choiceLetters.length() == boardSize * boardSize)) {
-                        System.out.println("Sorry, bad input. Please try again.");
-                        System.out.println("Input a list of " + boardSize * boardSize + " letters:");
-                        choiceLetters = scanner.nextLine();
-                    }
-                    playRound(boardSize, choiceLetters.toUpperCase());
-                }
-
-                //round is over! So, store the statistics, and end the round.
-            }
-
-            else {
-                playsaved();
-            }
-            this.gameStats.summarizeRound();
-            this.gameStats.endRound();
-            //Shall we repeat?
-            System.out.println("Play again? Type 'Y' or 'N'");
-            String choiceRepeat = scanner.nextLine().toUpperCase();
-
-            if (choiceRepeat == "") break; //end game if user inputs nothing
-            while (!choiceRepeat.equals("Y") && !choiceRepeat.equals("N")) {
-                System.out.println("Please try again.");
-                System.out.println("Play again? Type 'Y' or 'N'");
-                choiceRepeat = scanner.nextLine().toUpperCase();
-            }
-            if (choiceRepeat.equals("N")) break; //end game if user inputs nothing
-        }
-        //we are done with the game! So, summarize all the play that has transpired and exit.
-        this.gameStats.summarizeGame();
-        System.out.println("Thanks for playing!");
-    }
-
-    private void playsaved(){
-        try {
-            System.out.println("These are the available boards");
-            String[] b = Caretaker.getfile().list();
-            List<String> a = new ArrayList<String>();
-            assert b != null;
-            for (String i : b) {
-                if (i.endsWith(".bbg"))
-                    a.add(i);
-                System.out.println(i);
-            }
-            System.out.println("Type the board name please:");
-            String choiceGrid = scanner.nextLine();
-            while (!a.contains(choiceGrid)) {
-                System.out.println("Invalid input");
-                choiceGrid = scanner.nextLine();
-            }
-            Memento i = Caretaker.get(choiceGrid);
-            getstatefrommemento(i);
-            gameStats = (BoggleStats) state.get(2);
-            boggleboard = (String) state.get(1);
-            setState(i.getState());
-            playRound((int) Math.sqrt(boggleboard.length()), boggleboard);
-        }
-        catch(Exception e){
-            throw new RuntimeException("idk some error");
-        }
-    }
-
-    /*
-     * Play a round of Boggle.
-     * This initializes the main objects: the board, the dictionary, the map of all
-     * words on the board, and the set of words found by the user. These objects are
-     * passed by reference from here to many other functions.
-     */
-
-    public void playRound(int size, String letters) {
-        //step 1. initialize the grid
-        BoggleGrid grid = new BoggleGrid(size);
-        grid.initalizeBoard(letters);
-        //step 2. initialize the dictionary of legal words
-        Dictionary boggleDict = new Dictionary("wordlist.txt"); //you may have to change the path to the wordlist, depending on where you place it.
-        //step 3. find all legal words on the board, given the dictionary and grid arrangement.
-        Map<String, ArrayList<Position>> allWords = new HashMap<String, ArrayList<Position>>();
-        findAllWords(allWords, boggleDict, grid);
-        //step 4. allow the user to try to find some words on the grid
-        System.out.println("Type 101 to save the board");
-        humanMove(grid, allWords);
-        //step 5. allow the computer to identify remaining words
-        computerMove(allWords);
-    }
 
     /*
      * This method should return a String of letters (length 16 or 25 depending on the size of the grid).
@@ -205,8 +64,7 @@ public class BoggleGame {
      *
      * @return String a String of random letters (length 16 or 25 depending on the size of the grid)
      */
-
-    private String randomizeLetters(int size) {
+    public String randomizeLetters(int size) {
         ArrayList<Character> random = new ArrayList<Character>();
         if (size == 4) {
             for (String i : dice_small_grid) {
@@ -218,18 +76,12 @@ public class BoggleGame {
                 int n = (int) (Math.random() * 6 + 1) - 1;
                 random.add(j.charAt(n));
             }
-        } else if (size == 6) {
-            for (String j : dice_massive_grid) {
-                int n = (int) (Math.random() * 6 + 1) - 1;
-                random.add(j.charAt(n));
-            }
         }
         Collections.shuffle(random);
         String ans = "";
         for (char i: random) {
             ans += i;
         }
-
         return ans;
     }
 
@@ -262,8 +114,7 @@ public class BoggleGame {
      * @param boggleDict A dictionary of legal words
      * @param boggleGrid A boggle grid, with a letter at each position on the grid
      */
-
-    private void findAllWords(Map<String, ArrayList<Position>> allWords, Dictionary boggleDict, BoggleGrid boggleGrid) {
+    public void findAllWords(Map<String, ArrayList<Position>> allWords, Dictionary boggleDict, BoggleGrid boggleGrid) {
         // Mark all characters as not visited
         // Initialize current string
         // Consider every character and look for all words
@@ -310,31 +161,12 @@ public class BoggleGame {
      * @param board The boggle board
      * @param allWords A mutable list of all legal words that can be found, given the boggleGrid grid letters
      */
-
-    private void humanMove(BoggleGrid board, Map<String,ArrayList<Position>> allWords){
-        System.out.println("It's your turn to find some words!\n\n");
-        System.out.println(board.toString() + "\n\n");
-        Scanner input = new Scanner(System.in);
-        while(true) {
-            System.out.println("Type Input : ");
-            String temp = input.nextLine();
-            if (temp.length() == 0) {
-                break;
+    public int humanMove(String word){
+            if (word.length() > 0 && allWords.containsKey(word.toUpperCase())) {
+                gameStats.addWord(word.toUpperCase(), BoggleStats.Player.Human);
             }
-            if (allWords.containsKey(temp.toUpperCase())) {
-                gameStats.addWord(temp.toUpperCase(), BoggleStats.Player.Human);
-            }
-            if (temp.equals("101")){
-                System.out.println("Enter Board name:");
-                String i = input.nextLine();
-                while (!i.endsWith(".bbg")) {
-                    System.out.println("Invalid name");
-                    i = scanner.nextLine();
-                }
-                Caretaker.save(i, getaMemento(i));
-            }
+            return this.gameStats.getScore();
         }
-    }
 
     //You write code here!
     //step 1. Print the board for the user, so they can scan it for words
@@ -344,6 +176,7 @@ public class BoggleGame {
     //step 5. Repeat step 1 - 4
     //step 6. End when the player hits return (with no word choice).
 
+
     /*
      * Gets words from the computer.  The computer should find words that are
      * both valid and not in the player's word list.  For each word that the computer
@@ -352,32 +185,35 @@ public class BoggleGame {
      *
      * @param allWords A mutable list of all legal words that can be found, given the boggleGrid grid letters
      */
-
-    private void computerMove(Map<String,ArrayList<Position>> all_words){
-        Set<String> temp = all_words.keySet();
+    public void computerMove(){
+        Set<String> temp = allWords.keySet();
         for (String i : gameStats.getPlayerWords()) {
-            if (temp.contains(i)) {
-                temp.remove(i);
-            }
+            temp.remove(i);
         }
         for (String i: temp) {
             gameStats.addWord(i, BoggleStats.Player.Computer);
         }
+
+
     }
 
-    public void setState(List state){
-        this.state = state;
+    public void setLetters(String letters) {
+        BoggleGrid grid  = new BoggleGrid((int) Math.sqrt(letters.length()));
+        grid.initalizeBoard(letters);
+        this.findAllWords(allWords, dict, grid);
     }
 
-    public List getState(){
-        return state;
+
+    public BoggleStats getGameStats() {
+        return gameStats;
     }
 
-    public Memento getaMemento(String name){
-        return new Memento(name, boggleboard, gameStats);
+    public int getMinBoardSize() {
+        return minBoardSize;
     }
 
-    public void getstatefrommemento(Memento memento) {
-        state = memento.getState();
+    public int getMaxBoardSize() {
+        return maxBoardSize;
     }
+
 }

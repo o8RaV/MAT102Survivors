@@ -1,17 +1,31 @@
+import boggle.BoggleController;
 import boggle.BoggleGame;
+import javafx.application.Application;
+import javafx.stage.Stage;
+import views.BoggleView;
 
 /**
- * The Main class for the first Assignment in CSC207, Fall 2022
+ * The Main class for the Boggle Project in CSC207, Fall 2022
  * Team Members are: Rav, Chris, Justin, Ahmed.
  */
-public class Main {
+
+public class Main extends Application {
+
     /**
-    * Main method. 
-    * @param args command line arguments.
-    **/
+     * Main method. launches application
+     */
     public static void main(String[] args) {
-        BoggleGame b = new BoggleGame();
-        b.giveInstructions();
-        b.playGame();
+        launch(args);
+    }
+
+    /**
+     * starts the application
+     * @param gameStage main window where user will play Boggle
+     */
+    @Override
+    public void start(Stage gameStage) {
+        BoggleView boggleView = new BoggleView(gameStage);
+        BoggleGame boggleGame = new BoggleGame();
+        new BoggleController(boggleView, boggleGame);
     }
 }
