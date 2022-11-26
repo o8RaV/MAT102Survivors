@@ -7,8 +7,6 @@ import java.util.*;
  */
 public class BoggleGame {
 
-
-    int score;
     Dictionary dict;
 
     private final int minBoardSize = 4; // a boggle board's minimum and maximum sizes.
