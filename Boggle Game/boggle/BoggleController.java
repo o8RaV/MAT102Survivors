@@ -1,5 +1,6 @@
 package boggle;
 
+import Memento.src.Caretaker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import views.BoggleView;
@@ -41,6 +42,8 @@ public class BoggleController {
         boggleView.addSubmitHandler(new handleSubmit());
         boggleView.addNewGameHandler(new handleNewGame());
         boggleView.addEndRoundHandler(new handleEndRound());
+        boggleView.addLoadGameHandler(new handleLoadGame());
+        boggleView.addSaveGameHandler(new handleSaveGame());
     }
 
     public class handleBoardSelect implements EventHandler<ActionEvent> {
@@ -119,6 +122,19 @@ public class BoggleController {
 
         }
     }
+    public class handleSaveGame implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+
+        }
+    }
+    public class handleLoadGame implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+
+        }
+    }
+
     }
 
 
