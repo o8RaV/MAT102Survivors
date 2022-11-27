@@ -57,6 +57,10 @@ public class BoggleView {
     private HashMap<Button, int[]> allButtons = new HashMap<>(); // list that contains all the buttons in a boggle board
 
     Button submitButton = new Button("Submit"); // button that allows user to submit a word
+
+    Button SaveButton = new Button("Save Game"); //button to save the game
+
+    Button LoadButton = new Button("Load Game"); // button to load an old game.
     
     Label scoreDisplay = new Label(); // displays the current score
 
@@ -108,8 +112,14 @@ public class BoggleView {
         // construct menu bar at the top
         MenuBar menuBar = new MenuBar();
         Menu newGame = new Menu();
+        Menu SaveGame = new Menu();
+        Menu LoadGame = new Menu();
+        SaveGame.setGraphic(SaveButton);
         newGame.setGraphic(newGameButton);
+        LoadGame.setGraphic(LoadButton);
         menuBar.getMenus().add(newGame);
+        menuBar.getMenus().add(SaveGame);
+        menuBar.getMenus().add(LoadGame);
 
         // forms the sidebar
         VBox sidebar = initSidebar();
@@ -266,7 +276,7 @@ public class BoggleView {
 
         Font textFont = Font.font("Arial", 16);
         Text gridSizeText = new Text(
-                "Please select what size boggle board you'd like to play on.");
+                "Please select what boggle board you'd like to play on.");
         gridSizeText.setFont(textFont);
 
         // groups the grid size toggles together
@@ -279,11 +289,11 @@ public class BoggleView {
             String currentGridSize = Integer.toString(i + minBoardSize);
             gridSizes[i] = currentGridSize + "x" + currentGridSize + " Grid";
         }
-
         HBox gridBox = radioHBoxMaker(gridSizes, boardSizeGroup);
         VBox sizeSelection = new VBox(gridSizeText, gridBox);
         sizeSelection.setSpacing(15);
         selectionPane.getChildren().add(sizeSelection);
+        selectionPane.getChildren().add(LoadButton);
 
 
         Text typeText = new Text(
@@ -492,6 +502,14 @@ public class BoggleView {
 
     public void addNewGameHandler (EventHandler<ActionEvent> handler) {
         newGameButton.setOnAction(handler);
+    }
+
+    public void addLoadGameHandler (EventHandler<ActionEvent> handler) {
+        LoadButton.setOnAction(handler);
+    }
+
+    public void addSaveGameHandler (EventHandler<ActionEvent> handler) {
+        SaveButton.setOnAction(handler);
     }
 
     public void addEndRoundHandler (EventHandler<ActionEvent> handler) {

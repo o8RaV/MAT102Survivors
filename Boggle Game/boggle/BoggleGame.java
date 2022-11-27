@@ -1,16 +1,16 @@
 package boggle;
 import Memento.src.*;
-import views.BoggleView;
-
-import java.io.IOException;
 import java.util.*;
 
 /**
  * The BoggleGame class for the first Assignment in CSC207, Fall 2022
  */
 public class BoggleGame {
+
+
     int score;
     Dictionary dict;
+    private List state = new ArrayList();
 
     private final int minBoardSize = 4; // a boggle board's minimum and maximum sizes.
 
@@ -27,8 +27,7 @@ public class BoggleGame {
     private BoggleStats gameStats;
 
     private HashMap<String, ArrayList<Position>> allWords;
-
-    public String boggleboard;
+    private String boggleboard;
 
     /**
      * dice used to randomize letter assignments for a small grid
@@ -43,9 +42,15 @@ public class BoggleGame {
             {"AAAFRS", "AAEEEE", "AAFIRS", "ADENNN", "AEEEEM", "AEEGMU", "AEGMNN", "AFIRSY",
                     "BJKQXZ", "CCNSTW", "CEIILT", "CEILPT", "CEIPST", "DDLNOR", "DDHNOT", "DHHLOR",
                     "DHLNOR", "EIIITT", "EMOTTT", "ENSSSU", "FIPRSY", "GORRVW", "HIPRRY", "NOOTUW", "OOOTTU"};
-
-
-    /*
+    /**
+     * dice used to randomize letter assignments for a massive grid
+     */
+    private final String[] dice_massive_grid = {"AAAFRS", "AAEEEE", "AAEEOO", "AAFIRS", "ABDEIO", "ADENNN",
+            "AEEEEM", "AEEGMU", "AEGMNN", "AEILMN", "AEINOU", "AFIRSY", "AEHIQT", "BBJKXZ", "CCENST",
+            "CDDLNN", "CEIITT", "CEIPST", "CFGNUY", "DDHNOT", "DHHLOR", "DHHNOW", "DHLNOR", "EHILRS",
+            "EIILST", "EILPST", "EIOAUA", "EMTTTO", "ENSSSU", "GORRVW", "HIRSTV", "HOPRST", "IPRSYY",
+            "JKQWXZ", "NOOTUW","OOOTTU"};
+    /**
      * BoggleGame constructor
      */
     public BoggleGame() {
@@ -79,12 +84,18 @@ public class BoggleGame {
                 int n = (int) (Math.random() * 6 + 1) - 1;
                 random.add(j.charAt(n));
             }
+        } else if (size == 6) {
+            for (String j : dice_massive_grid) {
+                int n = (int) (Math.random() * 6 + 1) - 1;
+                random.add(j.charAt(n));
+            }
         }
         Collections.shuffle(random);
         String ans = "";
         for (char i: random) {
             ans += i;
         }
+        boggleboard = ans;
         return ans;
     }
 
@@ -206,13 +217,7 @@ public class BoggleGame {
         this.findAllWords(allWords, dict, grid);
     }
 
-    public void playsaved(String name) throws IOException {
-        Memento i = Caretaker.get(name);
-        List temp = i.getState();
-        gameStats = (BoggleStats) temp.get(0);
-        boggleboard = (String) temp.get(1);
 
-    }
     public BoggleStats getGameStats() {
         return gameStats;
     }
@@ -224,5 +229,10 @@ public class BoggleGame {
     public int getMaxBoardSize() {
         return maxBoardSize;
     }
-
+    public Memento getaMemento(String name){
+        return new Memento(gameStats, boggleboard);
+    }
+    public void getstatefrommemento(Memento memento) {
+        this.state =  memento.getState();
+    }
 }

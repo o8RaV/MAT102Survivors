@@ -3,25 +3,25 @@ package Memento.src;
 import java.io.*;
 
 public class Caretaker {
-    private final File saved = new File("./saved/");
-    public File getfile(){
+    private static final File saved = new File("./saved/");
+    public static File getfile(){
         return saved;
     }
-    public void save(String name, Memento memento){
+    public static void save(String filename, Memento mementotosave){
         try {
-            FileOutputStream fout = new FileOutputStream("./saved/"+name);
+            FileOutputStream fout = new FileOutputStream("./saved/"+filename);
             ObjectOutputStream oos = new ObjectOutputStream(fout);
-            oos.writeObject(memento);
+            oos.writeObject(mementotosave);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public Memento get(String name) throws IOException {
+    public static Memento get(String filename) throws IOException {
         FileInputStream file = null;
         ObjectInputStream in = null;
         try {
-            file = new FileInputStream("./saved/"+name);
+            file = new FileInputStream("./saved/"+filename);
             in = new ObjectInputStream(file);
             return (Memento) in.readObject();
         } catch (IOException | ClassNotFoundException e) {

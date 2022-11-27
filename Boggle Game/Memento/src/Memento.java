@@ -8,9 +8,8 @@ import boggle.*;
 public class Memento implements Serializable {
     private List state;
 
-    public Memento(String name, String boggleboard, BoggleStats boggleStats){
-        List state = new ArrayList(Arrays.asList(name, boggleboard, boggleStats));
-        this.state = state;
+    public Memento(BoggleStats Bogglestats, String Boggleboard){
+        this.state = new ArrayList(Arrays.asList(Bogglestats, Boggleboard));
     }
 
     public List getState(){
