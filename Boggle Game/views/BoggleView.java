@@ -1,5 +1,8 @@
 package views;
 
+import Memento.src.Caretaker;
+import Memento.src.Memento;
+import boggle.BoggleGame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -20,15 +23,15 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  *  displays the main game window, where the user selects a boggle board and plays boggle.
  */
 public class BoggleView {
-
     private final int windowMinWidth = 700; // sets the window's minimum width and height
     private final int windowMinHeight = 500;
 
@@ -63,6 +66,8 @@ public class BoggleView {
 
     ScrollPane roundFacts = new ScrollPane();
 
+    String name;
+    String savename;
 
     boolean gameOn;
 
@@ -524,4 +529,148 @@ public class BoggleView {
         return gameInputDisplay.getText();
     }
 
+    public List LoadView(){
+        Label selectBoardLabel = new Label(String.format("Currently playing: Default Board"));
+        ListView boardsList = new ListView<>(); //list of boggle.boards
+        Button customBack = new Button("Back");
+        customBack.setOnAction(e -> displayScene(boardSMaker()));
+
+        BorderPane bottomPanel = new BorderPane();
+        bottomPanel.setPadding(new Insets(defaultPadding));
+
+        setDefaultSize(customBack);
+        bottomPanel.setLeft(customBack);
+
+        selectBoardLabel.setId("CurrentBoard"); // DO NOT MODIFY ID
+
+        boardsList.setId("BoardsList");  // DO NOT MODIFY ID
+        boardsList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        getFiles(boardsList); //get files for file selector
+
+        Button selectBoardButton = new Button("Change board");
+        selectBoardButton.setId("ChangeBoard"); // DO NOT MODIFY ID
+
+        //on selection, do somethine
+        selectBoardButton.setOnAction(e -> {
+            try {
+                name = selectBoard(selectBoardLabel, boardsList);
+                String board = (String) Caretaker.get(name).getState().get(1);
+                displayScene(playSMaker((int) Math.sqrt(board.length()), board));
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        VBox selectBoardBox = new VBox(10, selectBoardLabel, boardsList, selectBoardButton);
+        BorderPane LoadPane = new BorderPane();
+        // Default styles which can be modified
+        boardsList.setPrefHeight(100);
+
+        selectBoardLabel.setStyle("-fx-text-fill: #e8e6e3");
+        selectBoardLabel.setFont(new Font(16));
+
+        selectBoardButton.setStyle("-fx-background-color: #17871b; -fx-text-fill: white;");
+        selectBoardButton.setPrefSize(200, 50);
+        selectBoardButton.setFont(new Font(16));
+
+        selectBoardBox.setAlignment(Pos.CENTER);
+        // padding on top and bottom + prefHeight
+        bottomPanel.setPrefHeight(defButtonHeight + bottomPanel.getPadding().getBottom()*2);
+        LoadPane.setBottom(bottomPanel);
+        LoadPane.setTop(selectBoardBox);
+        return new ArrayList<>(Arrays.asList(LoadPane, name));
+    }
+
+    /**
+     * Populate the listView with all the .SER files in the boards directory
+     *
+     * @param listView ListView to update
+     * @return the index in the listView of Stater.ser
+     */
+    private void getFiles(ListView<String> listView) {
+        File temp = new File("./saved/");
+        String[] b = temp.list();
+        for (String i : b) {
+            if (i.regionMatches(true, i.length() - 4, ".bbg", 0, 4))
+                listView.getItems().add(i);
+        }
+    }
+
+    /**
+     * Select and load the board file selected in the boardsList and update selectBoardLabel with the name of the new Board file
+     *
+     * @param selectBoardLabel a message Label to update which board is currently selected
+     * @param boardsList       a ListView populated with tetris.boards to load
+     */
+    private String selectBoard(Label selectBoardLabel, ListView<String> boardsList) throws IOException {
+        try {
+            String name = boardsList.getSelectionModel().getSelectedItem();
+            selectBoardLabel.setText("Currently playing: " + name);
+            return name;
+        } catch (Exception IOException) {
+            throw IOException;
+        }
+    }
+
+    public List SaveView(){
+        BorderPane bottomPanel = new BorderPane();
+        bottomPanel.setPadding(new Insets(defaultPadding));
+        String saveFileSuccess = "Saved board!!";
+        String saveFileExistsError = "Error: File already exists";
+        String saveFileNotSerError = "Error: File must end with .bbg";
+        Label saveFileErrorLabel = new Label("");
+        Label saveBoardLabel = new Label(String.format("Enter name of file to save"));
+        TextField saveFileNameTextField = new TextField("");
+        Button saveBoardButton = new Button("Save board");
+        VBox dialogVbox = new VBox(20);
+        dialogVbox.setPadding(new Insets(20, 20, 20, 20));
+        dialogVbox.setStyle("-fx-background-color: #121212;");
+
+        saveBoardLabel.setId("SaveBoard"); // DO NOT MODIFY ID
+        saveFileErrorLabel.setId("SaveFileErrorLabel");
+        saveFileNameTextField.setId("SaveFileNameTextField");
+        saveBoardLabel.setStyle("-fx-text-fill: #e8e6e3;");
+        saveBoardLabel.setFont(new Font(16));
+        saveFileErrorLabel.setStyle("-fx-text-fill: #e8e6e3;");
+        saveFileErrorLabel.setFont(new Font(16));
+        saveFileNameTextField.setStyle("-fx-text-fill: #e8e6e3;");
+        saveFileNameTextField.setFont(new Font(16));
+
+        String boardName = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + ".bbg";
+        saveFileNameTextField.setText(boardName);
+
+        saveBoardButton = new Button("Save board");
+        saveBoardButton.setId("SaveBoard"); // DO NOT MODIFY ID
+        saveBoardButton.setStyle("-fx-background-color: #17871b; -fx-text-fill: #000000;");
+        saveBoardButton.setPrefSize(200, 50);
+        saveBoardButton.setFont(new Font(16));
+        saveBoardButton.setOnAction(e -> {
+            savename = saveFileNameTextField.getText();
+            File temp = new File("./saved/" + savename);
+            if(!savename.regionMatches(true, savename.length() - 4,".bbg",0,4)
+                    || savename.contains("\\") || savename.contains("/") || savename.contains(":") || savename.contains("|")
+                    || savename.contains("*") || savename.contains("?") || savename.contains("\"") || savename.contains("<")
+                    || savename.contains(">"))
+                saveFileErrorLabel.setText(saveFileNotSerError);
+            else if(temp.exists())
+                saveFileErrorLabel.setText(saveFileExistsError);
+            else {
+                saveFileErrorLabel.setText(saveFileSuccess);
+                try {
+                    String saved = (String) Caretaker.get(savename).getState().get(1);
+//                    displayScene(playSMaker((int) Math.sqrt(saved.length()), saved));
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+
+        VBox saveBoardBox = new VBox(10, saveBoardLabel, saveFileNameTextField, saveBoardButton, saveFileErrorLabel);
+        dialogVbox.getChildren().add(saveBoardBox);
+        BorderPane SavePane = new BorderPane();
+        SavePane.setBottom(bottomPanel);
+        SavePane.setTop(saveBoardBox);
+        return new ArrayList(Arrays.asList(SavePane, savename));
+    }
 }

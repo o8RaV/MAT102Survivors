@@ -1,13 +1,14 @@
 package boggle;
+import Memento.src.*;
+import views.BoggleView;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
  * The BoggleGame class for the first Assignment in CSC207, Fall 2022
  */
 public class BoggleGame {
-
-
     int score;
     Dictionary dict;
 
@@ -26,6 +27,8 @@ public class BoggleGame {
     private BoggleStats gameStats;
 
     private HashMap<String, ArrayList<Position>> allWords;
+
+    public String boggleboard;
 
     /**
      * dice used to randomize letter assignments for a small grid
@@ -203,7 +206,13 @@ public class BoggleGame {
         this.findAllWords(allWords, dict, grid);
     }
 
+    public void playsaved(String name) throws IOException {
+        Memento i = Caretaker.get(name);
+        List temp = i.getState();
+        gameStats = (BoggleStats) temp.get(0);
+        boggleboard = (String) temp.get(1);
 
+    }
     public BoggleStats getGameStats() {
         return gameStats;
     }
