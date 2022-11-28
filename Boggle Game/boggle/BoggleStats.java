@@ -87,6 +87,7 @@ public class BoggleStats {
             this.playerWords.add(word);
             if (word.length() >= 4) {
                 this.pScore += word.length() - 3;
+
             }
         } else if (Player.Computer == player) {
             this.computerWords.add(word);
@@ -121,23 +122,27 @@ public class BoggleStats {
      * Each number of words each player found this round.
      * Each player's score this round.
      */
-    public void summarizeRound() {
+    public String summarizeRound() {
+        String summary = "";
         String s = "";
         if(!this.playerWords.isEmpty())
             for (String i: this.playerWords)
                 s += ", " + i;
 
-        System.out.println("The Human's score this round : " + this.pScore);
-        System.out.println("The total number of words that the Human found : " + this.playerWords.size());
-        System.out.println("The words that the Human found : " + s + "\n\n");
+        summary += "The Human's score this round : " + this.pScore
+                + "\nThe total number of words that the Human found : " + this.playerWords.size()
+                + "\nThe words that the Human found : " + s + "\n\n";
+
         String t = "";
         if (!this.computerWords.isEmpty())
             for (String j: this.computerWords)
                 t += ", " + j;
 
-        System.out.println("The Computer's score this round is " + this.cScore);
-        System.out.println("The total number of words that the Computer found : " + this.computerWords.size());
-        System.out.println("The words that the Computer found : " + t);
+        summary += "The Computer's score this round is " + this.cScore
+                + "\nThe total number of words that the Computer found : " + this.computerWords.size()
+                + "\nThe words that the Computer found : " + t;
+
+        return summary;
     }
 
     /*
