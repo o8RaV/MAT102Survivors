@@ -1,6 +1,5 @@
 package views;
 
-import boggle.BoggleGrid;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -554,8 +553,20 @@ public class BoggleView {
         return ((RadioButton) textReaderGroup.getSelectedToggle()).getText().toLowerCase();
     }
 
+    public boolean getTextReaderBoolean() {
+        return textReaderEnabled;
+    }
+
     public void changeTextReaderOption(boolean bool) {
         textReaderEnabled = bool;
+    }
+
+    public void runTextReader(Character c) { //helper method for text reader testing
+        textReader(c);
+    }
+
+    public MediaPlayer getMediaPlayer() { //getter method for mediaPlayer
+        return mediaPlayer;
     }
 
     public int getBoardSize () {
