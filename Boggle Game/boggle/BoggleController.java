@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import views.BoggleView;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -48,6 +49,8 @@ public class BoggleController {
         boggleView.addEndRoundHandler(new handleEndRound());
         boggleView.addLoadGameHandler(new handleLoadGame());
         boggleView.addSaveGameHandler(new handleSaveGame());
+        boggleView.addsaveboardhandler(new HandleSaveBoard());
+        boggleView.addchangeboardhandler(new HandleChangeBoard());
     }
 
     public class handleBoardSelect implements EventHandler<ActionEvent> {
@@ -131,28 +134,41 @@ public class BoggleController {
         public void handle(ActionEvent actionEvent) {
             int boardSize = boggleView.getBoardSize();
             boggleView.displayScene(boggleView.SaveView());
-            if (boggleView.savename != null){
-                Caretaker.save(boggleView.savename, boggleGame.getaMemento(boggleView.savename));
-            }
+        }
+    }
+
+    public class HandleSaveBoard implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+//            if(!boggleView.getsaveFileNameTextField().regionMatches(true, boggleView.getsaveFileNameTextField().length() - 4,".bbg",0,4)
+//                    || boggleView.getsaveFileNameTextField().contains("\\") || boggleView.getsaveFileNameTextField().contains("/") || boggleView.getsaveFileNameTextField().contains(":") || boggleView.getsaveFileNameTextField().contains("|")
+//                    || boggleView.getsaveFileNameTextField().contains("*") || boggleView.getsaveFileNameTextField().contains("?") || boggleView.getsaveFileNameTextField().contains("\"") || boggleView.getsaveFileNameTextField().contains("<")
+//                    || boggleView.getsaveFileNameTextField().contains(">")){
+//            }
+            Caretaker.save(boggleView.getsaveFileNameTextField(), boggleGame.getaMemento(boggleView.getsaveFileNameTextField()));
         }
     }
     public class handleLoadGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-            int boardSize = boggleView.getBoardSize();
             boggleView.displayScene(boggleView.LoadView());
-            if (boggleView.loadname != null){
-                try {
-                    List loaded = Caretaker.get(boggleView.loadname).getState();
-                    boggleGame.gameStats = (BoggleStats) loaded.get(1);
-                    boggleView.displayScene(boggleView.playSMaker(boardSize, (String) loaded.get(0)));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+        }
+    }
+    public class HandleChangeBoard implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            int boardSize = boggleView.getBoardSize();
+            String name = boggleView.boardsList.getSelectionModel().toString();
+            List loaded = null;
+            try {
+                loaded = Caretaker.get(name).getState();
+                boggleGame.gameStats = (BoggleStats) loaded.get(1);
+                boggleView.displayScene(boggleView.playSMaker(boardSize, (String) loaded.get(0)));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }
-
-    }
+}
 
 

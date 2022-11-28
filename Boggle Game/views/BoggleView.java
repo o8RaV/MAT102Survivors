@@ -42,7 +42,13 @@ public class BoggleView {
     private final int windowMinHeight = 500;
 
     TextField cusLettersField; // textfield that allows user to input custom set of letters
+
+    TextField saveFileNameTextField; // textfield that allows user to input name of they want o save the board by
     Button boardSCont = new Button("Continue"); // continue button in the board select scene
+
+    Button saveBoardButton = new Button("Save This!");
+    Button selectBoardButton = new Button("Change board");
+    public ListView boardsList = new ListView<>(); //list of boggle.boards
 
     Button cusCont = new Button("Continue"); // continue button in the custom letter input scene.
     private Stage primaryStage; // the main game window
@@ -79,8 +85,6 @@ public class BoggleView {
     ScrollPane roundFacts = new ScrollPane();
 
     public String loadname;
-    public String savename;
-
     boolean gameOn;
 
     boolean textReaderEnabled;
@@ -553,6 +557,14 @@ public class BoggleView {
         SaveButton.setOnAction(handler);
     }
 
+    public void addsaveboardhandler (EventHandler<ActionEvent> handler) {
+        saveBoardButton.setOnAction(handler);
+    }
+
+    public void addchangeboardhandler (EventHandler<ActionEvent> handler) {
+        selectBoardButton.setOnAction(handler);
+    }
+
     public void addEndRoundHandler (EventHandler<ActionEvent> handler) {
         endRoundButton.setOnAction(handler);
     }
@@ -600,13 +612,16 @@ public class BoggleView {
         return cusLettersField.getText();
     }
 
+    public String getsaveFileNameTextField() {
+        return saveFileNameTextField.getText();
+    }
+
     public String getGameInputDisplay() {
         return gameInputDisplay.getText();
     }
 
     public Pane LoadView(){
         Label selectBoardLabel = new Label(String.format("Currently playing: Default Board"));
-        ListView boardsList = new ListView<>(); //list of boggle.boards
         Button customBack = new Button("Back");
         customBack.setOnAction(e -> displayScene(boardSMaker()));
 
@@ -623,17 +638,9 @@ public class BoggleView {
 
         getFiles(boardsList); //get files for file selector
 
-        Button selectBoardButton = new Button("Change board");
+
         selectBoardButton.setId("ChangeBoard"); // DO NOT MODIFY ID
 
-        //on selection, do somethine
-        selectBoardButton.setOnAction(e -> {
-            try {
-                loadname = selectBoard(selectBoardLabel, boardsList);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
 
         VBox selectBoardBox = new VBox(10, selectBoardLabel, boardsList, selectBoardButton);
         BorderPane LoadPane = new BorderPane();
@@ -670,22 +677,6 @@ public class BoggleView {
         }
     }
 
-    /**
-     * Select and load the board file selected in the boardsList and update selectBoardLabel with the name of the new Board file
-     *
-     * @param selectBoardLabel a message Label to update which board is currently selected
-     * @param boardsList       a ListView populated with tetris.boards to load
-     */
-    private String selectBoard(Label selectBoardLabel, ListView<String> boardsList) throws IOException {
-        try {
-            String name = boardsList.getSelectionModel().getSelectedItem();
-            selectBoardLabel.setText("Currently playing: " + name);
-            return name;
-        } catch (Exception IOException) {
-            throw IOException;
-        }
-    }
-
     public Pane SaveView(){
         BorderPane bottomPanel = new BorderPane();
         bottomPanel.setPadding(new Insets(defaultPadding));
@@ -694,8 +685,7 @@ public class BoggleView {
         String saveFileNotSerError = "Error: File must end with .bbg";
         Label saveFileErrorLabel = new Label("");
         Label saveBoardLabel = new Label(String.format("Enter name of file to save"));
-        TextField saveFileNameTextField = new TextField("");
-        Button saveBoardButton = new Button("Save board");
+        saveFileNameTextField = new TextField("");
         VBox dialogVbox = new VBox(20);
         dialogVbox.setPadding(new Insets(20, 20, 20, 20));
         dialogVbox.setStyle("-fx-background-color: #121212;");
@@ -713,26 +703,10 @@ public class BoggleView {
         String boardName = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + ".bbg";
         saveFileNameTextField.setText(boardName);
 
-        saveBoardButton = new Button("Save board");
         saveBoardButton.setId("SaveBoard"); // DO NOT MODIFY ID
         saveBoardButton.setStyle("-fx-background-color: #17871b; -fx-text-fill: #000000;");
         saveBoardButton.setPrefSize(200, 50);
         saveBoardButton.setFont(new Font(16));
-        saveBoardButton.setOnAction(e -> {
-            savename = saveFileNameTextField.getText();
-            File temp = new File("./saved/" + savename);
-            if(!savename.regionMatches(true, savename.length() - 4,".bbg",0,4)
-                    || savename.contains("\\") || savename.contains("/") || savename.contains(":") || savename.contains("|")
-                    || savename.contains("*") || savename.contains("?") || savename.contains("\"") || savename.contains("<")
-                    || savename.contains(">"))
-                saveFileErrorLabel.setText(saveFileNotSerError);
-            else if(temp.exists())
-                saveFileErrorLabel.setText(saveFileExistsError);
-            else {
-                saveFileErrorLabel.setText(saveFileSuccess);
-                savename = saveFileNameTextField.getText();
-            }
-        });
 
         VBox saveBoardBox = new VBox(10, saveBoardLabel, saveFileNameTextField, saveBoardButton, saveFileErrorLabel);
         dialogVbox.getChildren().add(saveBoardBox);
@@ -741,4 +715,5 @@ public class BoggleView {
         SavePane.setTop(saveBoardBox);
         return SavePane;
     }
+
 }
