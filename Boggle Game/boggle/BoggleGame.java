@@ -21,7 +21,7 @@ public class BoggleGame {
     /**
      * stores game statistics
      */
-    private BoggleStats gameStats;
+    public BoggleStats gameStats;
 
     private HashMap<String, ArrayList<Position>> allWords;
 
@@ -213,11 +213,20 @@ public class BoggleGame {
     }
 
 
+
     /**
      * gets the HashMap allWords. method used for testing
      * @return allWords
      */
      public HashMap<String, ArrayList<Position>> getAllWords() {return allWords;}
 
+
+    public Memento getaMemento(String name){
+        return new Memento(gameStats, boggleboard);
+    }
+    public List getstatefrommemento(Memento memento) {
+        return memento.getState();
+    }
+    public void changegamestats(BoggleStats gameStats){this.gameStats = gameStats;}
 }
 

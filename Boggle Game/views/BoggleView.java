@@ -1,5 +1,9 @@
 package views;
 
+import Memento.src.Caretaker;
+import Memento.src.Memento;
+import boggle.BoggleGame;
+import boggle.BoggleStats;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -12,6 +16,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -20,6 +26,10 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,18 +38,25 @@ import java.util.List;
  *  displays the main game window, where the user selects a boggle board and plays boggle.
  */
 public class BoggleView {
-
     private final int windowMinWidth = 700; // sets the window's minimum width and height
     private final int windowMinHeight = 500;
 
     TextField cusLettersField; // textfield that allows user to input custom set of letters
+
+    TextField saveFileNameTextField; // textfield that allows user to input name of they want o save the board by
     Button boardSCont = new Button("Continue"); // continue button in the board select scene
+
+    Button saveBoardButton = new Button("Save This!");
+    Button selectBoardButton = new Button("Change board");
+    public ListView boardsList = new ListView<>(); //list of boggle.boards
 
     Button cusCont = new Button("Continue"); // continue button in the custom letter input scene.
     private Stage primaryStage; // the main game window
     ToggleGroup boardSizeGroup; // toggle group housing the grid sizes toggles (radio buttons)
 
     ToggleGroup boardTypeGroup; // toggle group housing the board type toggles
+
+    ToggleGroup textReaderGroup; //toggle group housing whether the text reader is on or off
 
     private int minBoardSize; // a boggle board's minimum and maximum sizes, set by BoggleGame
     private int maxBoardSize;
@@ -67,9 +84,14 @@ public class BoggleView {
 
     ScrollPane roundFacts = new ScrollPane();
 
-
+    public String loadname;
     boolean gameOn;
 
+    boolean textReaderEnabled;
+
+    MediaPlayer mediaPlayer;
+
+    Media media;
 
     /**
      * Constructor
@@ -181,12 +203,27 @@ public class BoggleView {
                         addBoggleInput(selectedButton.getText().charAt(0));
                         selectedButton.setBackground(Background.fill(Color.GOLD));
                         selectedButtons.add(selectedButton);
+                        textReader(selectedButton.getText().charAt(0)); //plays the audio for that letter
                     }
 
                 });
                 buttonsPane.add(letterButton, x, y);
                 index++;
             }
+        }
+    }
+
+    /**
+     * This method allows the program to read aloud the sound of the letter that corresponds to parameter c
+     * (iff textReaderEnabled is set to true).
+     * @param c The letter to be read by text to speech
+     */
+    private void textReader(Character c) {
+        if (textReaderEnabled) {
+            String file_name = "./audiofiles/" + Character.toUpperCase(c) + ".mp3";
+            media = new Media(new File(file_name).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.play();
         }
     }
 
@@ -302,6 +339,21 @@ public class BoggleView {
         VBox typeSelection = new VBox(typeText, typesBox);
         typeSelection.setSpacing(15);
         selectionPane.getChildren().add(typeSelection);
+        selectionPane.setSpacing(50);
+        selectionPane.setPadding(new Insets(40, 0, 0, 0));
+
+        //selection for text reader
+        Text textReaderText = new Text(
+                "Do you want to play with a text reader?");
+        textReaderText.setFont(textFont);
+
+        textReaderGroup = new ToggleGroup();
+        String[] options = {"Yes", "No"};
+        HBox optionsBox = radioHBoxMaker(options, textReaderGroup);
+
+        VBox optionSelection = new VBox(textReaderText, optionsBox);
+        typeSelection.setSpacing(15);
+        selectionPane.getChildren().add(optionSelection);
         selectionPane.setSpacing(50);
         selectionPane.setPadding(new Insets(40, 0, 0, 0));
 
@@ -457,9 +509,7 @@ public class BoggleView {
         button.setPrefHeight(defButtonHeight);
     }
     
-    public void updateScore (int numScore) {
-        scoreDisplay.setText(Integer.toString(numScore));
-    }
+    public void updateScore (int numScore) {scoreDisplay.setText(Integer.toString(numScore));}
 
     public void clearValues () {
         gameInputDisplay.setText("");
@@ -507,6 +557,14 @@ public class BoggleView {
         SaveButton.setOnAction(handler);
     }
 
+    public void addsaveboardhandler (EventHandler<ActionEvent> handler) {
+        saveBoardButton.setOnAction(handler);
+    }
+
+    public void addchangeboardhandler (EventHandler<ActionEvent> handler) {
+        selectBoardButton.setOnAction(handler);
+    }
+
     public void addEndRoundHandler (EventHandler<ActionEvent> handler) {
         endRoundButton.setOnAction(handler);
     }
@@ -529,6 +587,22 @@ public class BoggleView {
         return ((RadioButton) boardTypeGroup.getSelectedToggle()).getText().toLowerCase();
     }
 
+    public String getTextReaderOption() {
+        return ((RadioButton) textReaderGroup.getSelectedToggle()).getText().toLowerCase();
+    }
+
+    public void changeTextReaderOption(boolean bool) {
+        textReaderEnabled = bool;
+    }
+
+    public void runTextReader(Character c) { //helper method for text reader testing
+        textReader(c);
+    }
+
+    public MediaPlayer getMediaPlayer() { //getter method for mediaPlayer
+        return mediaPlayer;
+    }
+
     public int getBoardSize () {
         return Integer.parseInt(String.valueOf(((RadioButton) boardSizeGroup.getSelectedToggle()).getText().charAt(0)));
 
@@ -538,8 +612,108 @@ public class BoggleView {
         return cusLettersField.getText();
     }
 
+    public String getsaveFileNameTextField() {
+        return saveFileNameTextField.getText();
+    }
+
     public String getGameInputDisplay() {
         return gameInputDisplay.getText();
+    }
+
+    public Pane LoadView(){
+        Label selectBoardLabel = new Label(String.format("Currently playing: Default Board"));
+        Button customBack = new Button("Back");
+        customBack.setOnAction(e -> displayScene(boardSMaker()));
+
+        BorderPane bottomPanel = new BorderPane();
+        bottomPanel.setPadding(new Insets(defaultPadding));
+
+        setDefaultSize(customBack);
+        bottomPanel.setLeft(customBack);
+
+        selectBoardLabel.setId("CurrentBoard"); // DO NOT MODIFY ID
+
+        boardsList.setId("BoardsList");  // DO NOT MODIFY ID
+        boardsList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+        getFiles(boardsList); //get files for file selector
+
+
+        selectBoardButton.setId("ChangeBoard"); // DO NOT MODIFY ID
+
+
+        VBox selectBoardBox = new VBox(10, selectBoardLabel, boardsList, selectBoardButton);
+        BorderPane LoadPane = new BorderPane();
+        // Default styles which can be modified
+        boardsList.setPrefHeight(100);
+
+        selectBoardLabel.setStyle("-fx-text-fill: #e8e6e3");
+        selectBoardLabel.setFont(new Font(16));
+
+        selectBoardButton.setStyle("-fx-background-color: #17871b; -fx-text-fill: white;");
+        selectBoardButton.setPrefSize(200, 50);
+        selectBoardButton.setFont(new Font(16));
+
+        selectBoardBox.setAlignment(Pos.CENTER);
+        // padding on top and bottom + prefHeight
+        bottomPanel.setPrefHeight(defButtonHeight + bottomPanel.getPadding().getBottom()*2);
+        LoadPane.setBottom(bottomPanel);
+        LoadPane.setTop(selectBoardBox);
+        return LoadPane;
+    }
+
+    /**
+     * Populate the listView with all the .SER files in the boards directory
+     *
+     * @param listView ListView to update
+     * @return the index in the listView of Stater.ser
+     */
+    private void getFiles(ListView<String> listView) {
+        File temp = new File("./saved/");
+        String[] b = temp.list();
+        for (String i : b) {
+            if (i.regionMatches(true, i.length() - 4, ".bbg", 0, 4))
+                listView.getItems().add(i);
+        }
+    }
+
+    public Pane SaveView(){
+        BorderPane bottomPanel = new BorderPane();
+        bottomPanel.setPadding(new Insets(defaultPadding));
+        String saveFileSuccess = "Saved board!!";
+        String saveFileExistsError = "Error: File already exists";
+        String saveFileNotSerError = "Error: File must end with .bbg";
+        Label saveFileErrorLabel = new Label("");
+        Label saveBoardLabel = new Label(String.format("Enter name of file to save"));
+        saveFileNameTextField = new TextField("");
+        VBox dialogVbox = new VBox(20);
+        dialogVbox.setPadding(new Insets(20, 20, 20, 20));
+        dialogVbox.setStyle("-fx-background-color: #121212;");
+
+        saveBoardLabel.setId("SaveBoard"); // DO NOT MODIFY ID
+        saveFileErrorLabel.setId("SaveFileErrorLabel");
+        saveFileNameTextField.setId("SaveFileNameTextField");
+        saveBoardLabel.setStyle("-fx-text-fill: #e8e6e3;");
+        saveBoardLabel.setFont(new Font(16));
+        saveFileErrorLabel.setStyle("-fx-text-fill: #e8e6e3;");
+        saveFileErrorLabel.setFont(new Font(16));
+        saveFileNameTextField.setStyle("-fx-text-fill: #e8e6e3;");
+        saveFileNameTextField.setFont(new Font(16));
+
+        String boardName = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + ".bbg";
+        saveFileNameTextField.setText(boardName);
+
+        saveBoardButton.setId("SaveBoard"); // DO NOT MODIFY ID
+        saveBoardButton.setStyle("-fx-background-color: #17871b; -fx-text-fill: #000000;");
+        saveBoardButton.setPrefSize(200, 50);
+        saveBoardButton.setFont(new Font(16));
+
+        VBox saveBoardBox = new VBox(10, saveBoardLabel, saveFileNameTextField, saveBoardButton, saveFileErrorLabel);
+        dialogVbox.getChildren().add(saveBoardBox);
+        BorderPane SavePane = new BorderPane();
+        SavePane.setBottom(bottomPanel);
+        SavePane.setTop(saveBoardBox);
+        return SavePane;
     }
 
 }
