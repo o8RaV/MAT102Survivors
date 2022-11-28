@@ -1,6 +1,7 @@
 package boggle;
 
 import java.util.*;
+import Memento.src.*;
 
 /**
  * The BoggleGame class for the first Assignment in CSC207, Fall 2022
@@ -22,6 +23,8 @@ public class BoggleGame {
      * stores game statistics
      */
     public BoggleStats gameStats;
+
+    String boggleboard;
 
     private HashMap<String, ArrayList<Position>> allWords;
 
@@ -85,6 +88,7 @@ public class BoggleGame {
         for (char i: random) {
             ans += i;
         }
+        boggleboard = ans;
         return ans;
     }
 
