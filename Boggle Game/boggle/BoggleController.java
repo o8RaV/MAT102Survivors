@@ -3,7 +3,11 @@ package boggle;
 import Memento.src.Caretaker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.layout.Pane;
 import views.BoggleView;
+
+import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -71,7 +75,6 @@ public class BoggleController {
             else {
                 boggleView.sendCustomAlert();
             }
-
         }
 
         private boolean checkString (String input, int boardSize) {
@@ -126,13 +129,27 @@ public class BoggleController {
     public class handleSaveGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-
+            int boardSize = boggleView.getBoardSize();
+            boggleView.displayScene(boggleView.SaveView());
+            if (boggleView.savename != null){
+                Caretaker.save(boggleView.savename, boggleGame.getaMemento(boggleView.savename));
+            }
         }
     }
     public class handleLoadGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-
+            int boardSize = boggleView.getBoardSize();
+            boggleView.displayScene(boggleView.LoadView());
+            if (boggleView.loadname != null){
+                try {
+                    List loaded = Caretaker.get(boggleView.loadname).getState();
+                    boggleGame.gameStats = (BoggleStats) loaded.get(1);
+                    boggleView.displayScene(boggleView.playSMaker(boardSize, (String) loaded.get(0)));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 

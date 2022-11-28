@@ -24,7 +24,7 @@ public class BoggleGame {
     /**
      * stores game statistics
      */
-    private BoggleStats gameStats;
+    public BoggleStats gameStats;
 
     private HashMap<String, ArrayList<Position>> allWords;
     private String boggleboard;

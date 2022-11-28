@@ -3,6 +3,7 @@ package views;
 import Memento.src.Caretaker;
 import Memento.src.Memento;
 import boggle.BoggleGame;
+import boggle.BoggleStats;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -77,8 +78,8 @@ public class BoggleView {
 
     ScrollPane roundFacts = new ScrollPane();
 
-    String name;
-    String savename;
+    public String loadname;
+    public String savename;
 
     boolean gameOn;
 
@@ -195,10 +196,10 @@ public class BoggleView {
                     Button selectedButton = (Button) e.getSource();
                     // if not already selected, and if it's close enough as per Boggle rules:
                     if (!selectedButtons.contains(selectedButton) && checkProximity(selectedButton) && gameOn) {
-                        textReader(selectedButton.getText().charAt(0)); //plays the audio for that letter
                         addBoggleInput(selectedButton.getText().charAt(0));
                         selectedButton.setBackground(Background.fill(Color.GOLD));
                         selectedButtons.add(selectedButton);
+                        textReader(selectedButton.getText().charAt(0)); //plays the audio for that letter
                     }
 
                 });
@@ -215,7 +216,7 @@ public class BoggleView {
      */
     private void textReader(Character c) {
         if (textReaderEnabled) {
-            String file_name = "audiofiles\\" + Character.toUpperCase(c) + ".mp3";
+            String file_name = "./audiofiles/" + Character.toUpperCase(c) + ".mp3";
             media = new Media(new File(file_name).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.play();
@@ -603,7 +604,7 @@ public class BoggleView {
         return gameInputDisplay.getText();
     }
 
-    public List LoadView(){
+    public Pane LoadView(){
         Label selectBoardLabel = new Label(String.format("Currently playing: Default Board"));
         ListView boardsList = new ListView<>(); //list of boggle.boards
         Button customBack = new Button("Back");
@@ -628,9 +629,7 @@ public class BoggleView {
         //on selection, do somethine
         selectBoardButton.setOnAction(e -> {
             try {
-                name = selectBoard(selectBoardLabel, boardsList);
-                String board = (String) Caretaker.get(name).getState().get(1);
-                displayScene(playSMaker((int) Math.sqrt(board.length()), board));
+                loadname = selectBoard(selectBoardLabel, boardsList);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -653,7 +652,7 @@ public class BoggleView {
         bottomPanel.setPrefHeight(defButtonHeight + bottomPanel.getPadding().getBottom()*2);
         LoadPane.setBottom(bottomPanel);
         LoadPane.setTop(selectBoardBox);
-        return new ArrayList<>(Arrays.asList(LoadPane, name));
+        return LoadPane;
     }
 
     /**
@@ -687,7 +686,7 @@ public class BoggleView {
         }
     }
 
-    public List SaveView(){
+    public Pane SaveView(){
         BorderPane bottomPanel = new BorderPane();
         bottomPanel.setPadding(new Insets(defaultPadding));
         String saveFileSuccess = "Saved board!!";
@@ -731,12 +730,7 @@ public class BoggleView {
                 saveFileErrorLabel.setText(saveFileExistsError);
             else {
                 saveFileErrorLabel.setText(saveFileSuccess);
-                try {
-                    String saved = (String) Caretaker.get(savename).getState().get(1);
-//                    displayScene(playSMaker((int) Math.sqrt(saved.length()), saved));
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                savename = saveFileNameTextField.getText();
             }
         });
 
@@ -745,6 +739,6 @@ public class BoggleView {
         BorderPane SavePane = new BorderPane();
         SavePane.setBottom(bottomPanel);
         SavePane.setTop(saveBoardBox);
-        return new ArrayList(Arrays.asList(SavePane, savename));
+        return SavePane;
     }
 }
