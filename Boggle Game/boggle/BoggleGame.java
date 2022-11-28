@@ -232,7 +232,8 @@ public class BoggleGame {
     public Memento getaMemento(String name){
         return new Memento(gameStats, boggleboard);
     }
-    public void getstatefrommemento(Memento memento) {
-        this.state =  memento.getState();
+    public List getstatefrommemento(Memento memento) {
+        return memento.getState();
     }
+    public void changegamestats(BoggleStats gameStats){this.gameStats = gameStats;}
 }

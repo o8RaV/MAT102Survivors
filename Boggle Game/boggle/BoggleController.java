@@ -1,6 +1,6 @@
 package boggle;
 
-import Memento.src.Caretaker;
+import Memento.src.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
@@ -22,10 +22,11 @@ public class BoggleController {
 
     /**
      * constructor, starts the game application
+     *
      * @param boggleView reference to boggleView, the game's view
      * @param boggleGame reference to boggleGame, the game's model
      */
-    public BoggleController (BoggleView boggleView, BoggleGame boggleGame) {
+    public BoggleController(BoggleView boggleView, BoggleGame boggleGame) {
         this.boggleView = boggleView;
         this.boggleGame = boggleGame;
 
@@ -35,13 +36,13 @@ public class BoggleController {
         addEventHandlers();
     }
 
-    public void constructGame (String letters, int boardSize) {
+    public void constructGame(String letters, int boardSize) {
         boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
         boggleGame.setLetters(letters);
         boggleView.setGameOn(true);
     }
 
-    private void addEventHandlers () {
+    private void addEventHandlers() {
         boggleView.addBoardSHandler(new handleBoardSelect());
         boggleView.addCustomHandler(new handleCustomSelect());
         boggleView.addSubmitHandler(new handleSubmit());
@@ -58,8 +59,7 @@ public class BoggleController {
         public void handle(ActionEvent actionEvent) {
             if (boggleView.getBoardType().equals("custom")) {
                 boggleView.displayScene(boggleView.customSMaker());
-            }
-            else {
+            } else {
                 int boardSize = boggleView.getBoardSize();
                 constructGame(boggleGame.randomizeLetters(boardSize), boardSize);
             }
@@ -72,16 +72,15 @@ public class BoggleController {
         public void handle(ActionEvent actionEvent) {
             int boardSize = boggleView.getBoardSize();
             String inputtedLetters = boggleView.getCusLettersField();
-            if (checkString(inputtedLetters, boardSize)){
+            if (checkString(inputtedLetters, boardSize)) {
                 constructGame(inputtedLetters, boardSize);
-            }
-            else {
+            } else {
                 boggleView.sendCustomAlert();
             }
         }
 
-        private boolean checkString (String input, int boardSize) {
-            for (char c: input.toCharArray()) {
+        private boolean checkString(String input, int boardSize) {
+            for (char c : input.toCharArray()) {
                 if (!Character.isLetter(c)) {
                     return false;
                 }
@@ -125,14 +124,13 @@ public class BoggleController {
                 boggleView.setGameOn(false);
                 boggleView.resetBoard();
             }
-
-
         }
     }
+
     public class handleSaveGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-            int boardSize = boggleView.getBoardSize();
+            boggleView.setGameOn(false);
             boggleView.displayScene(boggleView.SaveView());
         }
     }
@@ -140,35 +138,54 @@ public class BoggleController {
     public class HandleSaveBoard implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-//            if(!boggleView.getsaveFileNameTextField().regionMatches(true, boggleView.getsaveFileNameTextField().length() - 4,".bbg",0,4)
-//                    || boggleView.getsaveFileNameTextField().contains("\\") || boggleView.getsaveFileNameTextField().contains("/") || boggleView.getsaveFileNameTextField().contains(":") || boggleView.getsaveFileNameTextField().contains("|")
-//                    || boggleView.getsaveFileNameTextField().contains("*") || boggleView.getsaveFileNameTextField().contains("?") || boggleView.getsaveFileNameTextField().contains("\"") || boggleView.getsaveFileNameTextField().contains("<")
-//                    || boggleView.getsaveFileNameTextField().contains(">")){
-//            }
-            Caretaker.save(boggleView.getsaveFileNameTextField(), boggleGame.getaMemento(boggleView.getsaveFileNameTextField()));
-        }
-    }
-    public class handleLoadGame implements EventHandler<ActionEvent> {
-        @Override
-        public void handle(ActionEvent actionEvent) {
-            boggleView.displayScene(boggleView.LoadView());
-        }
-    }
-    public class HandleChangeBoard implements EventHandler<ActionEvent> {
-        @Override
-        public void handle(ActionEvent actionEvent) {
-            int boardSize = boggleView.getBoardSize();
-            String name = boggleView.boardsList.getSelectionModel().toString();
+            if(boggleView.getsaveFileNameTextField().endsWith(".bbg")
+                    || !boggleView.getsaveFileNameTextField().contains("\\") || !boggleView.getsaveFileNameTextField().contains("/")
+                    || !boggleView.getsaveFileNameTextField().contains(":") || !boggleView.getsaveFileNameTextField().contains("|")
+                    || !boggleView.getsaveFileNameTextField().contains("*") || !boggleView.getsaveFileNameTextField().contains("?")
+                    || !boggleView.getsaveFileNameTextField().contains("\"") || !boggleView.getsaveFileNameTextField().contains("<")
+                    || !boggleView.getsaveFileNameTextField().contains(">")){
+                Caretaker.save(boggleView.getsaveFileNameTextField(), boggleGame.getaMemento(boggleView.getsaveFileNameTextField()));
+            }
+            String name = boggleView.getsaveFileNameTextField();
             List loaded = null;
             try {
-                loaded = Caretaker.get(name).getState();
-                boggleGame.gameStats = (BoggleStats) loaded.get(1);
-                boggleView.displayScene(boggleView.playSMaker(boardSize, (String) loaded.get(0)));
+                Memento temp = Caretaker.get(name);
+                loaded = boggleGame.getstatefrommemento(temp);
+                boggleGame.changegamestats((BoggleStats) loaded.get(0));
+                String letters = (String) loaded.get(1);
+                int boardSize = (int) Math.sqrt(letters.length());
+                boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            boggleView.setGameOn(true);
+        }
+    }
+
+    public class handleLoadGame implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            boggleView.setGameOn(false);
+            boggleView.displayScene(boggleView.LoadView());
+        }
+    }
+
+    public class HandleChangeBoard implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            String name = (String) boggleView.boardsList.getSelectionModel().getSelectedItem();
+            List loaded = null;
+            try {
+                Memento temp = Caretaker.get(name);
+                loaded = boggleGame.getstatefrommemento(temp);
+                boggleGame.changegamestats((BoggleStats) loaded.get(0));
+                String letters = (String) loaded.get(1);
+                int boardSize = (int) Math.sqrt(letters.length());
+                boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            boggleView.setGameOn(true);
         }
     }
 }
-
-
