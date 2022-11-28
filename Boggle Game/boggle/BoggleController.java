@@ -130,6 +130,7 @@ public class BoggleController {
     public class handleSaveGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
+<<<<<<< Updated upstream
             boggleView.setGameOn(false);
             boggleView.displayScene(boggleView.SaveView());
         }
@@ -159,14 +160,21 @@ public class BoggleController {
                 throw new RuntimeException(e);
             }
             boggleView.setGameOn(true);
+=======
+            boggleView.displayScene((Pane) boggleView.SaveView().get(0));
+>>>>>>> Stashed changes
         }
     }
 
     public class handleLoadGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
+<<<<<<< Updated upstream
             boggleView.setGameOn(false);
             boggleView.displayScene(boggleView.LoadView());
+=======
+            boggleView.displayScene((Pane) boggleView.LoadView().get(0));
+>>>>>>> Stashed changes
         }
     }
 
