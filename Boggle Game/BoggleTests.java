@@ -23,14 +23,14 @@ public class BoggleTests {
     @Test
     void findAllWords_small() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         BoggleGame game = new BoggleGame();
-        Method method = game.getClass().getDeclaredMethod("findAllWords", Map.class, Dictionary.class, BoggleGrid.class);
+        Method method = game.getClass().getDeclaredMethod("findAllWords", Dictionary.class, BoggleGrid.class);
         method.setAccessible(true);
 
         Dictionary boggleDict = new Dictionary("wordlist.txt");
-        Map<String, ArrayList<Position>> allWords = new HashMap<>();
         BoggleGrid grid = new BoggleGrid(4);
         grid.initalizeBoard("RHLDNHTGIPHSNMJO");
-        Object r = method.invoke(game, allWords, boggleDict, grid);
+        method.invoke(game, boggleDict, grid);
+        Map<String, ArrayList<Position>> allWords = game.getAllWords();
 
         Set<String> expected = new HashSet<>(Arrays.asList("GHOST", "HOST", "THIN"));
         assertEquals(expected, allWords.keySet());
@@ -70,6 +70,36 @@ public class BoggleTests {
         stats.endRound();
         stats.endRound();
         assertEquals(3, stats.getRound());
+    }
+
+   @Test
+   void repeatedWordTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+       BoggleGame game = new BoggleGame();
+       Method method = game.getClass().getDeclaredMethod("findAllWords", Dictionary.class, BoggleGrid.class);
+       method.setAccessible(true);
+
+       Dictionary boggleDict = new Dictionary("wordlist.txt");
+       Map<String, ArrayList<Position>> allWords = new HashMap<>();
+       BoggleGrid grid = new BoggleGrid(4);
+       grid.initalizeBoard("RHLDNHTGIPHSNMJO");
+       Object r = method.invoke(game, boggleDict, grid);
+
+       game.humanMove("GHOST");
+       game.humanMove("GHOST");
+       assertEquals(game.getGameStats().getScore(), 2);
+   }
+
+    @Test
+    void findAllWords_size() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        BoggleGame game = new BoggleGame();
+
+        Dictionary boggleDict = new Dictionary("wordlist.txt");
+        game.setLetters("heabstualcsetsam");
+        Map<String, ArrayList<Position>> allWords = game.getAllWords();
+
+        game.setLetters("RHLDNHTGIPHSNMJO");
+        allWords = game.getAllWords();
+        assertEquals(3, allWords.size());
     }
 
 }

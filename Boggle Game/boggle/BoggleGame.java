@@ -49,7 +49,12 @@ public class BoggleGame {
         this.dict = new Dictionary("wordlist.txt");
         this.allWords = new HashMap<>();
     }
-
+    public void setLetters(String letters) {
+        BoggleGrid grid  = new BoggleGrid((int) Math.sqrt(letters.length()));
+        grid.initalizeBoard(letters);
+        this.allWords.clear();
+        findAllWords(dict, grid);
+    }
 
     /*
      * This method should return a String of letters (length 16 or 25 depending on the size of the grid).
@@ -112,18 +117,18 @@ public class BoggleGame {
      * @param boggleDict A dictionary of legal words
      * @param boggleGrid A boggle grid, with a letter at each position on the grid
      */
-    public void findAllWords(Map<String, ArrayList<Position>> allWords, Dictionary boggleDict, BoggleGrid boggleGrid) {
+    public void findAllWords(Dictionary boggleDict, BoggleGrid boggleGrid) {
         // Mark all characters as not visited
         // Initialize current string
         // Consider every character and look for all words
         // starting with this character
         for (int i = 0; i <= boggleGrid.numCols(); i++)
             for (int j = 0; j <= boggleGrid.numCols(); j++)
-                findWordsUtil(allWords, boggleDict, boggleGrid, new ArrayList<Position>(), new Position(i, j), "");
+                findWordsUtil(boggleDict, boggleGrid, new ArrayList<Position>(), new Position(i, j), "");
 
     }
 
-    static void findWordsUtil(Map<String, ArrayList<Position>> allWords, Dictionary boggleDict, BoggleGrid boggleGrid, ArrayList<Position> visited, Position pos, String prefix) {
+    private void findWordsUtil(Dictionary boggleDict, BoggleGrid boggleGrid, ArrayList<Position> visited, Position pos, String prefix) {
         int i = pos.getRow(); int j = pos.getCol();
         int length = boggleGrid.numCols();
         if(i >= length || i <0 || j < 0 || j >= length){
@@ -143,10 +148,9 @@ public class BoggleGame {
         }
         for(int k =i-1 ; k <= i+1 ; k++){
             for(int l = j-1 ; l<=j+1 ; l++){
-                findWordsUtil(allWords, boggleDict, boggleGrid, visited, new Position(k, l), prefix);
+                findWordsUtil(boggleDict, boggleGrid, visited, new Position(k, l), prefix);
             }
         }
-        prefix = prefix.substring(0, prefix.length() - 1);
         visited.remove(pos);
     }
 
@@ -195,12 +199,6 @@ public class BoggleGame {
 
     }
 
-    public void setLetters(String letters) {
-        BoggleGrid grid  = new BoggleGrid((int) Math.sqrt(letters.length()));
-        grid.initalizeBoard(letters);
-        this.findAllWords(allWords, dict, grid);
-    }
-
 
     public BoggleStats getGameStats() {
         return gameStats;
@@ -214,4 +212,12 @@ public class BoggleGame {
         return maxBoardSize;
     }
 
+
+    /**
+     * gets the HashMap allWords. method used for testing
+     * @return allWords
+     */
+     public HashMap<String, ArrayList<Position>> getAllWords() {return allWords;}
+
 }
+
