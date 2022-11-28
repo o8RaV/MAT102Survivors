@@ -56,6 +56,7 @@ public class BoggleController {
                 int boardSize = boggleView.getBoardSize();
                 constructGame(boggleGame.randomizeLetters(boardSize), boardSize);
             }
+            boggleView.changeTextReaderOption(boggleView.getTextReaderOption().equals("yes")); // handles whether the player wants to play with a text reader
         }
     }
 

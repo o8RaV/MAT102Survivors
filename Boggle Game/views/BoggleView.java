@@ -15,6 +15,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -27,6 +29,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *  displays the main game window, where the user selects a boggle board and plays boggle.
@@ -43,6 +48,8 @@ public class BoggleView {
     ToggleGroup boardSizeGroup; // toggle group housing the grid sizes toggles (radio buttons)
 
     ToggleGroup boardTypeGroup; // toggle group housing the board type toggles
+
+    ToggleGroup textReaderGroup; //toggle group housing whether the text reader is on or off
 
     private int minBoardSize; // a boggle board's minimum and maximum sizes, set by BoggleGame
     private int maxBoardSize;
@@ -75,6 +82,11 @@ public class BoggleView {
 
     boolean gameOn;
 
+    boolean textReaderEnabled;
+
+    MediaPlayer mediaPlayer;
+
+    Media media;
 
     /**
      * Constructor
@@ -183,6 +195,7 @@ public class BoggleView {
                     Button selectedButton = (Button) e.getSource();
                     // if not already selected, and if it's close enough as per Boggle rules:
                     if (!selectedButtons.contains(selectedButton) && checkProximity(selectedButton) && gameOn) {
+                        textReader(selectedButton.getText().charAt(0)); //plays the audio for that letter
                         addBoggleInput(selectedButton.getText().charAt(0));
                         selectedButton.setBackground(Background.fill(Color.GOLD));
                         selectedButtons.add(selectedButton);
@@ -192,6 +205,20 @@ public class BoggleView {
                 buttonsPane.add(letterButton, x, y);
                 index++;
             }
+        }
+    }
+
+    /**
+     * This method allows the program to read aloud the sound of the letter that corresponds to parameter c
+     * (iff textReaderEnabled is set to true).
+     * @param c The letter to be read by text to speech
+     */
+    private void textReader(Character c) {
+        if (textReaderEnabled) {
+            String file_name = "audiofiles\\" + Character.toUpperCase(c) + ".mp3";
+            media = new Media(new File(file_name).toURI().toString());
+            mediaPlayer = new MediaPlayer(media);
+            mediaPlayer.play();
         }
     }
 
@@ -307,6 +334,21 @@ public class BoggleView {
         VBox typeSelection = new VBox(typeText, typesBox);
         typeSelection.setSpacing(15);
         selectionPane.getChildren().add(typeSelection);
+        selectionPane.setSpacing(50);
+        selectionPane.setPadding(new Insets(40, 0, 0, 0));
+
+        //selection for text reader
+        Text textReaderText = new Text(
+                "Do you want to play with a text reader?");
+        textReaderText.setFont(textFont);
+
+        textReaderGroup = new ToggleGroup();
+        String[] options = {"Yes", "No"};
+        HBox optionsBox = radioHBoxMaker(options, textReaderGroup);
+
+        VBox optionSelection = new VBox(textReaderText, optionsBox);
+        typeSelection.setSpacing(15);
+        selectionPane.getChildren().add(optionSelection);
         selectionPane.setSpacing(50);
         selectionPane.setPadding(new Insets(40, 0, 0, 0));
 
@@ -462,9 +504,7 @@ public class BoggleView {
         button.setPrefHeight(defButtonHeight);
     }
     
-    public void updateScore (int numScore) {
-        scoreDisplay.setText(Integer.toString(numScore));
-    }
+    public void updateScore (int numScore) {scoreDisplay.setText(Integer.toString(numScore));}
 
     public void clearValues () {
         gameInputDisplay.setText("");
@@ -532,6 +572,22 @@ public class BoggleView {
 
     public String getBoardType () {
         return ((RadioButton) boardTypeGroup.getSelectedToggle()).getText().toLowerCase();
+    }
+
+    public String getTextReaderOption() {
+        return ((RadioButton) textReaderGroup.getSelectedToggle()).getText().toLowerCase();
+    }
+
+    public void changeTextReaderOption(boolean bool) {
+        textReaderEnabled = bool;
+    }
+
+    public void runTextReader(Character c) { //helper method for text reader testing
+        textReader(c);
+    }
+
+    public MediaPlayer getMediaPlayer() { //getter method for mediaPlayer
+        return mediaPlayer;
     }
 
     public int getBoardSize () {
