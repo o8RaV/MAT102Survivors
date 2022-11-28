@@ -42,6 +42,11 @@ public class BoggleGame {
                     "BJKQXZ", "CCNSTW", "CEIILT", "CEILPT", "CEIPST", "DDLNOR", "DDHNOT", "DHHLOR",
                     "DHLNOR", "EIIITT", "EMOTTT", "ENSSSU", "FIPRSY", "GORRVW", "HIPRRY", "NOOTUW", "OOOTTU"};
 
+    private final String[] dice_massive_grid = {"AAAFRS", "AAEEEE", "AAEEOO", "AAFIRS", "ABDEIO", "ADENNN",
+            "AEEEEM", "AEEGMU", "AEGMNN", "AEILMN", "AEINOU", "AFIRSY", "AEHIQT", "BBJKXZ", "CCENST",
+            "CDDLNN", "CEIITT", "CEIPST", "CFGNUY", "DDHNOT", "DHHLOR", "DHHNOW", "DHLNOR", "EHILRS",
+            "EIILST", "EILPST", "EIOAUA", "EMTTTO", "ENSSSU", "GORRVW", "HIRSTV", "HOPRST", "IPRSYY",
+            "JKQWXZ", "NOOTUW","OOOTTU"};
 
     /*
      * BoggleGame constructor
@@ -79,6 +84,11 @@ public class BoggleGame {
             }
         } else if (size == 5) {
             for (String j : dice_big_grid) {
+                int n = (int) (Math.random() * 6 + 1) - 1;
+                random.add(j.charAt(n));
+            }
+        } else if (size == 6) {
+            for (String j : dice_massive_grid) {
                 int n = (int) (Math.random() * 6 + 1) - 1;
                 random.add(j.charAt(n));
             }
