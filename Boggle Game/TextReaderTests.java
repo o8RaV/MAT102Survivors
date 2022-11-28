@@ -33,7 +33,7 @@ public class TextReaderTests extends Application {
         view.changeTextReaderOption(false);
         view.runTextReader(c);
         if (view.getMediaPlayer() != null) {
-            return "The test textReader_disabled failed its run. Since the text reader should be disabled, the mediaPlayer attribute in the BoggleView should be null.";
+            return "The test textReader_disabled failed its run. Since the text reader is disabled, the mediaPlayer attribute in the BoggleView should be null.";
         }
         else {
             return "The test textReader_disabled passed its run! You're good to go!";

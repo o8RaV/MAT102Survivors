@@ -553,10 +553,6 @@ public class BoggleView {
         return ((RadioButton) textReaderGroup.getSelectedToggle()).getText().toLowerCase();
     }
 
-    public boolean getTextReaderBoolean() {
-        return textReaderEnabled;
-    }
-
     public void changeTextReaderOption(boolean bool) {
         textReaderEnabled = bool;
     }
