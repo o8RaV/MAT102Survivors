@@ -68,7 +68,6 @@ public class BoggleView {
 
     ScrollPane roundFacts = new ScrollPane();
 
-
     boolean gameOn;
 
     boolean textReaderEnabled;
