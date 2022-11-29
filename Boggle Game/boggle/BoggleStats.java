@@ -1,5 +1,6 @@
 package boggle;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,7 +8,7 @@ import java.util.Set;
  * The BoggleStats class for the first Assignment in CSC207, Fall 2022
  * The BoggleStats will contain statsitics related to game play Boggle 
  */
-public class BoggleStats {
+public class BoggleStats implements Serializable {
 
     /**
      * set of words the player finds in a given round 
@@ -24,7 +25,7 @@ public class BoggleStats {
     /**
      * the computer's score for the current round
      */  
-    private int cScore; 
+    private int cScore;
     /**
      * the player's total score across every round
      */  
@@ -83,7 +84,7 @@ public class BoggleStats {
      * @param player  The player to whom the word was awarded
      */
     public void addWord(String word, Player player) {
-        if (Player.Human == player) {
+        if (Player.Human == player && !this.playerWords.contains(word)) {
             this.playerWords.add(word);
             if (word.length() >= 4) {
                 this.pScore += word.length() - 3;
@@ -124,25 +125,38 @@ public class BoggleStats {
      */
     public String summarizeRound() {
         String summary = "";
-        String s = "";
-        if(!this.playerWords.isEmpty())
-            for (String i: this.playerWords)
-                s += ", " + i;
+        String pWordsString = createWordString(this.playerWords);
 
         summary += "The Human's score this round : " + this.pScore
                 + "\nThe total number of words that the Human found : " + this.playerWords.size()
-                + "\nThe words that the Human found : " + s + "\n\n";
+                + "\nThe words that the Human found : " + pWordsString + "\n\n";
 
-        String t = "";
-        if (!this.computerWords.isEmpty())
-            for (String j: this.computerWords)
-                t += ", " + j;
 
+        String cWordString = createWordString(this.computerWords);
         summary += "The Computer's score this round is " + this.cScore
                 + "\nThe total number of words that the Computer found : " + this.computerWords.size()
-                + "\nThe words that the Computer found : " + t;
+                + "\nThe words that the Computer found : " + cWordString;
 
         return summary;
+    }
+
+    private String createWordString (Set<String> words) {
+        StringBuilder s = new StringBuilder();
+        if(!words.isEmpty()) {
+            boolean first = true;
+            for (String i :  words) {
+                // just so the first word doesn't have a comma before it.
+                if (!first) {
+                    s.append(", ").append(i);
+                }
+                else {
+                    s.append(i);
+                    first = false;
+                }
+            }
+            return s.toString();
+        }
+        return "";
     }
 
     /*
