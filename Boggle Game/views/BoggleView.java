@@ -330,7 +330,7 @@ public class BoggleView {
         HBox optionsBox = radioHBoxMaker(options, textReaderGroup);
 
         VBox optionSelection = new VBox(textReaderText, optionsBox);
-        typeSelection.setSpacing(15);
+        optionSelection.setSpacing(15);
         selectionPane.getChildren().add(optionSelection);
         selectionPane.setSpacing(50);
         selectionPane.setPadding(new Insets(40, 0, 0, 0));
