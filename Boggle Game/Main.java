@@ -26,6 +26,6 @@ public class Main extends Application {
     public void start(Stage gameStage) {
         BoggleView boggleView = new BoggleView(gameStage);
         BoggleGame boggleGame = new BoggleGame();
-        new BoggleController(boggleView, boggleGame);
+        new BoggleController(boggleView, boggleGame).start();
     }
 }

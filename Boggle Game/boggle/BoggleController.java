@@ -32,8 +32,11 @@ public class BoggleController {
 
         this.boggleView.setBoardRange
                 (this.boggleGame.getMinBoardSize(), this.boggleGame.getMaxBoardSize());
-        this.boggleView.startGame();
         addEventHandlers();
+    }
+
+    public void start(){
+        this.boggleView.startGame();
     }
 
     public void constructGame(String letters, int boardSize) {
@@ -42,7 +45,7 @@ public class BoggleController {
         boggleView.setGameOn(true);
     }
 
-    private void addEventHandlers() {
+    public void addEventHandlers() {
         boggleView.addBoardSHandler(new handleBoardSelect());
         boggleView.addCustomHandler(new handleCustomSelect());
         boggleView.addSubmitHandler(new handleSubmit());
