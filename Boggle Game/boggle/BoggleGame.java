@@ -234,9 +234,11 @@ public class BoggleGame {
      */
      public HashMap<String, ArrayList<Position>> getAllWords() {return allWords;}
 
-
+    public void setallwords(HashMap<String, ArrayList<Position>> dict){
+         allWords = dict;
+    }
     public Memento getaMemento(String name){
-        return new Memento(gameStats, boggleboard);
+        return new Memento(gameStats, boggleboard, allWords);
     }
     public List getstatefrommemento(Memento memento) {
         return memento.getState();

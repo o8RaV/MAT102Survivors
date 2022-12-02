@@ -8,6 +8,8 @@ import views.BoggleView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -155,6 +157,7 @@ public class BoggleController {
                 }
                 loaded = boggleGame.getstatefrommemento(temp);
                 boggleGame.changegamestats((BoggleStats) loaded.get(0));
+                boggleGame.setallwords((HashMap<String, ArrayList<Position>>) loaded.get(2));
                 String letters = (String) loaded.get(1);
                 int boardSize = (int) Math.sqrt(letters.length());
                 boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
@@ -183,6 +186,7 @@ public class BoggleController {
                     Memento temp = Caretaker.get(name);
                     loaded = boggleGame.getstatefrommemento(temp);
                     boggleGame.changegamestats((BoggleStats) loaded.get(0));
+                    boggleGame.setallwords((HashMap<String, ArrayList<Position>>) loaded.get(2));
                     String letters = (String) loaded.get(1);
                     int boardSize = (int) Math.sqrt(letters.length());
                     boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
