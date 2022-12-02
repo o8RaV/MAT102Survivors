@@ -31,7 +31,9 @@ public class TutController extends BoggleController{
         this.view.startGame();
     }
 
-
+    /**
+     * Only ends round when all desired words are submitted, moving on to next step of tutorial
+     */
     public class handleEndRound implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -45,12 +47,16 @@ public class TutController extends BoggleController{
                     System.out.println(place);
                     view.startGame(place+1);
                 }else{
+                    //Placeholder, will discuss with Ahmed over weekend
                     System.out.println("Still more to go");
                 }
             }
         }
     }
 
+    /**
+     * Changed to check if the word is from what was instructed to input
+     */
     public class handleSubmit implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {

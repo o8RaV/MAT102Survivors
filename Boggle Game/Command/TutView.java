@@ -3,11 +3,7 @@ package Command;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
-import boggle.*;
 
-import javafx.application.Platform;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -26,8 +22,6 @@ public class TutView extends BoggleView{
 
     private final int windowMinWidth = 700; // sets the window's minimum width and height
     private final int windowMinHeight = 500;
-    private int minBoardSize; // a boggle board's minimum and maximum sizes, set by BoggleGame
-    private int maxBoardSize;
 
     private final int defButtonHeight = 40; // default values to keep uniform look in application
     private final int defButtonWidth = 80;
@@ -61,10 +55,6 @@ public class TutView extends BoggleView{
         tutStage.setHeight(windowMinHeight);
     }
 
-    public void testo(){
-        System.out.println(this.place);
-    }
-
     public void displayScene(Pane pane) {
         tutStage.getScene().setRoot(pane);
         if (!tutStage.isShowing()) {
@@ -72,6 +62,11 @@ public class TutView extends BoggleView{
         }
     }
 
+    /**
+     * Initializes the tutorial by getting the instructions from a text file and inserting them into an array list to
+     * be used later. The uses parameter where to move user to the location of the instructions.
+     * @param where place in instructions
+     */
     public void startGame(int where) {
         File myObj = new File("Tutorial instructions.txt");
         try {
@@ -108,6 +103,11 @@ public class TutView extends BoggleView{
         return bottomBox;
     }
 
+    /**
+     * Displays the instructions on screen or decides when to create a tutorial board
+     * @param input an integer to keep track of which instructions to print
+     * @return a Pane for displaying the screen
+     */
     public Pane instrucSMaker(int input){
         Text instructions = new Text(instructs.get(input));
         instructions.setLineSpacing(5);
@@ -119,24 +119,30 @@ public class TutView extends BoggleView{
         pane.setCenter(instructions);
 
         Button instrucCont = new Button("Continue");
+
+        // Specific input values are checked to know where the user is in the tutorial
         if(input == 2){
+            // Reached the first board with vertical and horizontal example
             ArrayList<String> words = new ArrayList<>();
             words.add("link");
             words.add("risk");
             instrucCont.setOnAction(e -> makeBoard("grnllinkzseiukbm", 4, words));
             pane.setBottom(contHBoxMaker(instrucCont));
         }else if(input == 4){
+            // Reached the diagonal example
             ArrayList<String> words = new ArrayList<>();
             words.add("mega");
             instrucCont.setOnAction(e -> makeBoard("misxaehkndgozvea", 4, words));
             pane.setBottom(contHBoxMaker(instrucCont));
         }else if(input == 6){
+            // Reached the mix of vertical and horizontal example
             ArrayList<String> words = new ArrayList<>();
             words.add("joker");
             instrucCont.setOnAction(e -> makeBoard("jokehzqreouqhaak", 4, words));
             pane.setBottom(contHBoxMaker(instrucCont));
         }
         else if(input != 12){
+            // These are the cases when the text  is displayed and a continue button is there to move to next step
             this.place++;
             instrucCont.setOnAction(e -> screenUpdater(input));
             pane.setBottom(contHBoxMaker(instrucCont));
@@ -146,15 +152,26 @@ public class TutView extends BoggleView{
         return pane;
     }
 
+    /**
+     * Used to create a new board using the overriden classes for use with the Tutorial
+     * @param letters The letters to make the board
+     * @param boardSize dimension of the board
+     * @param a An array list of the Strings that need to be input before the user is done with the board
+     */
     public void makeBoard(String letters, int boardSize, ArrayList<String> a) {
-
+        // Starts a new game with the
         this.game.start(a);
         TutView b = new TutView(tutStage);
         b.place = this.place;
+        // Need to create a TutController for the overridden methods
         TutController test = new TutController(b, game);
         test.constructGame(letters, boardSize);
     }
 
+    /**
+     * Way to keep track of place in tutorial to be used outside of class
+     * @return place in tutorial
+     */
     public int getPlace(){
         return this.place;
     }

@@ -45,7 +45,7 @@ public class BoggleController {
         boggleView.setGameOn(true);
     }
 
-    public void addEventHandlers() {
+    private void addEventHandlers() {
         boggleView.addBoardSHandler(new handleBoardSelect());
         boggleView.addCustomHandler(new handleCustomSelect());
         boggleView.addSubmitHandler(new handleSubmit());

@@ -1,11 +1,7 @@
 package Command;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.*;
-import boggle.*;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import java.util.*;
+
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,8 +12,13 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import views.BoggleView;
 
+
+/**
+ * TO READ
+ * This class and its methods only exist because I was having trouble with setting everything up. May move everything
+ * into view when I have time. Find the descriptions of the methods in Tutview
+ */
 public class TutMain{
 
     /**
@@ -55,12 +56,6 @@ public class TutMain{
         tutStage.setHeight(windowMinHeight);
         this.view = new TutView(tutStage);
         view.startGame(0);
-
-        /*instructs.add("To get you started with the game, this tutorial aims to provide short and precise guidance and interactive opportunities that help you with understanding the game. When you are done reading this and any further instructions, press enter to proceed to the next one.\n");
-        instructs.add("Boggle is a game played on a board of letters; your goal is to construct words using adjacent letters.\n");
-        instructs.add("Let’s look at an example of this. In the example board, input link and risk. These are words that are formed with horizontally placed letters and vertical ones.\n");
-        */
-        //startGame();
     }
 
     public void displayScene(Pane pane) {
@@ -70,26 +65,8 @@ public class TutMain{
         }
     }
 
-    public void startGame() {
-        File myObj = new File("Tutorial instructions.txt");
-        try {
-            Scanner myReader = new Scanner(myObj);
-            while(myReader.hasNextLine()){
-                instructs.add(myReader.nextLine());
-            }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        displayScene(instrucSMaker(0));
-    }
-
     public void screenUpdater(int i){
-        if(i < 3){
-            displayScene(instrucSMaker(i+1));
-        }
-        else if(i == 3){
-            //Create board
-        }
+        displayScene(instrucSMaker(i+1));
     }
 
     private void setDefaultSize (Control button) {
@@ -142,67 +119,5 @@ public class TutMain{
         this.view = new TutView(tutStage);
         TutController test = new TutController(view, game);
         test.constructGame(letters, boardSize);
-    }
-
-
-
-    public void playGame() {
-
-        ArrayList<String> boards = new ArrayList<>();
-        boards.add("grnllinkzseiukbm");
-        boards.add("misxaehkndgozvea");
-        boards.add("jokehzqreouqhaak");
-
-        //Print instructions for board 1
-        ArrayList<String> need1 = new ArrayList<>();
-        need1.add("link");
-        playTutRound(4,boards.get(0), need1);
-
-        //Print instructions for board 2
-        ArrayList<String> need2 = new ArrayList<>();
-        need2.add("mega");
-        playTutRound(4,boards.get(1), need2);
-
-        //Print instructions for board 3
-        ArrayList<String> need3 = new ArrayList<>();
-        need3.add("joker");
-        playTutRound(4,boards.get(2), need3);
-        //Print last instructions
-    }
-
-    public void playTutRound(int size, String letters, ArrayList<String> need) {
-        BoggleGrid grid = new BoggleGrid(size);
-        grid.initalizeBoard(letters);
-        custom_human_move(grid, need);
-    }
-
-    private void custom_human_move(BoggleGrid board, ArrayList<String> a){
-        TutBase tutorial_interface = new TutBase(a);
-        TutOperator operator = new TutOperator();
-        System.out.println("It's your turn to find some words!");
-        while(true) {
-            //You write code here!
-            //step 1. Print the board for the user, so they can scan it for words
-            //step 2. Get a input (a word) from the user via the console
-            //step 3. Check to see if it is valid (note validity checks should be case-insensitive)
-            //step 4. If it's valid, update the player's word list and score (stored in boggleStats)
-            //step 5. Repeat step 1 - 4
-            //step 6. End when the player hits return (with no word choice).
-
-            System.out.println(board.toString());
-            this.scanner = new Scanner(System.in);
-            String toCheck = scanner.nextLine().toUpperCase();
-
-            if (toCheck.equals("")) {
-                operator.operateAll();
-                if(tutorial_interface.all_found()){
-                    break;
-                }else{
-                    System.out.println("There are still more words to be found");
-                }
-            }else{
-                operator.acceptCommand(new InsertCommand(tutorial_interface,toCheck));
-            }
-        }
     }
 }
