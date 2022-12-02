@@ -345,7 +345,7 @@ public class BoggleView {
         VBox sizeSelection = new VBox(gridSizeText, gridBox);
         sizeSelection.setSpacing(15);
         selectionPane.getChildren().add(sizeSelection);
-        selectionPane.getChildren().add(LoadButton);
+
 
 
         Text typeText = new Text(
@@ -392,6 +392,7 @@ public class BoggleView {
         selectionPane.setPadding(new Insets(40, 0, 0, 0));
 
         // root pane
+        selectionPane.getChildren().add(LoadButton);
         BorderPane mainPane = new BorderPane();
         Label title = new Label("Board Selection");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 24));
@@ -663,6 +664,7 @@ public class BoggleView {
     }
 
     public Pane LoadView(){
+        boardsList.getItems().clear();
         int fontsize = 20;
         if (getfontsizeoption() == "small")
             fontsize = 15;
