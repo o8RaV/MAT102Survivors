@@ -178,7 +178,7 @@ public class BoggleGame {
      * @param allWords A mutable list of all legal words that can be found, given the boggleGrid grid letters
      */
     public int humanMove(String word){
-            if (word.length() > 0 && allWords.containsKey(word.toUpperCase())) {
+            if (word.length() > 0 && allWords.containsKey(word.toUpperCase()) && !gameStats.getPlayerWords().contains(word)) {
                 gameStats.addWord(word.toUpperCase(), BoggleStats.Player.Human);
             }
             return this.gameStats.getScore();
