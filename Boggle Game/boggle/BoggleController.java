@@ -32,8 +32,11 @@ public class BoggleController {
 
         this.boggleView.setBoardRange
                 (this.boggleGame.getMinBoardSize(), this.boggleGame.getMaxBoardSize());
-        this.boggleView.startGame();
         addEventHandlers();
+    }
+
+    public void start(){
+        this.boggleView.startGame();
     }
 
     public void constructGame(String letters, int boardSize) {
