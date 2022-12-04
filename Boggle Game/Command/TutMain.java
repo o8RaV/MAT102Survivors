@@ -30,8 +30,8 @@ public class TutMain{
     private TutView view;
     private TutGame operations;
 
-    private final int windowMinWidth = 700; // sets the window's minimum width and height
-    private final int windowMinHeight = 500;
+    private final int windowMinWidth = 900; // sets the window's minimum width and height
+    private final int windowMinHeight = 700;
     private int minBoardSize; // a boggle board's minimum and maximum sizes, set by BoggleGame
     private int maxBoardSize;
 

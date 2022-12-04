@@ -129,7 +129,7 @@ public class BoggleView {
     public Pane playSMaker(int size, String letters){
         // set fontsize
         int fontsize = 20;
-        if (getfontsizeoption() == "small")
+        if (getfontsizeoption() == "Small")
             fontsize = 15;
         else if (getfontsizeoption() == "Medium")
             fontsize = 20;
@@ -192,7 +192,7 @@ public class BoggleView {
     private void initBoggleButtons(GridPane buttonsPane, int size, String letters)
     {
         int fontsize = 20;
-        if (getfontsizeoption() == "small")
+        if (getfontsizeoption() == "Small")
             fontsize = 15;
         else if (getfontsizeoption() == "Medium")
             fontsize = 20;
@@ -249,7 +249,7 @@ public class BoggleView {
 
     private VBox initSidebar () {
         int fontsize = 20;
-        if (getfontsizeoption() == "small")
+        if (getfontsizeoption() == "Small")
             fontsize = 15;
         else if (getfontsizeoption() == "Medium")
             fontsize = 20;
@@ -422,7 +422,7 @@ public class BoggleView {
 
     public Pane customSMaker () {
         int fontsize = 20;
-        if (getfontsizeoption() == "small")
+        if (getfontsizeoption() == "Small")
             fontsize = 15;
         else if (getfontsizeoption() == "Medium")
             fontsize = 20;
@@ -664,7 +664,12 @@ public class BoggleView {
     public String getTextReaderOption() {
         return ((RadioButton) textReaderGroup.getSelectedToggle()).getText().toLowerCase();
     }
-    public String getfontsizeoption(){return ((RadioButton) fontsizegroup.getSelectedToggle()).getText();}
+    public String getfontsizeoption(){
+        if (fontsizegroup != null) {
+            return ((RadioButton) fontsizegroup.getSelectedToggle()).getText();
+        }
+        return "Small";
+    }
 
     public void changeTextReaderOption(boolean bool) {
         textReaderEnabled = bool;

@@ -20,8 +20,8 @@ import views.BoggleView;
 
 public class TutView extends BoggleView{
 
-    private final int windowMinWidth = 700; // sets the window's minimum width and height
-    private final int windowMinHeight = 500;
+    private final int windowMinWidth = 900; // sets the window's minimum width and height
+    private final int windowMinHeight = 700;
 
     private final int defButtonHeight = 40; // default values to keep uniform look in application
     private final int defButtonWidth = 80;
