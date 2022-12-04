@@ -98,6 +98,7 @@ public class BoggleView {
      */
     public BoggleView(Stage stage) {
         primaryStage = stage;
+        primaryStage.setFullScreen(true);
         primaryStage.setTitle("and his name is JOOOHHHN CENAAAA");
 
         Pane pane = new Pane();
@@ -402,7 +403,7 @@ public class BoggleView {
         textReaderText.setFont(textFont);
 
         textReaderGroup = new ToggleGroup();
-        String[] options = {"Yes", "No"};
+        String[] options = {"No", "Yes"};
         HBox optionsBox = radioHBoxMaker(options, textReaderGroup);
 
         VBox optionSelection = new VBox(textReaderText, optionsBox);
@@ -700,11 +701,17 @@ public class BoggleView {
 
 
     public String getBoardType () {
-        return ((RadioButton) boardTypeGroup.getSelectedToggle()).getText().toLowerCase();
+        if (boardTypeGroup != null) {
+            return ((RadioButton) boardTypeGroup.getSelectedToggle()).getText();
+        }
+        return "Random";
     }
 
     public String getTextReaderOption() {
-        return ((RadioButton) textReaderGroup.getSelectedToggle()).getText().toLowerCase();
+        if (textReaderGroup != null) {
+            return ((RadioButton) textReaderGroup.getSelectedToggle()).getText();
+        }
+        return "Yes";
     }
 
     /**

@@ -53,6 +53,7 @@ public class TutView extends BoggleView{
         tutStage.setMinHeight(windowMinHeight);
         tutStage.setWidth(windowMinWidth);
         tutStage.setHeight(windowMinHeight);
+        tutStage.setFullScreen(true);
     }
 
     public void displayScene(Pane pane) {

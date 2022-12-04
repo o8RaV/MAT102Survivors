@@ -54,6 +54,7 @@ public class TutMain{
         tutStage.setMinHeight(windowMinHeight);
         tutStage.setWidth(windowMinWidth);
         tutStage.setHeight(windowMinHeight);
+        tutStage.setFullScreen(true);
         this.view = new TutView(tutStage);
         view.startGame(0);
     }
