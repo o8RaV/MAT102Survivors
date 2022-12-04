@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import views.BoggleView;
+import views.TextReaderView;
 
 import java.io.File;
 import java.io.IOException;
@@ -101,6 +102,9 @@ public class BoggleController {
                 int newScore = boggleGame.humanMove(word);
                 boggleView.updateScore(newScore);
                 boggleView.resetBoard();
+                if (boggleView.textReaderEnabled) {
+                    TextReaderView.playButton("submit");
+                }
             }
 
         }
@@ -113,6 +117,9 @@ public class BoggleController {
             boggleView.displayScene(boggleView.boardSMaker());
             boggleGame.getGameStats().endRound();
             boggleView.clearValues();
+            if (boggleView.textReaderEnabled) {
+                TextReaderView.playButton("newgame");
+            }
         }
     }
 
@@ -125,6 +132,9 @@ public class BoggleController {
                 boggleGame.getGameStats().endRound();
                 boggleView.setGameOn(false);
                 boggleView.resetBoard();
+                if (boggleView.textReaderEnabled) {
+                    TextReaderView.playButton("endround");
+                }
             }
         }
     }
@@ -134,6 +144,9 @@ public class BoggleController {
         public void handle(ActionEvent actionEvent) {
             boggleView.setGameOn(false);
             boggleView.displayScene(boggleView.SaveView());
+            if (boggleView.textReaderEnabled) {
+                TextReaderView.playButton("save");
+            }
         }
     }
 
@@ -173,6 +186,9 @@ public class BoggleController {
         public void handle(ActionEvent actionEvent) {
             boggleView.setGameOn(false);
             boggleView.displayScene(boggleView.LoadView());
+            if (boggleView.textReaderEnabled) {
+                TextReaderView.playButton("load");
+            }
         }
     }
 
