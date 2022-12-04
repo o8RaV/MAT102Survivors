@@ -3,10 +3,8 @@ package boggle;
 import Memento.src.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.layout.Pane;
 import views.BoggleView;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -158,9 +156,9 @@ public class BoggleController {
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
-                loaded = boggleGame.getstatefrommemento(temp);
-                boggleGame.changegamestats((BoggleStats) loaded.get(0));
-                boggleGame.setallwords((HashMap<String, ArrayList<Position>>) loaded.get(2));
+                loaded = boggleGame.getStateFromMemento(temp);
+                boggleGame.changeGameStats((BoggleStats) loaded.get(0));
+                boggleGame.setAllWords((HashMap<String, ArrayList<Position>>) loaded.get(2));
                 String letters = (String) loaded.get(1);
                 int boardSize = (int) Math.sqrt(letters.length());
                 boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
@@ -187,12 +185,13 @@ public class BoggleController {
                 List loaded = null;
                 try {
                     Memento temp = Caretaker.get(name);
-                    loaded = boggleGame.getstatefrommemento(temp);
-                    boggleGame.changegamestats((BoggleStats) loaded.get(0));
-                    boggleGame.setallwords((HashMap<String, ArrayList<Position>>) loaded.get(2));
+                    loaded = boggleGame.getStateFromMemento(temp);
+                    boggleGame.changeGameStats((BoggleStats) loaded.get(0));
+                    boggleGame.setAllWords((HashMap<String, ArrayList<Position>>) loaded.get(2));
                     String letters = (String) loaded.get(1);
                     int boardSize = (int) Math.sqrt(letters.length());
                     boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
+                    boggleView.updateScore(((BoggleStats) loaded.get(0)).getScore());
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

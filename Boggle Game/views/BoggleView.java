@@ -41,8 +41,8 @@ import java.util.List;
  *  displays the main game window, where the user selects a boggle board and plays boggle.
  */
 public class BoggleView {
-    private final int windowMinWidth = 900; // sets the window's minimum width and height
-    private final int windowMinHeight = 700;
+    protected final int windowMinWidth = 900; // sets the window's minimum width and height
+    protected final int windowMinHeight = 700;
 
     TextField cusLettersField; // textfield that allows user to input custom set of letters
     public Label saveFileErrorLabel = new Label("");
@@ -105,13 +105,12 @@ public class BoggleView {
         primaryStage.setTitle("and his name is JOOOHHHN CENAAAA");
 
         Pane pane = new Pane();
-        Scene scene = new Scene(pane);
+        Scene scene = new Scene(pane, windowMinWidth, windowMinHeight);
         primaryStage.setScene(scene);
 
         primaryStage.setMinWidth(windowMinWidth);
         primaryStage.setMinHeight(windowMinHeight);
-        primaryStage.setWidth(windowMinWidth);
-        primaryStage.setHeight(windowMinHeight);
+
 
     }
 
@@ -254,7 +253,7 @@ public class BoggleView {
         else if (getfontsizeoption() == "Medium")
             fontsize = 20;
         else if (getfontsizeoption() == "Large")
-            fontsize = 30;
+            fontsize = 25;
         Pos elementAlign = Pos.CENTER_LEFT;
         // construct the score graphic; consists of the score, and its string title
         Label scoreTitle = new Label("Score:");
@@ -664,7 +663,14 @@ public class BoggleView {
     public String getTextReaderOption() {
         return ((RadioButton) textReaderGroup.getSelectedToggle()).getText().toLowerCase();
     }
-    public String getfontsizeoption(){return ((RadioButton) fontsizegroup.getSelectedToggle()).getText();}
+    public String getfontsizeoption(){
+        if (fontsizegroup != null) {
+            return ((RadioButton) fontsizegroup.getSelectedToggle()).getText();
+        }
+        else {
+            return "Medium";
+        }
+    }
 
     public void changeTextReaderOption(boolean bool) {
         textReaderEnabled = bool;

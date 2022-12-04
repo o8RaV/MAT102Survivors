@@ -46,14 +46,6 @@ public class TutMain{
         this.scanner = new Scanner(System.in);
         tutStage = new Stage();
         tutStage.setTitle("Tutorial. It's dangerous to go alone");
-
-        Pane pane = new Pane();
-        Scene scene = new Scene(pane);
-        tutStage.setScene(scene);
-        tutStage.setMinWidth(windowMinWidth);
-        tutStage.setMinHeight(windowMinHeight);
-        tutStage.setWidth(windowMinWidth);
-        tutStage.setHeight(windowMinHeight);
         this.view = new TutView(tutStage);
         view.startGame(0);
     }
