@@ -8,6 +8,8 @@ import views.BoggleView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -141,27 +143,31 @@ public class BoggleController {
     public class HandleSaveBoard implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-            if(boggleView.getsaveFileNameTextField().endsWith(".bbg")
-                    || !boggleView.getsaveFileNameTextField().contains("\\") || !boggleView.getsaveFileNameTextField().contains("/")
-                    || !boggleView.getsaveFileNameTextField().contains(":") || !boggleView.getsaveFileNameTextField().contains("|")
-                    || !boggleView.getsaveFileNameTextField().contains("*") || !boggleView.getsaveFileNameTextField().contains("?")
-                    || !boggleView.getsaveFileNameTextField().contains("\"") || !boggleView.getsaveFileNameTextField().contains("<")
-                    || !boggleView.getsaveFileNameTextField().contains(">")){
+            if (boggleView.getsaveFileNameTextField().endsWith(".bbg") && boggleView.getsaveFileNameTextField() != null
+                    && !boggleView.getsaveFileNameTextField().contains("\\") && !boggleView.getsaveFileNameTextField().contains("/")
+                    && !boggleView.getsaveFileNameTextField().contains(":") && !boggleView.getsaveFileNameTextField().contains("|")
+                    && !boggleView.getsaveFileNameTextField().contains("*") && !boggleView.getsaveFileNameTextField().contains("?")
+                    && !boggleView.getsaveFileNameTextField().contains("\"") && !boggleView.getsaveFileNameTextField().contains("<")
+                    && !boggleView.getsaveFileNameTextField().contains(">")) {
                 Caretaker.save(boggleView.getsaveFileNameTextField(), boggleGame.getaMemento(boggleView.getsaveFileNameTextField()));
-            }
-            String name = boggleView.getsaveFileNameTextField();
-            List loaded = null;
-            try {
-                Memento temp = Caretaker.get(name);
+                String name = boggleView.getsaveFileNameTextField();
+                List loaded = null;
+                Memento temp = null;
+                try {
+                    temp = Caretaker.get(name);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 loaded = boggleGame.getstatefrommemento(temp);
                 boggleGame.changegamestats((BoggleStats) loaded.get(0));
+                boggleGame.setallwords((HashMap<String, ArrayList<Position>>) loaded.get(2));
                 String letters = (String) loaded.get(1);
                 int boardSize = (int) Math.sqrt(letters.length());
                 boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+                boggleView.setGameOn(true);
+                boggleView.saveFileErrorLabel.setText("Saved board!!");
             }
-            boggleView.setGameOn(true);
+            boggleView.saveFileErrorLabel.setText("The board should end with .bbg and should not contain illegal characters");
         }
     }
 
@@ -176,19 +182,22 @@ public class BoggleController {
     public class HandleChangeBoard implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-            String name = (String) boggleView.boardsList.getSelectionModel().getSelectedItem();
-            List loaded = null;
-            try {
-                Memento temp = Caretaker.get(name);
-                loaded = boggleGame.getstatefrommemento(temp);
-                boggleGame.changegamestats((BoggleStats) loaded.get(0));
-                String letters = (String) loaded.get(1);
-                int boardSize = (int) Math.sqrt(letters.length());
-                boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            if (boggleView.boardsList.getSelectionModel().getSelectedItem() != null) {
+                String name = (String) boggleView.boardsList.getSelectionModel().getSelectedItem();
+                List loaded = null;
+                try {
+                    Memento temp = Caretaker.get(name);
+                    loaded = boggleGame.getstatefrommemento(temp);
+                    boggleGame.changegamestats((BoggleStats) loaded.get(0));
+                    boggleGame.setallwords((HashMap<String, ArrayList<Position>>) loaded.get(2));
+                    String letters = (String) loaded.get(1);
+                    int boardSize = (int) Math.sqrt(letters.length());
+                    boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                boggleView.setGameOn(true);
             }
-            boggleView.setGameOn(true);
         }
     }
 }
