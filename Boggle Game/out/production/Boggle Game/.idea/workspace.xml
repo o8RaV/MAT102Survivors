@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ef722d4f-407a-4666-b9bb-f74f4792f6fd" name="Changes" comment="DEV[1.1,1.2,1.3,2.3]- Added New button to change the back in the second usage of load button, so that it goes back to the board instead of the main screen" />
+    <list default="true" id="ef722d4f-407a-4666-b9bb-f74f4792f6fd" name="Changes" comment="DEV[1.1,1.2,1.3,2.3]- Added New button to change the back in the second usage of load button, so that it goes back to the board instead of the main screen">
+      <change beforePath="$PROJECT_DIR$/saved/2022.12.04.00.54.11.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/BoggleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/views/BoggleView.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,7 +85,7 @@
       <workItem from="1670118084203" duration="55000" />
       <workItem from="1670118373003" duration="464000" />
       <workItem from="1670118860831" duration="13000" />
-      <workItem from="1670118886528" duration="3438000" />
+      <workItem from="1670118886528" duration="4237000" />
     </task>
     <task id="LOCAL-00001" summary="1.2-Saved Boards, added button to the ui and added the event handlers(implementation of handlers still left)">
       <created>1669490288176</created>

@@ -43,7 +43,7 @@ import java.util.List;
 public class BoggleView {
     private final int windowMinWidth = 900; // sets the window's minimum width and height
     private final int windowMinHeight = 700;
-
+    MediaPlayer mediaPlayer;
     TextField cusLettersField; // textfield that allows user to input custom set of letters
     public Label saveFileErrorLabel = new Label("");
     TextField saveFileNameTextField; // textfield that allows user to input name of they want o save the board by
@@ -423,7 +423,6 @@ public class BoggleView {
         mainPane.setTop(title);
         mainPane.setCenter(selectionPane);
         mainPane.setBottom(contHBoxMaker(boardSCont));
-
         return mainPane;
     }
 
@@ -466,7 +465,6 @@ public class BoggleView {
         rootPane.setBottom(bottomPanel);
         rootPane.setTop(titleAInput);
         prompt.setTextAlignment(TextAlignment.CENTER);
-
         return rootPane;
     }
 
@@ -720,8 +718,17 @@ public class BoggleView {
         BorderPane bottomPanel = new BorderPane();
         bottomPanel.setPadding(new Insets(defaultPadding));
 
+        Button customBack = new Button("Back");
+        customBack.setOnAction(e -> displayScene(boardSMaker()));
+
+        setDefaultSize(customBack); setDefaultSize(cusCont);
         setDefaultSize(loadback);
-        bottomPanel.setLeft(loadback);
+
+        if (isGameOn())
+            bottomPanel.setLeft(loadback);
+        else if (!isGameOn())
+            bottomPanel.setLeft(customBack);
+
 
         selectBoardLabel.setId("CurrentBoard");
 

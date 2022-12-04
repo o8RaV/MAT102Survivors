@@ -115,6 +115,7 @@ public class BoggleController {
         @Override
         public void handle(ActionEvent actionEvent) {
             boggleView.displayScene(boggleView.playSMaker(boggleView.getBoardSize(), boggleGame.boggleboard));
+            boggleView.setGameOn(true);
         }
     }
 
@@ -126,6 +127,7 @@ public class BoggleController {
             boggleGame.getGameStats().endRound();
             boggleView.clearValues();
             TextReaderView.playAudio("newgame", boggleView.textReaderEnabled);
+            boggleView.setGameOn(false);
         }
     }
 
@@ -146,7 +148,6 @@ public class BoggleController {
     public class handleSaveGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-            boggleView.setGameOn(false);
             boggleView.displayScene(boggleView.SaveView());
             TextReaderView.playAudio("save", boggleView.textReaderEnabled);
         }
@@ -188,7 +189,6 @@ public class BoggleController {
     public class handleLoadGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-            boggleView.setGameOn(false);
             boggleView.displayScene(boggleView.LoadView());
             boggleView.changeTextReaderOption(boggleView.getTextReaderOption().equals("yes"));
             TextReaderView.playAudio("load", boggleView.textReaderEnabled);
