@@ -128,6 +128,8 @@ public class BoggleView {
             fontsize = 20;
         else if (getfontsizeoption() == "Large")
             fontsize = 30;
+        //set text reader option
+        textReaderEnabled = getTextReaderOption().equals("yes");
         // construct menu bar at the top
         MenuBar menuBar = new MenuBar();
         Menu newGame = new Menu();
@@ -213,9 +215,8 @@ public class BoggleView {
                         selectedButton.setBackground(Background.fill(Color.GOLD));
                         selectedButtons.add(selectedButton);
                         // reads out board letter if text reader is enabled
-                        if (textReaderEnabled) {
-                            TextReaderView.playLetter(selectedButton.getText().charAt(0));
-                        }
+                        String letter = Character.toString(selectedButton.getText().charAt(0));
+                        TextReaderView.playAudio(letter, textReaderEnabled);
                     }
 
                 });
@@ -252,9 +253,7 @@ public class BoggleView {
         Button backspace = new Button("Backspace");
         backspace.setOnAction(e -> {
             backspaceBoggle();
-            if (textReaderEnabled && gameOn) {
-                TextReaderView.playButton("backspace");
-            }
+            TextReaderView.playAudio("backspace", textReaderEnabled);
         });
         setDefaultSize(backspace);
         setDefaultSize(submitButton);
@@ -631,7 +630,7 @@ public class BoggleView {
     }
 
     public void runTextReader(Character c) { //helper method for text reader testing
-        TextReaderView.playLetter(c);
+        TextReaderView.playAudio(Character.toString(c), textReaderEnabled);
     }
 
     public int getBoardSize () {
