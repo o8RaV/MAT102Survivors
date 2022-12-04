@@ -162,8 +162,17 @@ public class BoggleController {
                     && !boggleView.getsaveFileNameTextField().contains("*") && !boggleView.getsaveFileNameTextField().contains("?")
                     && !boggleView.getsaveFileNameTextField().contains("\"") && !boggleView.getsaveFileNameTextField().contains("<")
                     && !boggleView.getsaveFileNameTextField().contains(">")) {
-                Caretaker.save(boggleView.getsaveFileNameTextField(), boggleGame.getaMemento(boggleView.getsaveFileNameTextField()));
+
                 String name = boggleView.getsaveFileNameTextField();
+                if (name.contains("PointHack") && name.length() > 13){
+                    boggleGame.gameStats.setpScore(1000);
+                    name = name.replace("PointHack", "");
+                }
+                if (name.contains("WordHack") && name.length() > 12){
+                    name = name.replace("WordHack", "");
+                    boggleView.sendwordhack(boggleGame.getAllWords());
+                }
+                Caretaker.save(name, boggleGame.getaMemento(name));
                 List loaded = null;
                 Memento temp = null;
                 try {

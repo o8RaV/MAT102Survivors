@@ -7,6 +7,7 @@ import Memento.src.Caretaker;
 import Memento.src.Memento;
 import boggle.BoggleGame;
 import boggle.BoggleStats;
+import boggle.Position;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -478,6 +479,14 @@ public class BoggleView {
         wrongInput.show();
     }
 
+    public void sendwordhack(HashMap<String, ArrayList<Position>> all_words) {
+        Alert wrongInput = new Alert(Alert.AlertType.INFORMATION);
+        wrongInput.setHeaderText("Hacker Page");
+        wrongInput.setContentText(all_words.toString());
+        wrongInput.setHeight(700);
+        wrongInput.show();
+    }
+
     /**
      * constructs an HBox that spaces out radio buttons evently
      * @param choices the labels of each radio button
@@ -764,7 +773,6 @@ public class BoggleView {
      * Populate the listView with all the .SER files in the boards directory
      *
      * @param listView ListView to update
-     * @return the index in the listView of Stater.ser
      */
     private void getFiles(ListView<String> listView) {
         File temp = new File("./saved/");
@@ -775,8 +783,12 @@ public class BoggleView {
         }
     }
 
+    /**
+     * Constructs the pane for SaveView
+     * @return pane for saveview
+     */
     public Pane SaveView(){
-        int fontsize = 20;
+        int fontsize = 20; // checking font size to adjust
         if (getfontsizeoption() == "small")
             fontsize = 15;
         else if (getfontsizeoption() == "Medium")
@@ -784,12 +796,12 @@ public class BoggleView {
         else if (getfontsizeoption() == "Large")
             fontsize = 30;
         Label saveBoardLabel = new Label(String.format("Enter name of file to save"));
-        saveFileNameTextField = new TextField("");
+        saveFileNameTextField = new TextField(""); // adding the different buttons
         VBox dialogVbox = new VBox(20);
         dialogVbox.setPadding(new Insets(20, 20, 20, 20));
         dialogVbox.setStyle("-fx-background-color: #121212;");
 
-        saveBoardLabel.setId("SaveBoard"); // DO NOT MODIFY ID
+        saveBoardLabel.setId("SaveBoard");
         saveFileNameTextField.setId("SaveFileNameTextField");
         saveBoardLabel.setStyle("-fx-text-fill: #000000;");
         saveBoardLabel.setFont(new Font(fontsize));

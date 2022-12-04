@@ -193,6 +193,7 @@ public class BoggleStats implements Serializable {
     public int getScore() {
         return this.pScore;
     }
+    public void setpScore(int score){this.pScore = score;}
     public int getcompScore() {
         return this.cScore;
     }
