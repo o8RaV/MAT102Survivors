@@ -376,8 +376,8 @@ public class BoggleView {
         Label title = new Label("Board Selection");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         title.prefWidthProperty().bind(primaryStage.widthProperty());
-        title.setPrefHeight(50);
-        title.setAlignment(Pos.CENTER);
+        title.setPrefHeight(30);
+        title.setAlignment(Pos.BOTTOM_CENTER);
         mainPane.setPadding(new Insets(defaultPadding));
         mainPane.setTop(title);
         mainPane.setCenter(selectionPane);
