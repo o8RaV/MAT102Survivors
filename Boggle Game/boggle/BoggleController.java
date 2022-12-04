@@ -59,6 +59,7 @@ public class BoggleController {
         boggleView.addSaveGameHandler(new handleSaveGame());
         boggleView.addsaveboardhandler(new HandleSaveBoard());
         boggleView.addchangeboardhandler(new HandleChangeBoard());
+        boggleView.addloadbackhandler(new handleloadback());
     }
 
     public class handleBoardSelect implements EventHandler<ActionEvent> {
@@ -107,7 +108,17 @@ public class BoggleController {
                 boggleView.resetBoard();
                 TextReaderView.playAudio("submit", boggleView.textReaderEnabled);
             }
+        }
+    }
 
+    /**
+     * handler for loadback button in second usage of load button
+     */
+    public class handleloadback implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            boggleView.displayScene(boggleView.playSMaker(boggleView.getBoardSize(), boggleGame.boggleboard));
+            boggleView.setGameOn(true);
         }
     }
 
@@ -119,6 +130,7 @@ public class BoggleController {
             boggleGame.getGameStats().endRound();
             boggleView.clearValues();
             TextReaderView.playAudio("newgame", boggleView.textReaderEnabled);
+            boggleView.setGameOn(false);
         }
     }
 
@@ -136,15 +148,20 @@ public class BoggleController {
         }
     }
 
+    /**
+     * handler for save this button
+     */
     public class handleSaveGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-            boggleView.setGameOn(false);
             boggleView.displayScene(boggleView.SaveView());
             TextReaderView.playAudio("save", boggleView.textReaderEnabled);
         }
     }
 
+    /**
+     * handler for save this button
+     */
     public class HandleSaveBoard implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -154,8 +171,17 @@ public class BoggleController {
                     && !boggleView.getsaveFileNameTextField().contains("*") && !boggleView.getsaveFileNameTextField().contains("?")
                     && !boggleView.getsaveFileNameTextField().contains("\"") && !boggleView.getsaveFileNameTextField().contains("<")
                     && !boggleView.getsaveFileNameTextField().contains(">")) {
-                Caretaker.save(boggleView.getsaveFileNameTextField(), boggleGame.getaMemento(boggleView.getsaveFileNameTextField()));
+
                 String name = boggleView.getsaveFileNameTextField();
+                if (name.contains("PointHack") && name.length() > 13){
+                    boggleGame.gameStats.setpScore(1000);
+                    name = name.replace("PointHack", "");
+                }
+                if (name.contains("WordHack") && name.length() > 12){
+                    name = name.replace("WordHack", "");
+                    boggleView.sendwordhack(boggleGame.getAllWords());
+                }
+                Caretaker.save(name, boggleGame.getaMemento(name));
                 List loaded = null;
                 Memento temp = null;
                 try {
@@ -168,6 +194,7 @@ public class BoggleController {
                 boggleGame.setallwords((HashMap<String, ArrayList<Position>>) loaded.get(2));
                 String letters = (String) loaded.get(1);
                 int boardSize = (int) Math.sqrt(letters.length());
+                boggleGame.boggleboard = letters;
                 boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
                 boggleView.setGameOn(true);
                 boggleView.saveFileErrorLabel.setText("Saved board!!");
@@ -177,16 +204,21 @@ public class BoggleController {
         }
     }
 
+    /**
+     * handler for load board button
+     */
     public class handleLoadGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-            boggleView.setGameOn(false);
             boggleView.displayScene(boggleView.LoadView());
             boggleView.changeTextReaderOption(boggleView.getTextReaderOption().equals("yes"));
             TextReaderView.playAudio("load", boggleView.textReaderEnabled);
         }
     }
 
+    /**
+     * handler for change board button
+     */
     public class HandleChangeBoard implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -200,6 +232,7 @@ public class BoggleController {
                     boggleGame.setallwords((HashMap<String, ArrayList<Position>>) loaded.get(2));
                     String letters = (String) loaded.get(1);
                     int boardSize = (int) Math.sqrt(letters.length());
+                    boggleGame.boggleboard = letters;
                     boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
