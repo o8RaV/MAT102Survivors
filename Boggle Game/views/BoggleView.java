@@ -51,6 +51,7 @@ public class BoggleView {
 
     Button saveBoardButton = new Button("Save This!");
     Button selectBoardButton = new Button("Change board");
+    Button loadback = new Button("Back");
     public ListView boardsList = new ListView<>(); //list of boggle.boards
     Button cusCont = new Button("Continue"); // continue button in the custom letter input scene.
     private Stage primaryStage; // the main game window
@@ -643,6 +644,10 @@ public class BoggleView {
         endRoundButton.setOnAction(handler);
     }
 
+    public void addloadbackhandler (EventHandler<ActionEvent> handler) {
+        loadback.setOnAction(handler);
+    }
+
     public void setBoardRange (int minSize, int maxSize) {
         minBoardSize = minSize;
         maxBoardSize = maxSize;
@@ -685,7 +690,6 @@ public class BoggleView {
 
     public int getBoardSize () {
         return Integer.parseInt(String.valueOf(((RadioButton) boardSizeGroup.getSelectedToggle()).getText().charAt(0)));
-
     }
 
     public String getCusLettersField() {
@@ -710,14 +714,12 @@ public class BoggleView {
         else if (getfontsizeoption() == "Large")
             fontsize = 30;
         Label selectBoardLabel = new Label(String.format("Currently playing: Default Board"));
-        Button customBack = new Button("Back");
-        customBack.setOnAction(e -> displayScene(boardSMaker()));
 
         BorderPane bottomPanel = new BorderPane();
         bottomPanel.setPadding(new Insets(defaultPadding));
 
-        setDefaultSize(customBack);
-        bottomPanel.setLeft(customBack);
+        setDefaultSize(loadback);
+        bottomPanel.setLeft(loadback);
 
         selectBoardLabel.setId("CurrentBoard");
 

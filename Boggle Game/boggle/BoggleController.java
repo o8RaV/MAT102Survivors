@@ -57,6 +57,7 @@ public class BoggleController {
         boggleView.addSaveGameHandler(new handleSaveGame());
         boggleView.addsaveboardhandler(new HandleSaveBoard());
         boggleView.addchangeboardhandler(new HandleChangeBoard());
+        boggleView.addloadbackhandler(new handleloadback());
     }
 
     public class handleBoardSelect implements EventHandler<ActionEvent> {
@@ -105,7 +106,13 @@ public class BoggleController {
                 boggleView.updateScore(newScore);
                 boggleView.resetBoard();
             }
+        }
+    }
 
+    public class handleloadback implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            boggleView.displayScene(boggleView.playSMaker(boggleView.getBoardSize(), boggleGame.boggleboard));
         }
     }
 
@@ -163,6 +170,7 @@ public class BoggleController {
                 boggleGame.setallwords((HashMap<String, ArrayList<Position>>) loaded.get(2));
                 String letters = (String) loaded.get(1);
                 int boardSize = (int) Math.sqrt(letters.length());
+                boggleGame.boggleboard = letters;
                 boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
                 boggleView.setGameOn(true);
                 boggleView.saveFileErrorLabel.setText("Saved board!!");
@@ -192,6 +200,7 @@ public class BoggleController {
                     boggleGame.setallwords((HashMap<String, ArrayList<Position>>) loaded.get(2));
                     String letters = (String) loaded.get(1);
                     int boardSize = (int) Math.sqrt(letters.length());
+                    boggleGame.boggleboard = letters;
                     boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
