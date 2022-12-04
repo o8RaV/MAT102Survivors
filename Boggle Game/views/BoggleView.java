@@ -239,7 +239,7 @@ public class BoggleView {
     private void textReader(Character c) {
         if (textReaderEnabled) {
             String file_name = "./audiofiles/" + Character.toUpperCase(c) + ".mp3";
-            media = new Media(new File(file_name).toURI().toString());
+            Media media = new Media(new File(file_name).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.play();
         }
@@ -417,8 +417,8 @@ public class BoggleView {
         Label title = new Label("Board Selection");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 24));
         title.prefWidthProperty().bind(primaryStage.widthProperty());
-        title.setPrefHeight(50);
-        title.setAlignment(Pos.CENTER);
+        title.setPrefHeight(30);
+        title.setAlignment(Pos.BOTTOM_CENTER);
         mainPane.setPadding(new Insets(defaultPadding));
         mainPane.setTop(title);
         mainPane.setCenter(selectionPane);
