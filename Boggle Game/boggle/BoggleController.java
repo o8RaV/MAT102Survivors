@@ -111,6 +111,9 @@ public class BoggleController {
         }
     }
 
+    /**
+     * handler for loadback button in second usage of load button
+     */
     public class handleloadback implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -145,6 +148,9 @@ public class BoggleController {
         }
     }
 
+    /**
+     * handler for save this button
+     */
     public class handleSaveGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -153,6 +159,9 @@ public class BoggleController {
         }
     }
 
+    /**
+     * handler for save this button
+     */
     public class HandleSaveBoard implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -195,6 +204,9 @@ public class BoggleController {
         }
     }
 
+    /**
+     * handler for load board button
+     */
     public class handleLoadGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -204,6 +216,9 @@ public class BoggleController {
         }
     }
 
+    /**
+     * handler for change board button
+     */
     public class HandleChangeBoard implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {

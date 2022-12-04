@@ -4,9 +4,20 @@ import java.io.*;
 
 public class Caretaker {
     private static final File saved = new File("./saved/");
+
+    /**
+     * getter for saved file folder
+     * @return Saved file folder
+     */
     public static File getfile(){
         return saved;
     }
+
+    /**
+     * saves the memento in saved board folder with the provided name
+     * @param filename
+     * @param mementotosave
+     */
     public static void save(String filename, Memento mementotosave){
         try {
             FileOutputStream fout = new FileOutputStream("./saved/"+filename);
@@ -17,6 +28,12 @@ public class Caretaker {
         }
     }
 
+    /**
+     * return the memento inside a given file name in saved boards
+     * @param filename
+     * @return
+     * @throws IOException
+     */
     public static Memento get(String filename) throws IOException {
         FileInputStream file = null;
         ObjectInputStream in = null;
