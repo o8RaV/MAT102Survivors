@@ -253,7 +253,9 @@ public class BoggleView {
         Button backspace = new Button("Backspace");
         backspace.setOnAction(e -> {
             backspaceBoggle();
-            TextReaderView.playAudio("backspace", textReaderEnabled);
+            if (gameOn) {
+                TextReaderView.playAudio("backspace", textReaderEnabled);
+            }
         });
         setDefaultSize(backspace);
         setDefaultSize(submitButton);
