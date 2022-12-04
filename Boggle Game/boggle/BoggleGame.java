@@ -139,7 +139,6 @@ public class BoggleGame {
         for (int i = 0; i <= boggleGrid.numCols(); i++)
             for (int j = 0; j <= boggleGrid.numCols(); j++)
                 findWordsUtil(boggleDict, boggleGrid, new ArrayList<Position>(), new Position(i, j), "");
-
     }
 
     private void findWordsUtil(Dictionary boggleDict, BoggleGrid boggleGrid, ArrayList<Position> visited, Position pos, String prefix) {
