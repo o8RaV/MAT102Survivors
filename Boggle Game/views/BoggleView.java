@@ -91,11 +91,7 @@ public class BoggleView {
 
     boolean gameOn;
 
-    boolean textReaderEnabled;
-
-    MediaPlayer mediaPlayer;
-
-    Media media;
+    public boolean textReaderEnabled;
 
     /**
      * Constructor
@@ -136,6 +132,8 @@ public class BoggleView {
             fontsize = 20;
         else if (getfontsizeoption() == "Large")
             fontsize = 30;
+        //set text reader option
+        textReaderEnabled = getTextReaderOption().equals("yes");
         // construct menu bar at the top
         MenuBar menuBar = new MenuBar();
         Menu newGame = new Menu();
@@ -220,7 +218,9 @@ public class BoggleView {
                         addBoggleInput(selectedButton.getText().charAt(0));
                         selectedButton.setBackground(Background.fill(Color.GOLD));
                         selectedButtons.add(selectedButton);
-                        textReader(selectedButton.getText().charAt(0)); //plays the audio for that letter
+                        // reads out board letter if text reader is enabled
+                        String letter = Character.toString(selectedButton.getText().charAt(0));
+                        TextReaderView.playAudio(letter, textReaderEnabled);
                     }
 
                 });
@@ -229,6 +229,7 @@ public class BoggleView {
             }
         }
     }
+
 
     /**
      * This method allows the program to read aloud the sound of the letter that corresponds to parameter c
@@ -273,7 +274,12 @@ public class BoggleView {
 
         // initialize/resize submit and backspace buttons
         Button backspace = new Button("Backspace");
-        backspace.setOnAction(e -> backspaceBoggle());
+        backspace.setOnAction(e -> {
+            backspaceBoggle();
+            if (gameOn) {
+                TextReaderView.playAudio("backspace", textReaderEnabled);
+            }
+        });
         setDefaultSize(backspace);
         setDefaultSize(submitButton);
         setDefaultSize(endRoundButton);
@@ -468,7 +474,7 @@ public class BoggleView {
         Alert wrongInput = new Alert(Alert.AlertType.ERROR);
         wrongInput.setHeaderText("Illegal Input");
         wrongInput.setContentText("The letters you have inputted cannot be used to create a boggle board. \n" +
-                "Please ensure they are all english alphabetic letters, and that you input " +
+                "Please ensure they are all English alphabetic letters, and that you input " +
                 (int) Math.pow(getBoardSize(), 2) + " letters in total.\n");
         wrongInput.setHeight(300);
         wrongInput.show();
@@ -681,11 +687,7 @@ public class BoggleView {
     }
 
     public void runTextReader(Character c) { //helper method for text reader testing
-        textReader(c);
-    }
-
-    public MediaPlayer getMediaPlayer() { //getter method for mediaPlayer
-        return mediaPlayer;
+        TextReaderView.playAudio(Character.toString(c), textReaderEnabled);
     }
 
     public int getBoardSize () {

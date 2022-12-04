@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import views.BoggleView;
+import views.TextReaderView;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,6 +46,7 @@ public class BoggleController {
         boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
         boggleGame.setLetters(letters);
         boggleView.setGameOn(true);
+        TextReaderView.playAudio("continue", boggleView.textReaderEnabled);
     }
 
     private void addEventHandlers() {
@@ -69,7 +71,6 @@ public class BoggleController {
                 int boardSize = boggleView.getBoardSize();
                 constructGame(boggleGame.randomizeLetters(boardSize), boardSize);
             }
-            boggleView.changeTextReaderOption(boggleView.getTextReaderOption().equals("yes")); // handles whether the player wants to play with a text reader
         }
     }
 
@@ -105,6 +106,7 @@ public class BoggleController {
                 int newScore = boggleGame.humanMove(word);
                 boggleView.updateScore(newScore);
                 boggleView.resetBoard();
+                TextReaderView.playAudio("submit", boggleView.textReaderEnabled);
             }
         }
     }
@@ -123,6 +125,7 @@ public class BoggleController {
             boggleView.displayScene(boggleView.boardSMaker());
             boggleGame.getGameStats().endRound();
             boggleView.clearValues();
+            TextReaderView.playAudio("newgame", boggleView.textReaderEnabled);
         }
     }
 
@@ -135,6 +138,7 @@ public class BoggleController {
                 boggleGame.getGameStats().endRound();
                 boggleView.setGameOn(false);
                 boggleView.resetBoard();
+                TextReaderView.playAudio("endround", boggleView.textReaderEnabled);
             }
         }
     }
@@ -144,6 +148,7 @@ public class BoggleController {
         public void handle(ActionEvent actionEvent) {
             boggleView.setGameOn(false);
             boggleView.displayScene(boggleView.SaveView());
+            TextReaderView.playAudio("save", boggleView.textReaderEnabled);
         }
     }
 
@@ -176,6 +181,7 @@ public class BoggleController {
                 boggleView.saveFileErrorLabel.setText("Saved board!!");
             }
             boggleView.saveFileErrorLabel.setText("The board should end with .bbg and should not contain illegal characters");
+            TextReaderView.playAudio("saveboard", boggleView.textReaderEnabled);
         }
     }
 
@@ -184,6 +190,8 @@ public class BoggleController {
         public void handle(ActionEvent actionEvent) {
             boggleView.setGameOn(false);
             boggleView.displayScene(boggleView.LoadView());
+            boggleView.changeTextReaderOption(boggleView.getTextReaderOption().equals("yes"));
+            TextReaderView.playAudio("load", boggleView.textReaderEnabled);
         }
     }
 
@@ -206,7 +214,9 @@ public class BoggleController {
                     throw new RuntimeException(e);
                 }
                 boggleView.setGameOn(true);
+                TextReaderView.playAudio("changeboard", boggleView.textReaderEnabled);
             }
         }
     }
+
 }
