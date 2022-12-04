@@ -1,0 +1,13 @@
+To get you started with the game, this tutorial aims to provide short and precise guidance and interactive opportunities that help you with understanding the game. When you are done reading this and any further instructions, press enter to proceed to the next one.
+Boggle is a game played on a board of letters; your goal is to construct words using adjacent letters.
+Let’s look at an example of this. In the example board, input link and risk. These are words that are formed with horizontally placed letters and vertical ones.
+The possible words are not limited to just the two directions. They can even be diagonal.
+As an example, input mega.
+In addition to these, the valid words can be formed by a combination of directions.
+In the example, input joker.
+As seen before, joker was a word formed through horizontally touching words as well as vertical ones.
+Notice that all the words so far have been at least 4 letters long. This is a minimum requirement for them to be valid and to count for points.
+Words with 4 letters give one point when found and the amount of points gained increases by 1 for each additional letter. The word joker from earlier has 5 letters. This gives 1 letter for the first 4 letters and one additional point for the fifth letter.
+Once you have finished finding your words, you will be awarded points for each unique valid word based on the conditions mentioned before. The computer will then find any words that you missed, and it will get points based on the same conditions.
+The boards you can play on are not limited to the 4 by 4 size used in the tutorial, so longer words can be created and the game can become more difficult if your goal is to beat the computer.
+By now, you should have a good understanding of how the game works so go ahead and try it out. Please close the window, good luck and have fun!
