@@ -2,11 +2,6 @@ package views;
 
 import Command.*;
 
-import Command.TutGame;
-import Memento.src.Caretaker;
-import Memento.src.Memento;
-import boggle.BoggleGame;
-import boggle.BoggleStats;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -30,7 +25,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.ArrayList;
@@ -46,7 +40,7 @@ public class BoggleView {
 
     TextField cusLettersField; // textfield that allows user to input custom set of letters
     public Label saveFileErrorLabel = new Label("");
-    TextField saveFileNameTextField; // textfield that allows user to input name of they want o save the board by
+    TextField saveFileTF; // textfield that allows user to input name of they want o save the board by
     Button boardSCont = new Button("Continue"); // continue button in the board select scene
 
     Button saveBoardButton = new Button("Save This!");
@@ -85,8 +79,6 @@ public class BoggleView {
     Button endRoundButton = new Button("End Round");
 
     ScrollPane roundFacts = new ScrollPane();
-
-    public String loadname;
 
     boolean gameOn;
 
@@ -128,11 +120,11 @@ public class BoggleView {
     public Pane playSMaker(int size, String letters){
         // set fontsize
         int fontsize = 20;
-        if (getfontsizeoption() == "small")
+        if (getFontSizeOption() == "small")
             fontsize = 15;
-        else if (getfontsizeoption() == "Medium")
+        else if (getFontSizeOption() == "Medium")
             fontsize = 20;
-        else if (getfontsizeoption() == "Large")
+        else if (getFontSizeOption() == "Large")
             fontsize = 30;
         // construct menu bar at the top
         MenuBar menuBar = new MenuBar();
@@ -191,11 +183,11 @@ public class BoggleView {
     private void initBoggleButtons(GridPane buttonsPane, int size, String letters)
     {
         int fontsize = 20;
-        if (getfontsizeoption() == "small")
+        if (getFontSizeOption() == "small")
             fontsize = 15;
-        else if (getfontsizeoption() == "Medium")
+        else if (getFontSizeOption() == "Medium")
             fontsize = 20;
-        else if (getfontsizeoption() == "Large")
+        else if (getFontSizeOption() == "Large")
             fontsize = 30;
         buttonsPane.setVgap(5);
         buttonsPane.setHgap(5);
@@ -242,17 +234,24 @@ public class BoggleView {
         }
     }
 
+    /**
+     * Initializes the tutorial window
+     */
     private void tutorial_init(){
         new TutMain();
     }
 
+    /**
+     * Initializes the game sidebar which contains the game control buttons and score
+     * @return a vbox that contains the game sidebar
+     */
     private VBox initSidebar () {
         int fontsize = 20;
-        if (getfontsizeoption() == "small")
+        if (getFontSizeOption() == "small")
             fontsize = 15;
-        else if (getfontsizeoption() == "Medium")
+        else if (getFontSizeOption() == "Medium")
             fontsize = 20;
-        else if (getfontsizeoption() == "Large")
+        else if (getFontSizeOption() == "Large")
             fontsize = 25;
         Pos elementAlign = Pos.CENTER_LEFT;
         // construct the score graphic; consists of the score, and its string title
@@ -419,14 +418,17 @@ public class BoggleView {
         return mainPane;
     }
 
+    /**
+     * constructs the pane that allows players to input a custom boggle board
+     * @return a root pane that serves to show the custom input screen
+     */
     public Pane customSMaker () {
         int fontsize = 20;
-        if (getfontsizeoption() == "small")
+        if (getFontSizeOption().equals("small"))
             fontsize = 15;
-        else if (getfontsizeoption() == "Medium")
-            fontsize = 20;
-        else if (getfontsizeoption() == "Large")
-            fontsize = 30;
+        else if (getFontSizeOption().equals("Large"))
+            fontsize = 25;
+
         Label prompt = new Label("Please input the letters you would like to use on your Boggle Board.");
         prompt.setFont(Font.font("Arial", FontWeight.BOLD, fontsize));
         prompt.setPrefWidth(primaryStage.getWidth());
@@ -462,6 +464,9 @@ public class BoggleView {
         return rootPane;
     }
 
+    /**
+     * sends a pop up alert. alerts a player that an invalid string of letters has been inputted
+     */
     public void sendCustomAlert () {
         Alert wrongInput = new Alert(Alert.AlertType.ERROR);
         wrongInput.setHeaderText("Illegal Input");
@@ -510,14 +515,12 @@ public class BoggleView {
         return bottomBox;
     }
 
-    private HBox tutHBoxMaker(Button tutButton){
-        setDefaultSize(tutButton);
-        HBox bottomBox = new HBox();
-        bottomBox.getChildren().add(tutButton);
-        bottomBox.setAlignment(Pos.CENTER_LEFT);
-        return bottomBox;
-    }
-
+    /**
+     *
+     * @param continueButton continues to the next screen
+     * @param tutButton starts the tutorial
+     * @return an HBox containing theses 2 buttons
+     */
     private HBox startScreenBoxMaker(Button continueButton, Button tutButton){
         setDefaultSize(continueButton);
         setDefaultSize(tutButton);
@@ -603,8 +606,7 @@ public class BoggleView {
     }
 
     /**
-     * sets an event handler to the continue button in the custom letters scene
-     * @param handler handles the action events from the button in the custom letters scene
+     *the follow methods add the appropriate event handlers to buttons in the view.
      */
     public void addCustomHandler (EventHandler<ActionEvent> handler) {
         cusCont.setOnAction(handler);
@@ -642,28 +644,56 @@ public class BoggleView {
         endRoundButton.setOnAction(handler);
     }
 
+    /**
+     * sets the board size range to generate the appropriate number of toggle buttons
+     * @param minSize the minimum size of a board
+     * @param maxSize the maximum size of a board
+     */
     public void setBoardRange (int minSize, int maxSize) {
         minBoardSize = minSize;
         maxBoardSize = maxSize;
     }
 
+    /**
+     * checks if a game is ongoing
+     * @return a boolean that indicates whether a game is ongoing
+     */
     public boolean isGameOn() {
         return gameOn;
     }
 
+    /**
+     * sets whether a game is ongoing.
+     * used to ensure that when a round is ended,
+     * a player can't input any more words.
+     * @param gameOn whether the game has started or stopped.
+     */
     public void setGameOn(boolean gameOn) {
         this.gameOn = gameOn;
     }
 
 
+    /**
+     * gets the type of board selected (custom vs random)
+     * @return the selected radio button text
+     */
     public String getBoardType () {
         return ((RadioButton) boardTypeGroup.getSelectedToggle()).getText().toLowerCase();
     }
 
+    /**
+     * gets whether the player has selected to play with a text reader
+     * @return the selected radio button text
+     */
     public String getTextReaderOption() {
         return ((RadioButton) textReaderGroup.getSelectedToggle()).getText().toLowerCase();
     }
-    public String getfontsizeoption(){
+
+    /**
+     * gets the selected font size
+     * @return the size of the font selected
+     */
+    public String getFontSizeOption(){
         if (fontsizegroup != null) {
             return ((RadioButton) fontsizegroup.getSelectedToggle()).getText();
         }
@@ -672,43 +702,59 @@ public class BoggleView {
         }
     }
 
+    /**
+     * changes whether a player wants to continue playing with a text reader
+     * @param bool sets whether the text reader is active
+     */
     public void changeTextReaderOption(boolean bool) {
         textReaderEnabled = bool;
     }
 
-    public void runTextReader(Character c) { //helper method for text reader testing
-        textReader(c);
-    }
-
-    public MediaPlayer getMediaPlayer() { //getter method for mediaPlayer
-        return mediaPlayer;
-    }
-
+    /**
+     * gets the selected size of the boggle board
+     * @return the int size of the boggle board
+     */
     public int getBoardSize () {
         return Integer.parseInt(String.valueOf(((RadioButton) boardSizeGroup.getSelectedToggle()).getText().charAt(0)));
 
     }
 
+    /**
+     * gets the custom letters inputted
+     * @return the string inputted in the textfield
+     */
     public String getCusLettersField() {
         return cusLettersField.getText();
     }
 
-    public String getsaveFileNameTextField() {
-        return saveFileNameTextField.getText();
+    /**
+     * gets the name of the saved file
+     * @return a string of the file name
+     */
+    public String getSaveFileTF() {
+        return saveFileTF.getText();
     }
 
+    /**
+     * gets the currently displayed word during the game
+     * @return the string of the current word
+     */
     public String getGameInputDisplay() {
         return gameInputDisplay.getText();
     }
 
+    /**
+     * sets up the load view. allows a player to load a saved board
+     * @return a pane containing the loaded boards
+     */
     public Pane LoadView(){
         boardsList.getItems().clear();
         int fontsize = 20;
-        if (getfontsizeoption() == "small")
+        if (getFontSizeOption() == "small")
             fontsize = 15;
-        else if (getfontsizeoption() == "Medium")
+        else if (getFontSizeOption() == "Medium")
             fontsize = 20;
-        else if (getfontsizeoption() == "Large")
+        else if (getFontSizeOption() == "Large")
             fontsize = 30;
         Label selectBoardLabel = new Label(String.format("Currently playing: Default Board"));
         Button customBack = new Button("Back");
@@ -765,40 +811,44 @@ public class BoggleView {
         }
     }
 
+    /**
+     * constructs the save view. Allows a player to save the current board
+     * @return a pane which allows a user to save the current board
+     */
     public Pane SaveView(){
         int fontsize = 20;
-        if (getfontsizeoption() == "small")
+        if (getFontSizeOption() == "small")
             fontsize = 15;
-        else if (getfontsizeoption() == "Medium")
+        else if (getFontSizeOption() == "Medium")
             fontsize = 20;
-        else if (getfontsizeoption() == "Large")
+        else if (getFontSizeOption() == "Large")
             fontsize = 30;
         Label saveBoardLabel = new Label(String.format("Enter name of file to save"));
-        saveFileNameTextField = new TextField("");
+        saveFileTF = new TextField("");
         VBox dialogVbox = new VBox(20);
         dialogVbox.setPadding(new Insets(20, 20, 20, 20));
         dialogVbox.setStyle("-fx-background-color: #121212;");
 
         saveBoardLabel.setId("SaveBoard"); // DO NOT MODIFY ID
-        saveFileNameTextField.setId("SaveFileNameTextField");
+        saveFileTF.setId("SaveFileNameTextField");
         saveBoardLabel.setStyle("-fx-text-fill: #000000;");
         saveBoardLabel.setFont(new Font(fontsize));
-        saveFileNameTextField.setStyle("-fx-text-fill: #000000;");
-        saveFileNameTextField.setFont(new Font(fontsize));
+        saveFileTF.setStyle("-fx-text-fill: #000000;");
+        saveFileTF.setFont(new Font(fontsize));
 
         saveFileErrorLabel.setId("SaveFileErrorLabel");
         saveFileErrorLabel.setStyle("-fx-text-fill: #000000;");
         saveFileErrorLabel.setFont(new Font(fontsize));
 
         String boardName = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + ".bbg";
-        saveFileNameTextField.setText(boardName);
+        saveFileTF.setText(boardName);
 
         saveBoardButton.setId("SaveBoard");
         saveBoardButton.setStyle("-fx-background-color: #ffeb00; -fx-text-fill: #000000;");
         saveBoardButton.setPrefSize(200, 50);
         saveBoardButton.setFont(new Font(fontsize));
 
-        VBox saveBoardBox = new VBox(10, saveBoardLabel, saveFileNameTextField, saveBoardButton, saveFileErrorLabel);
+        VBox saveBoardBox = new VBox(10, saveBoardLabel, saveFileTF, saveBoardButton, saveFileErrorLabel);
         dialogVbox.getChildren().add(saveBoardBox);
         BorderPane SavePane = new BorderPane();
         SavePane.setTop(saveBoardBox);

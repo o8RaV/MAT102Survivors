@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TransferQueue;
 
 
 /**
@@ -35,16 +36,28 @@ public class BoggleController {
         addEventHandlers();
     }
 
+    /**
+     * Starts up the game (loads up the window)
+     */
     public void start(){
         this.boggleView.startGame();
     }
 
+    /**
+     * constructs a new boggle game (new board with reset score)
+     * @param letters the letters to be used in the boggle board
+     * @param boardSize the size of the boggle board
+     */
     public void constructGame(String letters, int boardSize) {
         boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
         boggleGame.setLetters(letters);
         boggleView.setGameOn(true);
     }
 
+    /**
+     * adds all the event handlers to the buttons in the main application (excluding tutorial)
+     * This implementation allows for more concise and easy-to-follow code. However, it takes a small toll on memory.
+     */
     private void addEventHandlers() {
         boggleView.addBoardSHandler(new handleBoardSelect());
         boggleView.addCustomHandler(new handleCustomSelect());
@@ -57,6 +70,9 @@ public class BoggleController {
         boggleView.addchangeboardhandler(new HandleChangeBoard());
     }
 
+    /**
+     * inner class that handles events from the board selection screen (the radio buttons particularly)
+     */
     public class handleBoardSelect implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -70,6 +86,9 @@ public class BoggleController {
         }
     }
 
+    /**
+     * inner class that handles events from the custom letter input screen
+     */
     public class handleCustomSelect implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -82,6 +101,12 @@ public class BoggleController {
             }
         }
 
+        /**
+         * Checks whether the inputted string is valid
+         * @param input the inputted string
+         * @param boardSize the selected board size
+         * @return a boolean that determines the validity of the inputted string
+         */
         private boolean checkString(String input, int boardSize) {
             for (char c : input.toCharArray()) {
                 if (!Character.isLetter(c)) {
@@ -92,7 +117,9 @@ public class BoggleController {
         }
     }
 
-    // easier way to do using model? take out app logic...
+    /**
+     * handles the event where a user clicks the submit button
+     */
     public class handleSubmit implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -108,6 +135,9 @@ public class BoggleController {
     }
 
 
+    /**
+     * Handles the event where the user initializes a new game
+     */
     public class handleNewGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -117,6 +147,9 @@ public class BoggleController {
         }
     }
 
+    /**
+     * handles the event where a user clicks the end round button
+     */
     public class handleEndRound implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -130,6 +163,9 @@ public class BoggleController {
         }
     }
 
+    /**
+     * handles the event where the user clicks save game
+     */
     public class handleSaveGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -138,17 +174,17 @@ public class BoggleController {
         }
     }
 
+    /**
+     * handles the event where the player inputs a file name, and clicks save.
+     */
     public class HandleSaveBoard implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-            if (boggleView.getsaveFileNameTextField().endsWith(".bbg") && boggleView.getsaveFileNameTextField() != null
-                    && !boggleView.getsaveFileNameTextField().contains("\\") && !boggleView.getsaveFileNameTextField().contains("/")
-                    && !boggleView.getsaveFileNameTextField().contains(":") && !boggleView.getsaveFileNameTextField().contains("|")
-                    && !boggleView.getsaveFileNameTextField().contains("*") && !boggleView.getsaveFileNameTextField().contains("?")
-                    && !boggleView.getsaveFileNameTextField().contains("\"") && !boggleView.getsaveFileNameTextField().contains("<")
-                    && !boggleView.getsaveFileNameTextField().contains(">")) {
-                Caretaker.save(boggleView.getsaveFileNameTextField(), boggleGame.getaMemento(boggleView.getsaveFileNameTextField()));
-                String name = boggleView.getsaveFileNameTextField();
+            if (boggleView.getSaveFileTF().endsWith(".bbg") && boggleView.getSaveFileTF() != null
+                    && !containsAnyOf(boggleView.getSaveFileTF(), "\\/:|*?\"<>")){
+
+                Caretaker.save(boggleView.getSaveFileTF(), boggleGame.getaMemento(boggleView.getSaveFileTF()));
+                String name = boggleView.getSaveFileTF();
                 List loaded = null;
                 Memento temp = null;
                 try {
@@ -167,8 +203,27 @@ public class BoggleController {
             }
             boggleView.saveFileErrorLabel.setText("The board should end with .bbg and should not contain illegal characters");
         }
+
+        /**
+         * checks whether the desired save file name is legal
+         * @param sourceString the desired save file name
+         * @param charsToFind the characters to find in the file name (checks whether they're legal)
+         * @return boolean of whether the sourceString is a legal file name
+         */
+        private boolean containsAnyOf(String sourceString, String charsToFind) {
+            for (char c: charsToFind.toCharArray()) {
+                if (sourceString.indexOf(c) != -1) {
+                    return true;
+
+                }
+            }
+            return false;
+        }
     }
 
+    /**
+     * handles the event where the user clicks load
+     */
     public class handleLoadGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
@@ -177,6 +232,9 @@ public class BoggleController {
         }
     }
 
+    /**
+     * handles the event where the user changes the type of the board they desire to play with.
+     */
     public class HandleChangeBoard implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
