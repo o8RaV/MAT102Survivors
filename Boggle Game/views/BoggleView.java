@@ -524,11 +524,8 @@ public class BoggleView {
     private HBox startScreenBoxMaker(Button continueButton, Button tutButton){
         setDefaultSize(continueButton);
         setDefaultSize(tutButton);
-        HBox bottomBox = new HBox();
-        bottomBox.getChildren().add(continueButton);
-        bottomBox.getChildren().add(tutButton);
-        bottomBox.setAlignment(Pos.CENTER_RIGHT);
-        bottomBox.setAlignment(Pos.CENTER_LEFT);
+        HBox bottomBox = new HBox(continueButton, tutButton);
+        bottomBox.setSpacing(20);
         return bottomBox;
     }
 

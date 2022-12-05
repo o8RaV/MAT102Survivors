@@ -199,6 +199,7 @@ public class BoggleController {
                 int boardSize = (int) Math.sqrt(letters.length());
                 boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
                 boggleView.setGameOn(true);
+                boggleView.updateScore(((BoggleStats) loaded.get(0)).getScore());
                 boggleView.saveFileErrorLabel.setText("Saved board!!");
             }
             boggleView.saveFileErrorLabel.setText("The board should end with .bbg and should not contain illegal characters");
@@ -250,6 +251,7 @@ public class BoggleController {
                     int boardSize = (int) Math.sqrt(letters.length());
                     boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
                     boggleView.updateScore(((BoggleStats) loaded.get(0)).getScore());
+                    boggleView.displayRoundFacts("");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
