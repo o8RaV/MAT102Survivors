@@ -1,5 +1,8 @@
 package views;
 
+import Command.*;
+
+import Command.TutGame;
 import Memento.src.Caretaker;
 import Memento.src.Memento;
 import boggle.BoggleGame;
@@ -226,6 +229,10 @@ public class BoggleView {
         }
     }
 
+    private void tutorial_init(){
+        new TutMain();
+    }
+
     private VBox initSidebar () {
         int fontsize = 20;
         if (getfontsizeoption() == "small")
@@ -290,7 +297,8 @@ public class BoggleView {
                         +"I will find all the remaining words.\n\n"
 
 
-                        +"Click continue when you're ready...");
+                        +"Click continue when you're ready... or the tutorial button for a more-hands on guide on "
+                        +"how to play");
         instructions.setLineSpacing(5);
         instructions.setFont(Font.font("arial", FontWeight.BOLD, 16));
 
@@ -299,9 +307,14 @@ public class BoggleView {
         // sets the instructions in the center of the scene
         pane.setCenter(instructions);
 
+        Button tutAccess = new Button("Tutorial");
+        tutAccess.setOnAction(e -> tutorial_init());
+        //pane.setTop(tutHBoxMaker(tutAccess));
+
         Button instrucCont = new Button("Continue");
         instrucCont.setOnAction(e -> displayScene(boardSMaker()));
-        pane.setBottom(contHBoxMaker(instrucCont));
+        pane.setBottom(startScreenBoxMaker(instrucCont, tutAccess));
+
 
         // lets the instructions text to wrap around the window when the window is resized
         instructions.wrappingWidthProperty().bind(pane.widthProperty().add(-2*defaultPadding));
@@ -486,6 +499,25 @@ public class BoggleView {
         HBox bottomBox = new HBox();
         bottomBox.getChildren().add(continueButton);
         bottomBox.setAlignment(Pos.CENTER_RIGHT);
+        return bottomBox;
+    }
+
+    private HBox tutHBoxMaker(Button tutButton){
+        setDefaultSize(tutButton);
+        HBox bottomBox = new HBox();
+        bottomBox.getChildren().add(tutButton);
+        bottomBox.setAlignment(Pos.CENTER_LEFT);
+        return bottomBox;
+    }
+
+    private HBox startScreenBoxMaker(Button continueButton, Button tutButton){
+        setDefaultSize(continueButton);
+        setDefaultSize(tutButton);
+        HBox bottomBox = new HBox();
+        bottomBox.getChildren().add(continueButton);
+        bottomBox.getChildren().add(tutButton);
+        bottomBox.setAlignment(Pos.CENTER_RIGHT);
+        bottomBox.setAlignment(Pos.CENTER_LEFT);
         return bottomBox;
     }
 

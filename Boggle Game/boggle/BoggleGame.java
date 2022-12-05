@@ -209,8 +209,6 @@ public class BoggleGame {
         for (String i: temp) {
             gameStats.addWord(i, BoggleStats.Player.Computer);
         }
-
-
     }
 
 

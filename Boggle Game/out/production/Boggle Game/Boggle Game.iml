@@ -25,5 +25,6 @@
     </orderEntry>
     <orderEntry type="library" name="javafx-swt" level="project" />
     <orderEntry type="library" name="Boggle Game" level="application" />
+    <orderEntry type="library" name="javafx-swt3" level="application" />
   </component>
 </module>
