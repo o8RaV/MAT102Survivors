@@ -20,9 +20,6 @@ import views.BoggleView;
 
 public class TutView extends BoggleView{
 
-    private final int windowMinWidth = 900; // sets the window's minimum width and height
-    private final int windowMinHeight = 700;
-
     private final int defButtonHeight = 40; // default values to keep uniform look in application
     private final int defButtonWidth = 80;
     private final int defaultPadding = 20;
@@ -47,13 +44,10 @@ public class TutView extends BoggleView{
         this.place = 0;
 
         Pane pane = new Pane();
-        Scene scene = new Scene(pane);
+        Scene scene = new Scene(pane, windowMinWidth, windowMinHeight);
         tutStage.setScene(scene);
         tutStage.setMinWidth(windowMinWidth);
         tutStage.setMinHeight(windowMinHeight);
-        tutStage.setWidth(windowMinWidth);
-        tutStage.setHeight(windowMinHeight);
-        tutStage.setFullScreen(true);
     }
 
     public void displayScene(Pane pane) {

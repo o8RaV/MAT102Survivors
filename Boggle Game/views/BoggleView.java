@@ -42,8 +42,8 @@ import java.util.List;
  *  displays the main game window, where the user selects a boggle board and plays boggle.
  */
 public class BoggleView {
-    private final int windowMinWidth = 900; // sets the window's minimum width and height
-    private final int windowMinHeight = 700;
+    protected final int windowMinWidth = 900; // sets the window's minimum width and height
+    protected final int windowMinHeight = 700;
     MediaPlayer mediaPlayer;
     TextField cusLettersField; // textfield that allows user to input custom set of letters
     public Label saveFileErrorLabel = new Label(""); // error label for saveview
@@ -98,7 +98,6 @@ public class BoggleView {
      */
     public BoggleView(Stage stage) {
         primaryStage = stage;
-        primaryStage.setFullScreen(true);
         primaryStage.setTitle("and his name is JOOOHHHN CENAAAA");
 
         Pane pane = new Pane();
