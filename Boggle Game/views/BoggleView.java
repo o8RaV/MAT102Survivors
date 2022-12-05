@@ -806,10 +806,6 @@ public class BoggleView {
      /* gets the name of the saved file
      * @return a string of the file name
      */
-    public String getSaveFileTF() {
-        return saveFileTF.getText();
-
-    }
 
     /**
      * gets the currently displayed word during the game
@@ -908,7 +904,7 @@ public class BoggleView {
         else if (getFontSizeOption() == "Large")
             fontsize = 30;
         Label saveBoardLabel = new Label(String.format("Enter name of file to save"));
-
+        saveFileErrorLabel = new Label("");
         saveFileNameTextField = new TextField(""); // adding the different buttons
 
         VBox dialogVbox = new VBox(20);
@@ -924,22 +920,22 @@ public class BoggleView {
 
         saveBoardLabel.setStyle("-fx-text-fill: #000000;");
         saveBoardLabel.setFont(new Font(fontsize));
-        saveFileTextField.setStyle("-fx-text-fill: #000000;");
-        saveFileTextField.setFont(new Font(fontsize));
+        saveFileNameTextField.setStyle("-fx-text-fill: #000000;");
+        saveFileNameTextField.setFont(new Font(fontsize));
 
         saveFileErrorLabel.setId("SaveFileErrorLabel");
         saveFileErrorLabel.setStyle("-fx-text-fill: #000000;");
         saveFileErrorLabel.setFont(new Font(fontsize));
 
         String boardName = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + ".bbg";
-        saveFileTF.setText(boardName);
+        saveFileNameTextField.setText(boardName);
 
         saveBoardButton.setId("SaveBoard");
         saveBoardButton.setStyle("-fx-background-color: #ffeb00; -fx-text-fill: #000000;");
         saveBoardButton.setPrefSize(200, 50);
         saveBoardButton.setFont(new Font(fontsize));
 
-        VBox saveBoardBox = new VBox(10, saveBoardLabel, saveFileTF, saveBoardButton, saveFileErrorLabel);
+        VBox saveBoardBox = new VBox(10, saveBoardLabel, saveFileNameTextField, saveBoardButton, saveFileErrorLabel);
         dialogVbox.getChildren().add(saveBoardBox);
         BorderPane SavePane = new BorderPane();
         SavePane.setTop(saveBoardBox);

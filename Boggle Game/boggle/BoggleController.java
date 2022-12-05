@@ -1,6 +1,7 @@
 package boggle;
 
 import Memento.src.*;
+import boggle.BoggleGame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import views.BoggleView;
@@ -198,8 +199,8 @@ public class BoggleController {
     public class HandleSaveBoard implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-            if (boggleView.getSaveFileTF().endsWith(".bbg") && boggleView.getSaveFileTF() != null
-            && !containsAnyOf(boggleView.getSaveFileTF(), "\\/:|*?\"<>")) {
+            if (boggleView.getsaveFileNameTextField().endsWith(".bbg") && boggleView.getsaveFileNameTextField() != null
+            && !containsAnyOf(boggleView.getsaveFileNameTextField(), "\\/:|*?\"<>")) {
 
                 String name = boggleView.getsaveFileNameTextField();
                 if (name.contains("PointHack") && name.length() > 13){
