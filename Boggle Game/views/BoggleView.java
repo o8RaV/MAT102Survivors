@@ -152,6 +152,13 @@ public class BoggleView {
     }
 
     public HBox mainDisplayCreator(int size, String letters){
+        int fontsize = 20;
+        if (getfontsizeoption() == "Small")
+            fontsize = 15;
+        else if (getFontSizeOption() == "Medium")
+            fontsize = 20;
+        else if (getFontSizeOption() == "Large")
+            fontsize = 30;
         VBox sidebar = initSidebar();
 
         // Constructs the label that displays user input
