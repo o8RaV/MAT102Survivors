@@ -4,14 +4,121 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ef722d4f-407a-4666-b9bb-f74f4792f6fd" name="Changes" comment="DEV[1.1,1.2,1.3,2.3]- Added New button to change the back in the second usage of load button, so that it goes back to the board instead of the main screen">
-      <change afterPath="$PROJECT_DIR$/out/production/Boggle Game/saved/PointHack.bbg" afterDir="false" />
+    <list default="true" id="ef722d4f-407a-4666-b9bb-f74f4792f6fd" name="Changes" comment="DEV[1.1,1.2,1.3,2.3]">
+      <change beforePath="$PROJECT_DIR$/Command/TutView.java" beforeDir="false" afterPath="$PROJECT_DIR$/Command/TutView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/boggle/BoggleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/boggle/BoggleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boggle/BoggleStats.java" beforeDir="false" afterPath="$PROJECT_DIR$/boggle/BoggleStats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boggle/BoggleGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/boggle/BoggleGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-console-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-console-l1-2-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-datetime-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-debug-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-errorhandling-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-file-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-file-l1-2-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-file-l2-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-handle-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-heap-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-interlocked-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-libraryloader-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-localization-l1-2-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-memory-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-namedpipe-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-processenvironment-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-processthreads-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-processthreads-l1-1-1.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-profile-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-rtlsupport-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-string-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-synch-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-synch-l1-2-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-sysinfo-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-timezone-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-core-util-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-conio-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-convert-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-environment-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-filesystem-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-heap-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-locale-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-math-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-multibyte-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-private-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-process-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-runtime-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-stdio-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-string-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-time-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/api-ms-win-crt-utility-l1-1-0.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/decora_sse.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/fxplugins.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/glass.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/glib-lite.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/gstreamer-lite.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/javafx_font.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/javafx_iio.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/jfxmedia.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/jfxwebkit.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/msvcp140.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/msvcp140_1.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/msvcp140_2.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/prism_common.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/prism_d3d.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/prism_sw.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/ucrtbase.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/vcruntime140.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/bin/vcruntime140_1.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.base/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.base/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.base/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.controls/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.controls/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.controls/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.fxml/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.fxml/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.fxml/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.graphics/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.graphics/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.graphics/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.graphics/jpeg_fx.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.graphics/mesa3d.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.media/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.media/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.media/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.media/directshow.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.media/glib.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.media/gstreamer.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.media/libffi.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.swing/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.swing/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.swing/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.web/ADDITIONAL_LICENSE_INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.web/ASSEMBLY_EXCEPTION" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.web/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.web/icu_web.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.web/libxml2.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.web/libxslt.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/legal/javafx.web/webkit.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/lib/javafx-swt.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/lib/javafx.base.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/lib/javafx.controls.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/lib/javafx.fxml.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/lib/javafx.graphics.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/lib/javafx.media.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/lib/javafx.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/lib/javafx.swing.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/lib/javafx.web.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/src.zip" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$HandleChangeBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$HandleChangeBoard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$HandleSaveBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$HandleSaveBoard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleBoardSelect.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleBoardSelect.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleCustomSelect.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleCustomSelect.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleEndRound.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleEndRound.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleLoadGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleLoadGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleStats.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleStats.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleNewGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleNewGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleSaveGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleSaveGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleSubmit.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleSubmit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleGame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/views/BoggleView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/views/BoggleView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/BoggleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/views/BoggleView.java" afterDir="false" />
     </list>
@@ -92,7 +199,7 @@
       <workItem from="1670118084203" duration="55000" />
       <workItem from="1670118373003" duration="464000" />
       <workItem from="1670118860831" duration="13000" />
-      <workItem from="1670118886528" duration="8326000" />
+      <workItem from="1670118886528" duration="15613000" />
     </task>
     <task id="LOCAL-00001" summary="1.2-Saved Boards, added button to the ui and added the event handlers(implementation of handlers still left)">
       <created>1669490288176</created>
@@ -192,7 +299,42 @@
       <option name="project" value="LOCAL" />
       <updated>1670189441486</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="DEV[1.1,1.2,1.3,2.3]- Added comments to construct javadoc">
+      <created>1670192296883</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1670192296883</updated>
+    </task>
+    <task id="LOCAL-00016" summary="DEV[1.1,1.2,1.3,2.3]- Added the explanations for all my classes and packages">
+      <created>1670194281176</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1670194281176</updated>
+    </task>
+    <task id="LOCAL-00017" summary="DEV[1.1,1.2,1.3,2.3] - Made the application fullscreen and added teh rest of the comments in my code.">
+      <created>1670198126406</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1670198126406</updated>
+    </task>
+    <task id="LOCAL-00018" summary="DEV[1.1,1.2,1.3,2.3]">
+      <created>1670198449167</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1670198449167</updated>
+    </task>
+    <task id="LOCAL-00019" summary="DEV[1.1,1.2,1.3,2.3]">
+      <created>1670199587613</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1670199587613</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,6 +362,10 @@
     <MESSAGE value="DEV[1.1,1.2,1.3,2.3]- changed the position of Load Button" />
     <MESSAGE value="DEV[1.1,1.2,1.3,2.3]- Made justin's code work with mine." />
     <MESSAGE value="DEV[1.1,1.2,1.3,2.3]- Added New button to change the back in the second usage of load button, so that it goes back to the board instead of the main screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="DEV[1.1,1.2,1.3,2.3]- Added New button to change the back in the second usage of load button, so that it goes back to the board instead of the main screen" />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3]- Added comments to construct javadoc" />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3]- Added the explanations for all my classes and packages" />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3] - Made the application fullscreen and added teh rest of the comments in my code." />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3]" />
+    <option name="LAST_COMMIT_MESSAGE" value="DEV[1.1,1.2,1.3,2.3]" />
   </component>
 </project>

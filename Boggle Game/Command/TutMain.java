@@ -30,8 +30,8 @@ public class TutMain{
     private TutView view;
     private TutGame operations;
 
-    private final int windowMinWidth = 900; // sets the window's minimum width and height
-    private final int windowMinHeight = 700;
+    private final int windowMinWidth = 700; // sets the window's minimum width and height
+    private final int windowMinHeight = 500;
     private int minBoardSize; // a boggle board's minimum and maximum sizes, set by BoggleGame
     private int maxBoardSize;
 
@@ -46,15 +46,6 @@ public class TutMain{
         this.scanner = new Scanner(System.in);
         tutStage = new Stage();
         tutStage.setTitle("Tutorial. It's dangerous to go alone");
-
-        Pane pane = new Pane();
-        Scene scene = new Scene(pane);
-        tutStage.setScene(scene);
-        tutStage.setMinWidth(windowMinWidth);
-        tutStage.setMinHeight(windowMinHeight);
-        tutStage.setWidth(windowMinWidth);
-        tutStage.setHeight(windowMinHeight);
-        tutStage.setFullScreen(true);
         this.view = new TutView(tutStage);
         view.startGame(0);
     }

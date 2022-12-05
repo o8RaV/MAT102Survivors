@@ -210,7 +210,7 @@ public class BoggleGame {
      * sets the dictioanry of all_words
      * @param dict
      */
-    public void setallwords(HashMap<String, ArrayList<Position>> dict){
+    public void setAllWords(HashMap<String, ArrayList<Position>> dict){
         allWords = dict;
     }
 
@@ -228,7 +228,7 @@ public class BoggleGame {
      * @param memento
      * @return the contents of the provided Memento
      */
-    public List getstatefrommemento(Memento memento) {
+    public List getStateFromMemento(Memento memento) {
         return memento.getState();
     }
 
@@ -236,6 +236,8 @@ public class BoggleGame {
      * changes the gamestats of teh current game
      * @param gameStats
      */
-    public void changegamestats(BoggleStats gameStats){this.gameStats = gameStats;}
+    public void changeGameStats(BoggleStats gameStats){this.gameStats = gameStats;}
 }
+
+
 
