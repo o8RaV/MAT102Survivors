@@ -19,7 +19,6 @@ import views.BoggleView;
 
 
 public class TutView extends BoggleView{
-
     private final int defButtonHeight = 40; // default values to keep uniform look in application
     private final int defButtonWidth = 80;
     private final int defaultPadding = 20;
