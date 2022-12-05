@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
+import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -23,6 +25,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -60,7 +63,7 @@ public class BoggleView {
     private int maxBoardSize;
 
     private final int defButtonHeight = 40; // default values to keep uniform look in application
-    private final int defButtonWidth = 80;
+    private final int defButtonWidth = 90;
     private final int defaultPadding = 20;
 
     private Label gameInputDisplay = new Label(""); // label that displays the letters a player has selected
@@ -276,7 +279,7 @@ public class BoggleView {
         Label scoreTitle = new Label("Score:");
         scoreTitle.setFont(Font.font(fontChoice, FontWeight.BOLD, fontsize));
         scoreTitle.setAlignment(Pos.CENTER);
-        scoreTitle.setPrefWidth(defButtonWidth+10);
+        scoreTitle.setPrefWidth(defButtonWidth);
         scoreDisplay.setText("0");
         setDefaultSize(scoreDisplay);
         scoreDisplay.setFont(Font.font(fontChoice, 18));
@@ -369,14 +372,17 @@ public class BoggleView {
         // bottom continue button box
         Button nextButton = new Button("Continue");
         setDefaultSize(nextButton);
-        nextButton.setOnAction(e -> displayScene(instrucSMaker()));
+        nextButton.setOnAction(e -> {
+            fontChoice = ((RadioButton) fontToggles.getSelectedToggle()).getText();
+            displayScene(instrucSMaker());
+            System.out.println(fontChoice);
+        });
         HBox continueHBox = contHBoxMaker(nextButton);
 
         // Adding all selections to one box to control the spacing between the main different sections.
         VBox totalSelectionArea = new VBox(colorMainPane, fontMainPane);
         totalSelectionArea.setBackground(Background.fill(Color.BLUE));
         totalSelectionArea.setAlignment(Pos.CENTER);
-        totalSelectionArea.setSpacing(20);
         totalSelectionArea.setPadding(new Insets(30, 0, 0, 0));
 
         mainHouse.setCenter(totalSelectionArea);
@@ -534,11 +540,11 @@ public class BoggleView {
         selectionPane.getChildren().add(loadButton);
         BorderPane mainPane = new BorderPane();
         Label title = new Label("Board Selection");
-        title.setFont(Font.font(fontChoice, FontWeight.BOLD, 24));
+        title.setFont(Font.font(fontChoice, FontWeight.BOLD, 30));
         title.prefWidthProperty().bind(primaryStage.widthProperty());
         title.setPrefHeight(30);
         title.setAlignment(Pos.BOTTOM_CENTER);
-        mainPane.setPadding(new Insets(defaultPadding));
+        mainPane.setPadding(new Insets(3*defaultPadding, defaultPadding, defaultPadding, defaultPadding));
         mainPane.setTop(title);
         mainPane.setCenter(selectionPane);
         mainPane.setBottom(contHBoxMaker(boardSCont));
@@ -564,6 +570,7 @@ public class BoggleView {
         prompt.setPrefWidth(primaryStage.getWidth());
         prompt.setAlignment(Pos.BOTTOM_CENTER);
         cusLettersField = new TextField();
+        cusLettersField.setFont(Font.font(fontChoice));
         cusLettersField.setPrefHeight(100);
         cusLettersField.setMaxWidth(400);
         cusLettersField.setFont(Font.font(20));
@@ -972,6 +979,17 @@ public class BoggleView {
         boardsList.setId("BoardsList");
         boardsList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
+        // changes the font based on what was selected
+        boardsList.setCellFactory(listView -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String s, boolean empty) {
+                super.updateItem(s, empty);
+                setText(s);
+                if (!empty) {
+                    setFont(Font.font(fontChoice, 18));
+                }
+            }
+        });
         getFiles(boardsList); //get files for file selector
 
 
@@ -980,7 +998,7 @@ public class BoggleView {
 
         VBox selectBoardBox = new VBox(10, selectBoardLabel, boardsList, selectBoardButton);
         BorderPane LoadPane = new BorderPane();
-        boardsList.setPrefHeight(100);
+        boardsList.setPrefHeight(200);
 
         selectBoardLabel.setStyle("-fx-text-fill: #000000");
         selectBoardLabel.setFont(new Font(fontChoice, fontsize));

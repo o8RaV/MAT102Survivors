@@ -80,7 +80,7 @@ public class BoggleController {
     public class handleBoardSelect implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-            if (boggleView.getBoardType().equals("custom")) {
+            if (boggleView.getBoardType().equals("Custom")) {
                 boggleView.displayScene(boggleView.customSMaker());
             } else {
                 int boardSize = boggleView.getBoardSize();
