@@ -17,18 +17,21 @@ import javafx.scene.text.Text;
 import views.BoggleView;
 
 
-
+/**
+ * Extension of BoggleView to display screens unique to the tutorial mode of the game
+ */
 public class TutView extends BoggleView{
     private final int defButtonHeight = 40; // default values to keep uniform look in application
     private final int defButtonWidth = 80;
     private final int defaultPadding = 20;
 
-    private ArrayList<String> instructs = new ArrayList<String>();
+    private ArrayList<String> instructs = new ArrayList<String>(); // An Arraylist containing all text screens of the
+                                                                   // tutorial mode
 
-    private Stage primaryStage; // the main game window
-    private Stage tutStage;
-    private TutGame game;
-    private int place;
+    private Stage tutStage; // Stage of the tutorial mode, unique to have its own window
+    private TutGame game; // class for handling board operations
+    private int place; // Counter to keep track of where the user is in the tutorial
+    private ArrayList<String> wordsForCompletion; // List of words needed from the user on a given board
 
     /**
      * Constructor
@@ -47,6 +50,9 @@ public class TutView extends BoggleView{
         tutStage.setScene(scene);
         tutStage.setMinWidth(windowMinWidth);
         tutStage.setMinHeight(windowMinHeight);
+        tutStage.setWidth(windowMinWidth);
+        tutStage.setHeight(windowMinHeight);
+        wordsForCompletion = new ArrayList<>();
     }
 
     public void displayScene(Pane pane) {
@@ -75,8 +81,12 @@ public class TutView extends BoggleView{
         displayScene(instrucSMaker(where));
     }
 
-    public void screenUpdater(int i){
-        displayScene(instrucSMaker(i+1));
+    /**
+     * Used to move tutorial to next step
+     * @param current the place of the tutorial's text screen
+     */
+    public void screenUpdater(int current){
+        displayScene(instrucSMaker(current+1));
     }
 
     private void setDefaultSize (Control button) {
@@ -117,21 +127,24 @@ public class TutView extends BoggleView{
         // Specific input values are checked to know where the user is in the tutorial
         if(input == 2){
             // Reached the first board with vertical and horizontal example
-            ArrayList<String> words = new ArrayList<>();
-            words.add("link");
-            words.add("risk");
+            wordsForCompletion = new ArrayList<>();
+            wordsForCompletion.add("link");
+            wordsForCompletion.add("risk");
+            ArrayList<String> words = new ArrayList<>(wordsForCompletion);
             instrucCont.setOnAction(e -> makeBoard("grnllinkzseiukbm", 4, words));
             pane.setBottom(contHBoxMaker(instrucCont));
         }else if(input == 4){
             // Reached the diagonal example
-            ArrayList<String> words = new ArrayList<>();
-            words.add("mega");
+            wordsForCompletion = new ArrayList<>();
+            wordsForCompletion.add("mega");
+            ArrayList<String> words = new ArrayList<>(wordsForCompletion);
             instrucCont.setOnAction(e -> makeBoard("misxaehkndgozvea", 4, words));
             pane.setBottom(contHBoxMaker(instrucCont));
         }else if(input == 6){
             // Reached the mix of vertical and horizontal example
-            ArrayList<String> words = new ArrayList<>();
-            words.add("joker");
+            wordsForCompletion = new ArrayList<>();
+            wordsForCompletion.add("joker");
+            ArrayList<String> words = new ArrayList<>(wordsForCompletion);
             instrucCont.setOnAction(e -> makeBoard("jokehzqreouqhaak", 4, words));
             pane.setBottom(contHBoxMaker(instrucCont));
         }
@@ -168,5 +181,59 @@ public class TutView extends BoggleView{
      */
     public int getPlace(){
         return this.place;
+    }
+
+    /**
+     * Used to notify the user when they are missing desired inputs on a tutorial board
+     * @param needed ArrayList of missing inputs
+     */
+    public void sendCustomAlert(ArrayList<String> needed) {
+        String neededWordsList = needed.toString();
+        String neededWordsPrint = neededWordsList.substring(1, neededWordsList.length()-1);
+        Alert wrongInput = new Alert(Alert.AlertType.ERROR);
+        wrongInput.setHeaderText("Not all words have been input yet");
+        wrongInput.setContentText("The following words are still missing: \n" +
+                neededWordsPrint +
+                "\n");
+        wrongInput.setHeight(300);
+        wrongInput.show();
+    }
+
+    /**
+     * Used to display all desired inputs of a tutorial board on the screen above a counter of how many of the desired
+     * inputs have been input
+     * @return String directing the user to input the desired inputs
+     */
+    @Override
+    public String countDisplay() {
+        wordsForCompletion = new ArrayList<>();
+        if(place == 2){
+            wordsForCompletion.add("link");
+            wordsForCompletion.add("risk");
+        }
+        if(place == 4){
+            wordsForCompletion.add("mega");
+        }
+        if(place == 6){
+            wordsForCompletion.add("joker");
+        }
+        String wordList = wordsForCompletion.toString();
+        return "Please\n" +
+                "input: \n" +
+                wordList.substring(1, wordList.length()-1);
+    }
+
+    /**
+     * Initializes the screen of the tutorial boards
+     * @param size the size of the boggle board
+     * @param letters the string of letters to be used for the boggle board
+     * @return the Pane of the play scene
+     */
+    @Override
+    public Pane playSMaker(int size, String letters) {
+        HBox playArea = mainDisplayCreator(size, letters);
+        VBox rootPane = new VBox(playArea);
+        rootPane.setSpacing(10);
+        return rootPane;
     }
 }

@@ -144,6 +144,14 @@ public class BoggleView {
         menuBar.getMenus().add(LoadGame);
 
         // forms the sidebar
+        HBox playArea = mainDisplayCreator(size, letters);
+
+        VBox rootPane = new VBox(menuBar, playArea);
+        rootPane.setSpacing(10);
+        return rootPane;
+    }
+
+    public HBox mainDisplayCreator(int size, String letters){
         VBox sidebar = initSidebar();
 
         // Constructs the label that displays user input
@@ -172,11 +180,7 @@ public class BoggleView {
         HBox playArea = new HBox(boggleBoard, sidebar);
         playArea.setSpacing(20);
         playArea.setPadding(new Insets(defaultPadding));
-
-        VBox rootPane = new VBox(menuBar, playArea);
-        rootPane.setSpacing(10);
-        return rootPane;
-
+        return playArea;
     }
 
     /**
@@ -244,7 +248,7 @@ public class BoggleView {
     }
 
     /**
-     * Initializes the tutorial window
+     * Initializes the methods needed to begin the tutorial
      */
     private void tutorial_init(){
         new TutMain();
@@ -268,6 +272,7 @@ public class BoggleView {
         scoreTitle.setFont(Font.font("Arial", FontWeight.BOLD, fontsize));
         scoreTitle.setAlignment(Pos.CENTER);
         scoreTitle.setPrefWidth(defButtonWidth);
+        // construct the score graphic; consists of the score, and its string title
         scoreDisplay.setText("0");
         setDefaultSize(scoreDisplay);
         scoreDisplay.setFont(Font.font(18));
@@ -301,6 +306,14 @@ public class BoggleView {
         sidebar.setAlignment(Pos.TOP_CENTER);
         return sidebar;
     }
+
+    /**
+     * Used to display words above the counter to describe the counter's purpose
+     */
+    public String countDisplay(){
+        return "Score:";
+    }
+
     /**
      * constructs a pane with the boggle game's instructions
      * @return the root pane of the instructions scene
