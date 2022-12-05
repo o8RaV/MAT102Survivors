@@ -8,7 +8,7 @@ import Memento.src.*;
  */
 public class BoggleGame {
 
-    Dictionary dict;
+    Dictionary dict; // all possible words
 
     private final int minBoardSize = 4; // a boggle board's minimum and maximum sizes.
 
@@ -24,24 +24,26 @@ public class BoggleGame {
      */
     public BoggleStats gameStats;
 
-    String boggleboard;
+    String boggleboard; //stores the current letters for teh game
 
-    private HashMap<String, ArrayList<Position>> allWords;
+    private HashMap<String, ArrayList<Position>> allWords; // all_words for the game
 
     /**
-     * dice used to randomize letter assignments for a small grid
+     * dice used to randomize letter assignments for a small grid (4x4)
      */
     private final String[] dice_small_grid = //dice specifications, for small and large grids
             {"AAEEGN", "ABBJOO", "ACHOPS", "AFFKPS", "AOOTTW", "CIMOTU", "DEILRX", "DELRVY",
                     "DISTTY", "EEGHNW", "EEINSU", "EHRTVW", "EIOSST", "ELRTTY", "HIMNQU", "HLNNRZ"};
     /**
-     * dice used to randomize letter assignments for a big grid
+     * dice used to randomize letter assignments for a big grid (5x5)
      */
     private final String[] dice_big_grid =
             {"AAAFRS", "AAEEEE", "AAFIRS", "ADENNN", "AEEEEM", "AEEGMU", "AEGMNN", "AFIRSY",
                     "BJKQXZ", "CCNSTW", "CEIILT", "CEILPT", "CEIPST", "DDLNOR", "DDHNOT", "DHHLOR",
                     "DHLNOR", "EIIITT", "EMOTTT", "ENSSSU", "FIPRSY", "GORRVW", "HIPRRY", "NOOTUW", "OOOTTU"};
-
+    /**
+     * dice used to randomize letter for a massive grid (6x6)
+     */
     private final String[] dice_massive_grid = {"AAAFRS", "AAEEEE", "AAEEOO", "AAFIRS", "ABDEIO", "ADENNN",
             "AEEEEM", "AEEGMU", "AEGMNN", "AEILMN", "AEINOU", "AFIRSY", "AEHIQT", "BBJKXZ", "CCENST",
             "CDDLNN", "CEIITT", "CEIPST", "CFGNUY", "DDHNOT", "DHHLOR", "DHHNOW", "DHLNOR", "EHILRS",
@@ -108,40 +110,24 @@ public class BoggleGame {
      * Words that are found should be entered into the allWords HashMap.  This HashMap
      * will be consulted as we play the game.
      *
-     * Note that this function will be a recursive function.  You may want to write
-     * a wrapper for your recursion. Note that every legal word on the Boggle grid will correspond to
-     * a list of grid positions on the board, and that the Position class can be used to represent these
-     * positions. The strategy you will likely want to use when you write your recursion is as follows:
-     * -- At every Position on the grid:
-     * ---- add the Position of that point to a list of stored positions
-     * ---- if your list of stored positions is >= 4, add the corresponding word to the allWords Map
-     * ---- recursively search for valid, adjacent grid Positions to add to your list of stored positions.
-     * ---- Note that a valid Position to add to your list will be one that is either horizontal, diagonal, or
-     *      vertically touching the current Position
-     * ---- Note also that a valid Position to add to your list will be one that, in conjunction with those
-     *      Positions that precede it, form a legal PREFIX to a word in the Dictionary (this is important!)
-     * ---- Use the "isPrefix" method in the Dictionary class to help you out here!!
-     * ---- Positions that already exist in your list of stored positions will also be invalid.
-     * ---- You'll be finished when you have checked EVERY possible list of Positions on the board, to see
-     *      if they can be used to form a valid word in the dictionary.
-     * ---- Food for thought: If there are N Positions on the grid, how many possible lists of positions
-     *      might we need to evaluate?
-     *
      * @param allWords A mutable list of all legal words that can be found, given the boggleGrid grid letters
      * @param boggleDict A dictionary of legal words
      * @param boggleGrid A boggle grid, with a letter at each position on the grid
      */
     public void findAllWords(Dictionary boggleDict, BoggleGrid boggleGrid) {
-        // Mark all characters as not visited
-        // Initialize current string
-        // Consider every character and look for all words
-        // starting with this character
         for (int i = 0; i <= boggleGrid.numCols(); i++)
             for (int j = 0; j <= boggleGrid.numCols(); j++)
                 findWordsUtil(boggleDict, boggleGrid, new ArrayList<Position>(), new Position(i, j), "");
-
     }
 
+    /**
+     * Helper of findAllWords
+     * @param boggleDict
+     * @param boggleGrid
+     * @param visited
+     * @param pos
+     * @param prefix
+     */
     private void findWordsUtil(Dictionary boggleDict, BoggleGrid boggleGrid, ArrayList<Position> visited, Position pos, String prefix) {
         int i = pos.getRow(); int j = pos.getCol();
         int length = boggleGrid.numCols();
@@ -170,10 +156,6 @@ public class BoggleGame {
 
     /*
      * Gets words from the user.  As words are input, check to see that they are valid.
-     * If yes, add the word to the player's word list (in boggleStats) and increment
-     * the player's score (in boggleStats).
-     * End the turn once the user hits return (with no word).
-     *
      * @param board The boggle board
      * @param allWords A mutable list of all legal words that can be found, given the boggleGrid grid letters
      */
@@ -183,14 +165,6 @@ public class BoggleGame {
             }
             return this.gameStats.getScore();
         }
-
-    //You write code here!
-    //step 1. Print the board for the user, so they can scan it for words
-    //step 2. Get a input (a word) from the user via the console
-    //step 3. Check to see if it is valid (note validity checks should be case-insensitive)
-    //step 4. If it's valid, update the player's word list and score (stored in boggleStats)
-    //step 5. Repeat step 1 - 4
-    //step 6. End when the player hits return (with no word choice).
 
 
     /*
@@ -230,17 +204,40 @@ public class BoggleGame {
      * gets the HashMap allWords. method used for testing
      * @return allWords
      */
-     public HashMap<String, ArrayList<Position>> getAllWords() {return allWords;}
+    public HashMap<String, ArrayList<Position>> getAllWords() {return allWords;}
 
+    /**
+     * sets the dictioanry of all_words
+     * @param dict
+     */
     public void setAllWords(HashMap<String, ArrayList<Position>> dict){
-         allWords = dict;
+        allWords = dict;
     }
+
+    /**
+     * returns the memento of the current game
+     * @param name
+     * @return Memento of the current game
+     */
     public Memento getaMemento(String name){
         return new Memento(gameStats, boggleboard, allWords);
     }
+
+    /**
+     * Returns the value of the given Memento
+     * @param memento
+     * @return the contents of the provided Memento
+     */
     public List getStateFromMemento(Memento memento) {
         return memento.getState();
     }
+
+    /**
+     * changes the gamestats of teh current game
+     * @param gameStats
+     */
     public void changeGameStats(BoggleStats gameStats){this.gameStats = gameStats;}
 }
+
+
 
