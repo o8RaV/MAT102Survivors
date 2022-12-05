@@ -1,11 +1,6 @@
 package views;
 import Command.*;
 
-import Command.TutGame;
-import Memento.src.Caretaker;
-import Memento.src.Memento;
-import boggle.BoggleGame;
-import boggle.BoggleStats;
 import boggle.Position;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -75,9 +70,9 @@ public class BoggleView {
 
     Button submitButton = new Button("Submit"); // button that allows user to submit a word
 
-    Button SaveButton = new Button("Save Game"); //button to save the game
+    Button saveButton = new Button("Save Game"); //button to save the game
 
-    Button LoadButton = new Button("Load Game"); // button to load an old game.
+    Button loadButton = new Button("Load Game"); // button to load an old game.
     
     Label scoreDisplay = new Label(); // displays the current score
 
@@ -90,6 +85,13 @@ public class BoggleView {
     boolean gameOn;
 
     public boolean textReaderEnabled;
+
+    protected String fontChoice = "Comic Sans MS";
+    protected Color boggleStillColor = Color.LIGHTGREY;
+    protected Color highlightColor = Color.GOLD;
+    protected Color inputRectColor = Color.LIGHTBLUE;
+    protected Color boggleTextColor = Color.BLACK;
+    protected Color scoreColor = Color.LIGHTGREEN;
 
     /**
      * Constructor
@@ -113,7 +115,7 @@ public class BoggleView {
      * starts the game
      */
     public void startGame() {
-        displayScene(instrucSMaker());
+        displayScene(viewTypeMaker());
     }
     /**
      * @param size the size of the boggle board
@@ -136,9 +138,14 @@ public class BoggleView {
         Menu newGame = new Menu();
         Menu SaveGame = new Menu();
         Menu LoadGame = new Menu();
-        SaveGame.setGraphic(SaveButton);
+
+        saveButton.setFont(Font.font(fontChoice));
+        newGameButton.setFont(Font.font(fontChoice));
+        loadButton.setFont(Font.font(fontChoice));
+
+        SaveGame.setGraphic(saveButton);
         newGame.setGraphic(newGameButton);
-        LoadGame.setGraphic(LoadButton);
+        LoadGame.setGraphic(loadButton);
         menuBar.getMenus().add(newGame);
         menuBar.getMenus().add(SaveGame);
         menuBar.getMenus().add(LoadGame);
@@ -152,8 +159,9 @@ public class BoggleView {
         rectangle.setHeight(50);
         rectangle.widthProperty().bind(
                 primaryStage.getScene().widthProperty().multiply(0.6).subtract(defaultPadding));
-        rectangle.setFill(Color.LIGHTBLUE);
-        gameInputDisplay.setFont(Font.font("arial", FontWeight.BOLD, fontsize));
+        rectangle.setFill(inputRectColor);
+        gameInputDisplay.setFont(Font.font(fontChoice, FontWeight.BOLD, fontsize));
+        gameInputDisplay.setTextFill(boggleTextColor);
         gameInputDisplay.prefWidthProperty().bind(rectangle.widthProperty());
         gameInputDisplay.setAlignment(Pos.CENTER);
         StackPane inputGraphic = new StackPane(rectangle, gameInputDisplay);
@@ -194,7 +202,8 @@ public class BoggleView {
         else if (getFontSizeOption() == "Medium")
             fontsize = 20;
         else if (getFontSizeOption() == "Large")
-            fontsize = 30;
+            fontsize = 25;
+
         buttonsPane.setVgap(5);
         buttonsPane.setHgap(5);
 
@@ -202,19 +211,19 @@ public class BoggleView {
         for (int x = 0; x< size; x++) {
             for (int y = 0; y<size; y++) {
                 Button letterButton = new Button(Character.toString(letters.charAt(index)));
-                letterButton.setFont(Font.font("Arial", FontWeight.BOLD, fontsize));
+                letterButton.setFont(Font.font(fontChoice, FontWeight.BOLD, fontsize));
                 letterButton.prefHeightProperty().bind(primaryStage.heightProperty());
                 letterButton.prefWidthProperty().bind(primaryStage.widthProperty());
                 letterButton.setMinWidth(20);
                 letterButton.setMinHeight(25);
-                letterButton.setBackground(Background.fill(Color.LIGHTGREY));
+                letterButton.setBackground(Background.fill(boggleStillColor));
                 allButtons.put(letterButton, new int[]{x, y});
                 letterButton.setOnAction(e -> {
                     Button selectedButton = (Button) e.getSource();
                     // if not already selected, and if it's close enough as per Boggle rules:
                     if (!selectedButtons.contains(selectedButton) && checkProximity(selectedButton) && gameOn) {
                         addBoggleInput(selectedButton.getText().charAt(0));
-                        selectedButton.setBackground(Background.fill(Color.GOLD));
+                        selectedButton.setBackground(Background.fill(highlightColor));
                         selectedButtons.add(selectedButton);
                         // reads out board letter if text reader is enabled
                         String letter = Character.toString(selectedButton.getText().charAt(0));
@@ -265,14 +274,14 @@ public class BoggleView {
         Pos elementAlign = Pos.CENTER_LEFT;
         // construct the score graphic; consists of the score, and its string title
         Label scoreTitle = new Label("Score:");
-        scoreTitle.setFont(Font.font("Arial", FontWeight.BOLD, fontsize));
+        scoreTitle.setFont(Font.font(fontChoice, FontWeight.BOLD, fontsize));
         scoreTitle.setAlignment(Pos.CENTER);
-        scoreTitle.setPrefWidth(defButtonWidth);
+        scoreTitle.setPrefWidth(defButtonWidth+10);
         scoreDisplay.setText("0");
         setDefaultSize(scoreDisplay);
-        scoreDisplay.setFont(Font.font(18));
+        scoreDisplay.setFont(Font.font(fontChoice, 18));
         scoreDisplay.setAlignment(Pos.CENTER);
-        scoreDisplay.setBackground(Background.fill(Color.LIGHTGREEN));
+        scoreDisplay.setBackground(Background.fill(scoreColor));
         VBox scoreGraphic = new VBox(scoreTitle, scoreDisplay);
         scoreGraphic.setAlignment(elementAlign);
         scoreGraphic.setSpacing(10);
@@ -289,6 +298,9 @@ public class BoggleView {
         setDefaultSize(submitButton);
         setDefaultSize(endRoundButton);
         VBox vbox = new VBox(scoreGraphic, submitButton, backspace, endRoundButton);
+        submitButton.setFont(Font.font(fontChoice));
+        endRoundButton.setFont(Font.font(fontChoice));
+        backspace.setFont(Font.font(fontChoice));
         vbox.setSpacing(20);
         vbox.setAlignment(Pos.TOP_LEFT);
         vbox.setMinHeight(260);
@@ -301,6 +313,107 @@ public class BoggleView {
         sidebar.setAlignment(Pos.TOP_CENTER);
         return sidebar;
     }
+
+    private Pane viewTypeMaker () {
+        BorderPane mainHouse = new BorderPane();
+        mainHouse.setPadding(new Insets(defaultPadding));
+
+        // Screen title
+        Label titleLabel = makeBasicLabel("Select Your View Type", 36);
+        titleLabel.setPrefHeight(90);
+        titleLabel.setAlignment(Pos.BOTTOM_CENTER);
+        mainHouse.setTop(titleLabel);
+
+        /*
+         setting the borderpane insets. The right inset is set to -4*defaultPadding because the borderPane fills
+         the whole width of the scene. The padding is then added on top of that width, pushing the borderPane out of the
+         window. So it is adjusted to counter mainHouse's padding (-2*defaultPadding) and its own padding from the left.
+         */
+        Insets borderInsets = new Insets(defaultPadding, -4*defaultPadding, defaultPadding, defaultPadding);
+        // color selection screen
+        BorderPane colorMainPane = new BorderPane();
+        colorMainPane.setPadding(borderInsets);
+
+        VBox colorSelections = new VBox();
+        colorSelections.setSpacing(20);
+        Label colorTitle = makeBasicLabel("Color Preset", 30);
+        colorTitle.setAlignment(Pos.TOP_LEFT);
+        colorTitle.setPrefHeight(40);
+
+        ToggleGroup colorToggles = new ToggleGroup();
+        VBox colorPresets = radioVboxMaker(
+                new String[]{"Normal", "High Contrast", "Deuteranomaly (Color-blindness)"}, colorToggles);
+
+        colorSelections.getChildren().addAll(colorTitle, colorPresets);
+        colorMainPane.setLeft(colorSelections);
+
+
+
+        // font selection screen
+        BorderPane fontMainPane = new BorderPane();
+        fontMainPane.setPadding(borderInsets);
+
+        VBox fontSelections = new VBox();
+        fontSelections.setSpacing(20);
+        Label fontTitle = makeBasicLabel("Font Pick", 30);
+        fontTitle.setAlignment(Pos.TOP_LEFT);
+        fontTitle.setPrefHeight(40);
+
+        ToggleGroup fontToggles = new ToggleGroup();
+        VBox fontPresets = radioVboxMaker(new String[]{"Arial", "Times New Roman", "Comic Sans MS"}, fontToggles);
+
+        fontSelections.getChildren().addAll(fontTitle, fontPresets);
+        fontMainPane.setLeft(fontSelections);
+
+
+        // bottom continue button box
+        Button nextButton = new Button("Continue");
+        setDefaultSize(nextButton);
+        nextButton.setOnAction(e -> displayScene(instrucSMaker()));
+        HBox continueHBox = contHBoxMaker(nextButton);
+
+        // Adding all selections to one box to control the spacing between the main different sections.
+        VBox totalSelectionArea = new VBox(colorMainPane, fontMainPane);
+        totalSelectionArea.setBackground(Background.fill(Color.BLUE));
+        totalSelectionArea.setAlignment(Pos.CENTER);
+        totalSelectionArea.setSpacing(20);
+        totalSelectionArea.setPadding(new Insets(30, 0, 0, 0));
+
+        mainHouse.setCenter(totalSelectionArea);
+        mainHouse.setBottom(continueHBox);
+
+
+
+        return mainHouse;
+    }
+    
+    private Label makeBasicLabel (String text, int fontSize) {
+        Label label = new Label(text);
+        label.prefWidthProperty().bind(primaryStage.widthProperty());
+        label.setFont(Font.font(fontChoice, FontWeight.BOLD, fontSize));
+        return label;
+    }
+
+    private VBox radioVboxMaker(String[] choices, ToggleGroup toggleGroup) {
+        VBox selectVBox = new VBox();
+        selectVBox.setSpacing(20);
+
+        for (int i = 0; i<choices.length; i++) {
+            RadioButton radioButton = new RadioButton(choices[i]);
+            radioButton.setToggleGroup(toggleGroup);
+            selectVBox.getChildren().add(radioButton);
+
+            // ensures at least one toggle is always selected
+            if (i == 0) {
+                radioButton.setSelected(true);
+            }
+            radioButton.setFont(Font.font(fontChoice, 20));
+        }
+
+        return selectVBox;
+    }
+
+
     /**
      * constructs a pane with the boggle game's instructions
      * @return the root pane of the instructions scene
@@ -321,7 +434,7 @@ public class BoggleView {
                         +"Click continue when you're ready... or the tutorial button for a more-hands on guide on "
                         +"how to play");
         instructions.setLineSpacing(5);
-        instructions.setFont(Font.font("arial", FontWeight.BOLD, 16));
+        instructions.setFont(Font.font(fontChoice, FontWeight.BOLD, 20));
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(defaultPadding));
@@ -351,7 +464,7 @@ public class BoggleView {
         // grid pane to house toggles (radio buttons) and their respective text
         VBox selectionPane = new VBox();
 
-        Font textFont = Font.font("Arial", 16);
+        Font textFont = Font.font(fontChoice, 16);
         Text gridSizeText = new Text(
                 "Please select what boggle board you'd like to play on.");
         gridSizeText.setFont(textFont);
@@ -417,10 +530,11 @@ public class BoggleView {
         selectionPane.setPadding(new Insets(40, 0, 0, 0));
 
         // root pane
-        selectionPane.getChildren().add(LoadButton);
+        loadButton.setFont(Font.font(fontChoice));
+        selectionPane.getChildren().add(loadButton);
         BorderPane mainPane = new BorderPane();
         Label title = new Label("Board Selection");
-        title.setFont(Font.font("Arial", FontWeight.BOLD, 24));
+        title.setFont(Font.font(fontChoice, FontWeight.BOLD, 24));
         title.prefWidthProperty().bind(primaryStage.widthProperty());
         title.setPrefHeight(30);
         title.setAlignment(Pos.BOTTOM_CENTER);
@@ -446,7 +560,7 @@ public class BoggleView {
             fontsize = 30;
 
         Label prompt = new Label("Please input the letters you would like to use on your Boggle Board.");
-        prompt.setFont(Font.font("Arial", FontWeight.BOLD, fontsize));
+        prompt.setFont(Font.font(fontChoice, FontWeight.BOLD, fontsize));
         prompt.setPrefWidth(primaryStage.getWidth());
         prompt.setAlignment(Pos.BOTTOM_CENTER);
         cusLettersField = new TextField();
@@ -523,7 +637,7 @@ public class BoggleView {
             if (i == 0) {
                 radioButton.setSelected(true);
             }
-            radioButton.setFont(Font.font("Arial", 14));
+            radioButton.setFont(Font.font(fontChoice, 14));
         }
 
         return selectHbox;
@@ -535,10 +649,12 @@ public class BoggleView {
      * @return an HBox housing continueButton
      */
     private HBox contHBoxMaker(Button continueButton) {
+        continueButton.setFont(Font.font(fontChoice));
         setDefaultSize(continueButton);
         HBox bottomBox = new HBox();
         bottomBox.getChildren().add(continueButton);
         bottomBox.setAlignment(Pos.CENTER_RIGHT);
+        bottomBox.setPadding(new Insets(defaultPadding));
         return bottomBox;
     }
 
@@ -549,10 +665,14 @@ public class BoggleView {
      * @return an HBox containing theses 2 buttons
      */
     private HBox startScreenBoxMaker(Button continueButton, Button tutButton){
+        continueButton.setFont(Font.font(fontChoice));
+        tutButton.setFont(Font.font(fontChoice));
         setDefaultSize(continueButton);
         setDefaultSize(tutButton);
         HBox bottomBox = new HBox(continueButton, tutButton);
         bottomBox.setSpacing(20);
+        bottomBox.setAlignment(Pos.BOTTOM_RIGHT);
+        bottomBox.setPadding(new Insets(defaultPadding));
         return bottomBox;
     }
 
@@ -624,6 +744,7 @@ public class BoggleView {
 
     public void displayRoundFacts (String facts){
         Text textFacts = new Text(facts);
+        textFacts.setFont(Font.font(fontChoice, 14));
         textFacts.wrappingWidthProperty().bind(roundFacts.widthProperty().subtract(20));
         roundFacts.setContent(textFacts);
         roundFacts.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -653,7 +774,7 @@ public class BoggleView {
      * @param handler
      */
     public void addLoadGameHandler (EventHandler<ActionEvent> handler) {
-        LoadButton.setOnAction(handler);
+        loadButton.setOnAction(handler);
     }
 
     /**
@@ -661,7 +782,7 @@ public class BoggleView {
      * @param handler
      */
     public void addSaveGameHandler (EventHandler<ActionEvent> handler) {
-        SaveButton.setOnAction(handler);
+        saveButton.setOnAction(handler);
     }
 
     /**
@@ -826,8 +947,6 @@ public class BoggleView {
         int fontsize = 20;
         if (getFontSizeOption() == "small")
             fontsize = 15;
-        else if (getFontSizeOption() == "Medium")
-            fontsize = 20;
         else if (getFontSizeOption() == "Large")
             fontsize = 30;
         Label selectBoardLabel = new Label(String.format("Currently playing: Default Board"));
@@ -836,6 +955,7 @@ public class BoggleView {
         bottomPanel.setPadding(new Insets(defaultPadding));
 
         Button customBack = new Button("Back");
+        customBack.setFont(Font.font(fontChoice));
         customBack.setOnAction(e -> displayScene(boardSMaker()));
 
         setDefaultSize(customBack); setDefaultSize(cusCont);
@@ -863,11 +983,11 @@ public class BoggleView {
         boardsList.setPrefHeight(100);
 
         selectBoardLabel.setStyle("-fx-text-fill: #000000");
-        selectBoardLabel.setFont(new Font(fontsize));
+        selectBoardLabel.setFont(new Font(fontChoice, fontsize));
 
         selectBoardButton.setStyle("-fx-background-color: #ffeb00; -fx-text-fill: black;");
         selectBoardButton.setPrefSize(200, 50);
-        selectBoardButton.setFont(new Font(fontsize));
+        selectBoardButton.setFont(new Font(fontChoice, fontsize));
 
         selectBoardBox.setAlignment(Pos.CENTER);
         // padding on top and bottom + prefHeight
@@ -899,13 +1019,12 @@ public class BoggleView {
         int fontsize = 20;
         if (getFontSizeOption() == "Small")
             fontsize = 15;
-        else if (getFontSizeOption() == "Medium")
-            fontsize = 20;
         else if (getFontSizeOption() == "Large")
             fontsize = 30;
-        Label saveBoardLabel = new Label(String.format("Enter name of file to save"));
+        Label saveBoardLabel = new Label("Enter name of file to save");
         saveFileErrorLabel = new Label("");
         saveFileNameTextField = new TextField(""); // adding the different buttons
+
 
         VBox dialogVbox = new VBox(20);
         dialogVbox.setPadding(new Insets(20, 20, 20, 20));
@@ -919,13 +1038,13 @@ public class BoggleView {
         saveFileNameTextField.setId("SaveFileNameTextField");
 
         saveBoardLabel.setStyle("-fx-text-fill: #000000;");
-        saveBoardLabel.setFont(new Font(fontsize));
+        saveBoardLabel.setFont(new Font(fontChoice, fontsize));
         saveFileNameTextField.setStyle("-fx-text-fill: #000000;");
-        saveFileNameTextField.setFont(new Font(fontsize));
+        saveFileNameTextField.setFont(new Font(fontChoice, fontsize));
 
         saveFileErrorLabel.setId("SaveFileErrorLabel");
         saveFileErrorLabel.setStyle("-fx-text-fill: #000000;");
-        saveFileErrorLabel.setFont(new Font(fontsize));
+        saveFileErrorLabel.setFont(new Font(fontChoice, fontsize));
 
         String boardName = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()) + ".bbg";
         saveFileNameTextField.setText(boardName);
@@ -933,7 +1052,7 @@ public class BoggleView {
         saveBoardButton.setId("SaveBoard");
         saveBoardButton.setStyle("-fx-background-color: #ffeb00; -fx-text-fill: #000000;");
         saveBoardButton.setPrefSize(200, 50);
-        saveBoardButton.setFont(new Font(fontsize));
+        saveBoardButton.setFont(new Font(fontChoice, fontsize));
 
         VBox saveBoardBox = new VBox(10, saveBoardLabel, saveFileNameTextField, saveBoardButton, saveFileErrorLabel);
         dialogVbox.getChildren().add(saveBoardBox);
