@@ -23,8 +23,14 @@
         <SOURCES />
       </library>
     </orderEntry>
+<<<<<<< HEAD
     <orderEntry type="library" name="Boggle Game" level="application" />
     <orderEntry type="library" name="javafx-swt3" level="application" />
     <orderEntry type="library" name="javafx-swt" level="project" />
+=======
+    <orderEntry type="library" name="javafx-swt" level="project" />
+    <orderEntry type="library" name="Boggle Game" level="application" />
+    <orderEntry type="library" name="javafx-swt3" level="application" />
+>>>>>>> eaeb226a6205f8d3ef0afac5b420ee0ea340dedb
   </component>
 </module>

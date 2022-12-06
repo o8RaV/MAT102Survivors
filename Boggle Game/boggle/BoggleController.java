@@ -58,6 +58,7 @@ public class BoggleController {
         boggleGame.setLetters(letters);
         boggleView.setGameOn(true);
         TextReaderView.playAudio("continue", boggleView.textReaderEnabled);
+<<<<<<< HEAD
         constructTimer(); //constructs and starts the timer
     }
 
@@ -88,6 +89,8 @@ public class BoggleController {
         if (boggleView.timerEnabled && timerView != null) {
             timerView.stop();
         }
+=======
+>>>>>>> eaeb226a6205f8d3ef0afac5b420ee0ea340dedb
     }
 
     /**
@@ -218,6 +221,14 @@ public class BoggleController {
             boggleView.resetBoard();
             TextReaderView.playAudio("endround", boggleView.textReaderEnabled);
             stopTimer();
+            if (boggleView.isGameOn()) {
+                boggleGame.computerMove();
+                boggleView.displayRoundFacts(boggleGame.getGameStats().summarizeRound());
+                boggleGame.getGameStats().endRound();
+                boggleView.setGameOn(false);
+                boggleView.resetBoard();
+                TextReaderView.playAudio("endround", boggleView.textReaderEnabled);
+            }
         }
     }
 
@@ -300,6 +311,7 @@ public class BoggleController {
         @Override
         public void handle(ActionEvent actionEvent) {
             boggleView.displayScene(boggleView.LoadView());
+
             boggleView.changeTextReaderOption(boggleView.getTextReaderOption().equals("Yes"));
             TextReaderView.playAudio("load", boggleView.textReaderEnabled);
         }
