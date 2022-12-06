@@ -1,7 +1,6 @@
 package boggle;
 
 import Memento.src.*;
-import boggle.BoggleGame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import views.BoggleView;
@@ -11,7 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TransferQueue;
 
 
 /**
@@ -41,7 +39,7 @@ public class BoggleController {
     /**
      * Starts up the game (loads up the window)
      */
-    public void start(){
+    public void initiateApp(){
         this.boggleView.startGame();
     }
 
@@ -80,7 +78,7 @@ public class BoggleController {
     public class handleBoardSelect implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-            if (boggleView.getBoardType().equals("custom")) {
+            if (boggleView.getBoardType().equals("Custom")) {
                 boggleView.displayScene(boggleView.customSMaker());
             } else {
                 int boardSize = boggleView.getBoardSize();
