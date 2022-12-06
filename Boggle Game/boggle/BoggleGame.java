@@ -148,7 +148,10 @@ public class BoggleGame {
         }
         for(int k =i-1 ; k <= i+1 ; k++){
             for(int l = j-1 ; l<=j+1 ; l++){
-                findWordsUtil(boggleDict, boggleGrid, visited, new Position(k, l), prefix);
+                if (i == k && j == l)
+                    continue;
+                else
+                    findWordsUtil(boggleDict, boggleGrid, visited, new Position(k, l), prefix);
             }
         }
         visited.remove(pos);
