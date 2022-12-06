@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eb794e0c-9845-4a25-ae50-f92910bbd2e0" name="Changes" comment="[DEV-2.2,3.1] successfully updated fonts to be allowed to be changed at runtime">
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/views/BoggleView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/views/BoggleView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/BoggleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/views/BoggleView.java" afterDir="false" />
+    <list default="true" id="eb794e0c-9845-4a25-ae50-f92910bbd2e0" name="Changes" comment="[DEV-2.2,3.1] adjusted some small visual features">
+      <change beforePath="$PROJECT_DIR$/Command/TutController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Command/TutController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/boggle/BoggleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/boggle/BoggleController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,16 +27,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/ahmed/Desktop/UTM/csc207/project_phase/MAT102Survivors/Boggle Game",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ahmed/Desktop/UTM/csc207/project_phase/MAT102Survivors/Boggle Game&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -119,7 +119,35 @@
       <option name="project" value="LOCAL" />
       <updated>1670267452320</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="[DEV-2.2,3.1] finshed constructed the font and color select screen. A player can now select the font and color they'd like to play with.">
+      <created>1670290128884</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1670290128884</updated>
+    </task>
+    <task id="LOCAL-00010" summary="[DEV-2.2,3.1] adjusted some visual features. But both user stories are now done, and they're mainly captured in the method BoggleView.viewTypeMaker">
+      <created>1670295316503</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1670295316503</updated>
+    </task>
+    <task id="LOCAL-00011" summary="[DEV-2.2,3.1] added some javaDoc comments to newly created methods">
+      <created>1670296610835</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1670296610835</updated>
+    </task>
+    <task id="LOCAL-00012" summary="[DEV-2.2,3.1] adjusted some small visual features">
+      <created>1670297200640</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1670297200640</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -154,20 +182,24 @@
     <MESSAGE value="[DEV-2.2,3.1] adding unversioned files" />
     <MESSAGE value="[DEV-2.2,3.1] constructed basic color and font choice screen. Unified fonts and colors with class variables instead of hard coded values" />
     <MESSAGE value="[DEV-2.2,3.1] successfully updated fonts to be allowed to be changed at runtime" />
-    <option name="LAST_COMMIT_MESSAGE" value="[DEV-2.2,3.1] successfully updated fonts to be allowed to be changed at runtime" />
+    <MESSAGE value="[DEV-2.2,3.1] finshed constructed the font and color select screen. A player can now select the font and color they'd like to play with." />
+    <MESSAGE value="[DEV-2.2,3.1] adjusted some visual features. But both user stories are now done, and they're mainly captured in the method BoggleView.viewTypeMaker" />
+    <MESSAGE value="[DEV-2.2,3.1] added some javaDoc comments to newly created methods" />
+    <MESSAGE value="[DEV-2.2,3.1] adjusted some small visual features" />
+    <option name="LAST_COMMIT_MESSAGE" value="[DEV-2.2,3.1] adjusted some small visual features" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/views/BoggleView.java</url>
-          <line>1076</line>
+          <line>1163</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/views/BoggleView.java</url>
-          <line>760</line>
-          <option name="timeStamp" value="25" />
+          <url>file://$PROJECT_DIR$/Command/TutView.java</url>
+          <line>108</line>
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
