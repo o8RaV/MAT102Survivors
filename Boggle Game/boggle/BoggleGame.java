@@ -219,7 +219,7 @@ public class BoggleGame {
      * @param name
      * @return Memento of the current game
      */
-    public Memento getaMemento(String name){
+    public Memento getaMemento(){
         return new Memento(gameStats, boggleboard, allWords);
     }
 

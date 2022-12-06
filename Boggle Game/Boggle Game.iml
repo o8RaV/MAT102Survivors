@@ -24,7 +24,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="javafx-swt" level="project" />
-    <orderEntry type="library" name="Boggle Game" level="application" />
     <orderEntry type="library" name="javafx-swt3" level="application" />
+    <orderEntry type="library" name="javafx.web1" level="application" />
   </component>
 </module>

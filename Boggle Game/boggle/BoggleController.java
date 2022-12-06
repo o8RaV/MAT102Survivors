@@ -209,7 +209,7 @@ public class BoggleController {
                     name = name.replace("WordHack", "");
                     boggleView.sendwordhack(boggleGame.getAllWords());
                 }
-                Caretaker.save(name, boggleGame.getaMemento(name));
+                Caretaker.save(name, boggleGame.getaMemento());
                 List loaded = null;
                 Memento temp = null;
                 try {
