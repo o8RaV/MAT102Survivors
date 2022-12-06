@@ -138,7 +138,7 @@ public class BoggleView {
         //set text reader option
         changeTextReaderOption(this.getTextReaderOption().equals("Yes"));
         //set the timer option
-        changeTimerOption(!this.getTimerOption().equals("No timer"));
+        changeTimerOption(!this.getTimerOption().equals("No Timer"));
         // construct menu bar at the top
         MenuBar menuBar = new MenuBar();
         Menu newGame = new Menu();
@@ -291,7 +291,6 @@ public class BoggleView {
         roundFacts.prefHeightProperty().bind(primaryStage.getScene().heightProperty());
 
         //construct the timer (if timerEnabled is true)
-        timerDisplay.setText("0:00");
         timerDisplay.setFont(Font.font("Arial", FontWeight.BOLD, fontsize*1.5));
         timerDisplay.setMinWidth(100);
         timerDisplay.setMinHeight(50);
@@ -352,6 +351,13 @@ public class BoggleView {
         instructions.wrappingWidthProperty().bind(pane.widthProperty().add(-2*defaultPadding));
         return pane;
 
+    }
+
+    /**
+     * updates the timer with the correct amount of seconds remaining. Counts down by 1 second each time
+     */
+    public void setTimerText(String mins, String secs) {
+        timerDisplay.setText(mins + ":" + secs);
     }
 
     /**
@@ -433,7 +439,7 @@ public class BoggleView {
         timerText.setFont(textFont);
 
         timerGroup = new ToggleGroup();
-        String[] timerOptions = {"30 sec", "1 min", "2 min", "3 min", "No timer"};
+        String[] timerOptions = {"30 sec", "1 min", "2 min", "3 min", "No Timer"};
         HBox timerBox = radioHBoxMaker(timerOptions, timerGroup);
 
         VBox timerSelection = new VBox(timerText, timerBox);
@@ -776,7 +782,7 @@ public class BoggleView {
         if (timerGroup != null) {
             return ((RadioButton) timerGroup.getSelectedToggle()).getText();
         }
-        return "No timer";
+        return "No Timer";
     }
 
     /**

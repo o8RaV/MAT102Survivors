@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import views.BoggleView;
 import views.TextReaderView;
+import views.TimerView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ public class BoggleController {
 
     BoggleView boggleView; // the boggle view
     BoggleGame boggleGame; // the game's model.
+
+    TimerView timerView;
 
     /**
      * constructor, starts the game application
@@ -55,6 +58,24 @@ public class BoggleController {
         boggleGame.setLetters(letters);
         boggleView.setGameOn(true);
         TextReaderView.playAudio("continue", boggleView.textReaderEnabled);
+        constructTimer(); //constructs and starts the timer
+    }
+
+    /**
+     * constructs a new timer
+     */
+    public void constructTimer() {
+        if (boggleView.timerEnabled) {
+            int num_secs = 0;
+            switch (boggleView.getTimerOption()) {
+                case "30 sec": num_secs = 30; break;
+                case "1 min": num_secs = 60; break;
+                case "2 min": num_secs = 120; break;
+                case "3 min": num_secs = 180; break;
+            }
+            timerView = new TimerView(this, num_secs);
+            timerView.start();
+        }
     }
 
     /**
@@ -169,14 +190,22 @@ public class BoggleController {
     public class handleEndRound implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-            if (boggleView.isGameOn()) {
-                boggleGame.computerMove();
-                boggleView.displayRoundFacts(boggleGame.getGameStats().summarizeRound());
-                boggleGame.getGameStats().endRound();
-                boggleView.setGameOn(false);
-                boggleView.resetBoard();
-                TextReaderView.playAudio("endround", boggleView.textReaderEnabled);
-            }
+            endRound();
+        }
+    }
+
+    /**
+     * This method runs when the user clicks the "End round" button or the timer runs out.
+     */
+    public void endRound() {
+        if (boggleView.isGameOn()) {
+            boggleGame.computerMove();
+            boggleView.displayRoundFacts(boggleGame.getGameStats().summarizeRound());
+            boggleGame.getGameStats().endRound();
+            boggleView.setGameOn(false);
+            boggleView.resetBoard();
+            TextReaderView.playAudio("endround", boggleView.textReaderEnabled);
+            timerView = null;
         }
     }
 
@@ -292,6 +321,14 @@ public class BoggleController {
                 TextReaderView.playAudio("changeboard", boggleView.textReaderEnabled);
             }
         }
+    }
+
+    /**
+     * Getter method for Boggle view
+     * @return the Boggle controller's BoggleView
+     */
+    public BoggleView getBoggleView() {
+        return boggleView;
     }
 
 }
