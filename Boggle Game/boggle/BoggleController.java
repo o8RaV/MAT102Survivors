@@ -62,17 +62,29 @@ public class BoggleController {
     }
 
     /**
-     * constructs a new timer
+     * This method stops the timer if it is currently running.
+     */
+    public void stopTimer() {
+        if (boggleView.timerEnabled) {
+            timerView.stop();
+        }
+    }
+
+    /**
+     * constructs and starts a new timer
      */
     public void constructTimer() {
         if (boggleView.timerEnabled) {
             int num_secs = 0;
+            String starting_mins = "";
+            String starting_secs = "";
             switch (boggleView.getTimerOption()) {
-                case "30 sec": num_secs = 30; break;
-                case "1 min": num_secs = 60; break;
-                case "2 min": num_secs = 120; break;
-                case "3 min": num_secs = 180; break;
+                case "30 sec": num_secs = 30; starting_mins = "0"; starting_secs = "30"; break;
+                case "1 min": num_secs = 60; starting_mins = "1"; starting_secs = "00"; break;
+                case "2 min": num_secs = 120; starting_mins = "2"; starting_secs = "00"; break;
+                case "3 min": num_secs = 180; starting_mins = "3"; starting_secs = "00"; break;
             }
+            boggleView.setTimerTextCurrTime(starting_mins, starting_secs);
             timerView = new TimerView(this, num_secs);
             timerView.start();
         }
@@ -169,7 +181,6 @@ public class BoggleController {
         }
     }
 
-
     /**
      * Handles the event where the user initializes a new game
      */
@@ -181,6 +192,7 @@ public class BoggleController {
             boggleView.clearValues();
             TextReaderView.playAudio("newgame", boggleView.textReaderEnabled);
             boggleView.setGameOn(false);
+            stopTimer();
         }
     }
 
@@ -205,7 +217,7 @@ public class BoggleController {
             boggleView.setGameOn(false);
             boggleView.resetBoard();
             TextReaderView.playAudio("endround", boggleView.textReaderEnabled);
-            timerView = null;
+            stopTimer();
         }
     }
 

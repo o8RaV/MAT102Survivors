@@ -356,8 +356,15 @@ public class BoggleView {
     /**
      * updates the timer with the correct amount of seconds remaining. Counts down by 1 second each time
      */
-    public void setTimerText(String mins, String secs) {
+    public void setTimerTextCurrTime(String mins, String secs) {
         timerDisplay.setText(mins + ":" + secs);
+    }
+
+    /**
+     * updates the timer with the correct amount of seconds remaining. Counts down by 1 second each time
+     */
+    public void setTimerTextCustomMessage(String message) {
+        timerDisplay.setText(message);
     }
 
     /**

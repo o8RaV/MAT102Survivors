@@ -42,7 +42,7 @@ public class TimerView {
         public void run() {
             Platform.runLater(() -> {
                 curr_num_secs--;
-                boggleController.getBoggleView().setTimerText(get_mins(), get_secs());
+                boggleController.getBoggleView().setTimerTextCurrTime(get_mins(), get_secs());
             });
         }
     };
@@ -52,14 +52,18 @@ public class TimerView {
         public void run() {
             Platform.runLater(() -> {
                 boggleController.endRound();
-                timer.cancel();
+                boggleController.getBoggleView().setTimerTextCustomMessage("Time is up!");
             });
         }
     };
 
+    public void stop() {
+        timer.cancel();
+        boggleController.getBoggleView().setTimerTextCustomMessage("Timer Cancelled!");
+    }
 
     public void start() {
-        timer.schedule(endRound, total_num_secs* 1000L);
+        timer.schedule(endRound, total_num_secs*1000L);
         timer.scheduleAtFixedRate(countDown, 1000, 1000);
     }
 }
