@@ -1,27 +1,13 @@
 package Command;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.*;
 import boggle.*;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.layout.*;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import views.BoggleView;
-
+/**
+ * Extension of BoggleGame to implement Command design pattern and an alternative way of checking inputs
+ */
 public class TutGame extends BoggleGame{
     public Scanner scanner;
-    String boggleboard;
     public TutBase base;
     public TutOperator oper;
 
@@ -30,17 +16,31 @@ public class TutGame extends BoggleGame{
         this.oper = new TutOperator();
     }
 
-    public void start(ArrayList<String> a){
-        this.base = new TutBase(a);
+    /**
+     * Initializes a new TutBase to be used with the Command design pattern for checking the inputs submitted by the
+     * user
+     * @param neededWords ArrayList with all words required from user
+     */
+    public void start(ArrayList<String> neededWords){
+        this.base = new TutBase(neededWords);
     }
 
+    /**
+     * Accepts a String input to be stored for later for use with the Command design pattern and to update score
+     * @param word input from the boggle board submitted by user
+     * @return amount of words that were needed by the user that have been submitted
+     */
     @Override
     public int humanMove(String word) {
         oper.acceptCommand(new InsertCommand(base, word));
-        return base.tempUpdateScore(word);
+        return base.updateFoundWordCount(word);
     }
 
-    public boolean proceed(){
+    /**
+     * Boolean representing if all words have been found yet
+     * @return true if all words have been found
+     */
+    public boolean canProceed(){
         return this.base.all_found();
     }
 }

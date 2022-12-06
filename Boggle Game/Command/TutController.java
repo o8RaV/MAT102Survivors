@@ -5,8 +5,6 @@ import boggle.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-import java.util.ArrayList;
-
 
 public class TutController extends BoggleController{
 
@@ -24,7 +22,7 @@ public class TutController extends BoggleController{
         super(view, game);
         this.view = view;
         this.game = game;
-        changeEndRound();
+        changeEventHandlers();
     }
 
     public void initiateApp(){
@@ -32,23 +30,22 @@ public class TutController extends BoggleController{
     }
 
     /**
-     * Only ends round when all desired words are submitted, moving on to next step of tutorial
+     * Only ends round when all desired words are submitted, moving on to next step of tutorial. Otherwise displays
+     * a window message with missing inputs
      */
     public class handleEndRound implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
             if (view.isGameOn()) {
                 game.oper.operateAll();
-                if(game.proceed()){
+                if(game.canProceed()){
                     game.getGameStats().endRound();
                     view.setGameOn(false);
                     view.resetBoard();
                     int place = view.getPlace();
-                    System.out.println(place);
                     view.startGame(place+1);
                 }else{
-                    //Placeholder, will discuss with Ahmed over weekend
-                    System.out.println("Still more to go");
+                    view.sendCustomAlert(game.base.wordsNotFound());
                 }
             }
         }
@@ -70,7 +67,10 @@ public class TutController extends BoggleController{
         }
     }
 
-    public void changeEndRound(){
+    /**
+     * Used as part of the overriding of EventHandler classes from BoggleController
+     */
+    public void changeEventHandlers(){
         this.view.addEndRoundHandler(new handleEndRound());
         this.view.addSubmitHandler(new handleSubmit());
     }
