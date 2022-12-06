@@ -236,6 +236,7 @@ public class BoggleView {
         }
     }
 
+
     /**
      * Initializes the tutorial window
      */
@@ -889,16 +890,12 @@ public class BoggleView {
     public Pane LoadView(){
         boardsList.getItems().clear();
         int fontsize = 20;
-
-        if (getFontSizeOption() == "Small") {
+        if (getFontSizeOption() == "Small")
             fontsize = 15;
-        }
-        else if (getFontSizeOption() == "Medium") {
+        else if (getFontSizeOption() == "Medium")
             fontsize = 20;
-        }
-        else if (getFontSizeOption() == "Large") {
+        else if (getFontSizeOption() == "Large")
             fontsize = 30;
-        }
         Label selectBoardLabel = new Label(String.format("Currently playing: Default Board"));
 
         BorderPane bottomPanel = new BorderPane();
