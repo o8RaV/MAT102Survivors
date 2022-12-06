@@ -211,8 +211,8 @@ public class BoggleView {
         else if (getFontSizeOption() == "Large")
             fontsize = 30;
 
-        buttonsPane.setVgap(5);
-        buttonsPane.setHgap(5);
+        buttonsPane.setVgap(10);
+        buttonsPane.setHgap(10);
 
         int index = 0;
         for (int x = 0; x< size; x++) {
@@ -330,8 +330,9 @@ public class BoggleView {
     private Pane viewTypeMaker () {
         // There are two main selections (font and color). So there's some default values to easily adjust them.
         int exampleWidth = 180;
-        int defaultSpacing = 100;
+        int defaultSpacing = 20;
         int selectionWidth = 350;
+        Pos defaultAlignment = Pos.CENTER;
 
         // root pane that will house all other nodes
         BorderPane mainHouse = new BorderPane();
@@ -361,7 +362,7 @@ public class BoggleView {
 
         Pane exampleButtons = generateExButtons(exampleWidth);
         colorMainPane.getChildren().addAll(colorSelections, exampleButtons);
-        colorMainPane.setAlignment(Pos.CENTER);
+        colorMainPane.setAlignment(defaultAlignment);
         colorMainPane.setSpacing(defaultSpacing);
         colorSelections.setPrefWidth(selectionWidth);
 
@@ -432,7 +433,7 @@ public class BoggleView {
         sampleText.setFont(Font.font(fontChoice, 30));
 
         fontMainPane.getChildren().add(sampleText);
-        fontMainPane.setAlignment(Pos.CENTER);
+        fontMainPane.setAlignment(defaultAlignment);
         fontMainPane.setSpacing(defaultSpacing);
 
         // allows for the seamless change of the application's font as a user selects different radio buttons
