@@ -2,6 +2,8 @@ package views;
 import Command.*;
 
 import boggle.Position;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -89,12 +91,16 @@ public class BoggleView {
 
     public boolean textReaderEnabled;
 
-    protected String fontChoice = "Comic Sans MS";
+    protected String fontChoice = "Arial";
     protected Color boggleStillColor = Color.LIGHTGREY;
     protected Color highlightColor = Color.GOLD;
     protected Color inputRectColor = Color.LIGHTBLUE;
     protected Color boggleTextColor = Color.BLACK;
+
+    protected Color boggleLetterColor = Color.BLACK;
     protected Color scoreColor = Color.LIGHTGREEN;
+
+    protected Color scoreTextColor = Color.BLACK;
 
     /**
      * Constructor
@@ -216,6 +222,7 @@ public class BoggleView {
                 Button letterButton = new Button(Character.toString(letters.charAt(index)));
                 letterButton.setFont(Font.font(fontChoice, FontWeight.BOLD, fontsize));
                 letterButton.prefHeightProperty().bind(primaryStage.heightProperty());
+                letterButton.setTextFill(boggleLetterColor);
                 letterButton.prefWidthProperty().bind(primaryStage.widthProperty());
                 letterButton.setMinWidth(20);
                 letterButton.setMinHeight(25);
@@ -281,6 +288,7 @@ public class BoggleView {
         scoreTitle.setAlignment(Pos.CENTER);
         scoreTitle.setPrefWidth(defButtonWidth);
         scoreDisplay.setText("0");
+        scoreDisplay.setTextFill(scoreTextColor);
         setDefaultSize(scoreDisplay);
         scoreDisplay.setFont(Font.font(fontChoice, 18));
         scoreDisplay.setAlignment(Pos.CENTER);
@@ -318,24 +326,28 @@ public class BoggleView {
     }
 
     private Pane viewTypeMaker () {
+        int exampleWidth = 180;
+        int defaultSpacing = 200;
+        int selectionWidth = 350;
+
         BorderPane mainHouse = new BorderPane();
-        mainHouse.setPadding(new Insets(defaultPadding));
 
         // Screen title
         Label titleLabel = makeBasicLabel("Select Your View Type", 36);
         titleLabel.setPrefHeight(90);
         titleLabel.setAlignment(Pos.BOTTOM_CENTER);
         mainHouse.setTop(titleLabel);
+        BorderPane.setAlignment(titleLabel, Pos.CENTER);
 
         /*
          setting the borderpane insets. The right inset is set to -4*defaultPadding because the borderPane fills
          the whole width of the scene. The padding is then added on top of that width, pushing the borderPane out of the
          window. So it is adjusted to counter mainHouse's padding (-2*defaultPadding) and its own padding from the left.
          */
-        Insets borderInsets = new Insets(defaultPadding, -4*defaultPadding, defaultPadding, defaultPadding);
+
         // color selection screen
-        BorderPane colorMainPane = new BorderPane();
-        colorMainPane.setPadding(borderInsets);
+        HBox colorMainPane = new HBox();
+
 
         VBox colorSelections = new VBox();
         colorSelections.setSpacing(20);
@@ -348,25 +360,90 @@ public class BoggleView {
                 new String[]{"Normal", "High Contrast", "Deuteranomaly (Color-blindness)"}, colorToggles);
 
         colorSelections.getChildren().addAll(colorTitle, colorPresets);
-        colorMainPane.setLeft(colorSelections);
+//        colorSelections.setBackground(Background.fill(Color.ORANGE));
+        Pane exampleButtons = generateExButtons(exampleWidth);
+//        exampleButtons.setBackground(Background.fill(Color.PINK));
+        colorMainPane.getChildren().addAll(colorSelections, exampleButtons);
+        colorMainPane.setAlignment(Pos.CENTER);
+        colorMainPane.setSpacing(defaultSpacing);
+        colorSelections.setPrefWidth(selectionWidth);
+//        colorMainPane.setBackground(Background.fill(Color.CYAN));
+
+        colorToggles.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
+                RadioButton newPalette = (RadioButton) t1;
+                String selectedChoice = newPalette.getText();
+                if (selectedChoice.equalsIgnoreCase("Normal")) {
+                    boggleStillColor = Color.LIGHTGREY;
+                    highlightColor = Color.GOLD;
+                    inputRectColor = Color.LIGHTBLUE;
+                    boggleTextColor = Color.BLACK;
+                    boggleLetterColor = Color.BLACK;
+                    scoreColor = Color.LIGHTGREEN;
+                    scoreTextColor = Color.BLACK;
+
+                }
+                else if (selectedChoice.equalsIgnoreCase("High Contrast")){
+                    boggleStillColor = Color.BLACK;
+                    highlightColor = Color.DARKRED;
+                    inputRectColor = Color.DARKBLUE;
+                    boggleTextColor = Color.WHITE;
+                    boggleLetterColor = Color.WHITE;
+                    scoreColor = Color.DARKGREEN;
+                    scoreTextColor = Color.WHITE;
+                }
+                else if (selectedChoice.equalsIgnoreCase("Deuteranomaly (Color-blindness)")){
+                    boggleStillColor = Color.BLUE;
+                    highlightColor = Color.MAGENTA;
+                    inputRectColor = Color.DARKORANGE;
+                    boggleTextColor = Color.WHITE;
+                    boggleLetterColor = Color.WHITE;
+                    scoreColor = Color.DARKBLUE;
+                    scoreTextColor = Color.WHITE;
+                }
+
+
+                updateExButtons(exampleButtons);
+            }
+        });
 
 
 
         // font selection screen
-        BorderPane fontMainPane = new BorderPane();
-        fontMainPane.setPadding(borderInsets);
+        HBox fontMainPane = new HBox();
 
         VBox fontSelections = new VBox();
         fontSelections.setSpacing(20);
         Label fontTitle = makeBasicLabel("Font Pick", 30);
+
         fontTitle.setAlignment(Pos.TOP_LEFT);
         fontTitle.setPrefHeight(40);
 
         ToggleGroup fontToggles = new ToggleGroup();
-        VBox fontPresets = radioVboxMaker(new String[]{"Arial", "Times New Roman", "Comic Sans MS"}, fontToggles);
+        VBox fontPresets = radioVboxMaker(new String[]{"Arial", "Times New Roman", "Comic Sans MS", "Impact"}, fontToggles);
 
         fontSelections.getChildren().addAll(fontTitle, fontPresets);
-        fontMainPane.setLeft(fontSelections);
+        fontMainPane.getChildren().add(fontSelections);
+        fontSelections.setPrefWidth(selectionWidth);
+        Label sampleText = new Label("Sample Text");
+//        sampleText.setBackground(Background.fill(Color.GOLD));
+        sampleText.setAlignment(Pos.CENTER);
+        sampleText.setPrefWidth(exampleWidth);
+        sampleText.setFont(Font.font(fontChoice, 30));
+        fontMainPane.getChildren().add(sampleText);
+        fontMainPane.setAlignment(Pos.CENTER);
+        fontMainPane.setSpacing(defaultSpacing);
+
+        fontToggles.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
+                fontChoice = ((RadioButton) t1).getText();
+                sampleText.setFont(Font.font(fontChoice, 30));
+            }
+        });
+//        fontSelections.setBackground(Background.fill(Color.RED));
+//        fontMainPane.setBackground(Background.fill(Color.RED));
 
 
         // bottom continue button box
@@ -381,21 +458,59 @@ public class BoggleView {
 
         // Adding all selections to one box to control the spacing between the main different sections.
         VBox totalSelectionArea = new VBox(colorMainPane, fontMainPane);
-        totalSelectionArea.setBackground(Background.fill(Color.BLUE));
         totalSelectionArea.setAlignment(Pos.CENTER);
-        totalSelectionArea.setPadding(new Insets(30, 0, 0, 0));
+        totalSelectionArea.setSpacing(defaultPadding*2);
+//        totalSelectionArea.setBackground(Background.fill(Color.BLUE));
 
         mainHouse.setCenter(totalSelectionArea);
         mainHouse.setBottom(continueHBox);
-
-
-
+        BorderPane.setMargin(totalSelectionArea, new Insets(defaultPadding));
+        BorderPane.setMargin(continueHBox, new Insets(0, defaultPadding, defaultPadding, defaultPadding));
+        BorderPane.setMargin(titleLabel, new Insets(0, 0, defaultPadding*1.5 , 0));
         return mainHouse;
+    }
+
+    private void updateExButtons (Pane buttons) {
+        for (Node n: buttons.getChildren()) {
+            Button pickedButton = (Button) n;
+            pickedButton.setBackground(Background.fill(boggleStillColor));
+            pickedButton.setTextFill(boggleLetterColor);
+        }
+    }
+    private Pane generateExButtons(int paneSize) {
+        FlowPane flowPane = new FlowPane();
+        double setWidth = paneSize;
+        flowPane.setMaxWidth(setWidth);
+        flowPane.setVgap(5);
+        flowPane.setHgap(5);
+        flowPane.setPrefWrapLength(setWidth);
+        String sampleLetters = "THEQUICKB";
+        for (int i = 0; i< 9; i++){
+            Button sampleButton = new Button(Character.toString(sampleLetters.charAt(i)));
+            sampleButton.setPrefWidth(setWidth/3 - flowPane.getHgap());
+            sampleButton.prefHeightProperty().bind(sampleButton.widthProperty());
+            sampleButton.setBackground(Background.fill(boggleStillColor));
+            sampleButton.setFont(Font.font(fontChoice, FontWeight.BOLD, 16));
+            sampleButton.hoverProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                    if (t1) {
+                        sampleButton.setBackground(Background.fill(highlightColor));
+                    }
+                    else{
+                        sampleButton.setBackground(Background.fill(boggleStillColor));
+                    }
+                }
+            });
+            flowPane.getChildren().add(sampleButton);
+
+        }
+        return flowPane;
+
     }
     
     private Label makeBasicLabel (String text, int fontSize) {
         Label label = new Label(text);
-        label.prefWidthProperty().bind(primaryStage.widthProperty());
         label.setFont(Font.font(fontChoice, FontWeight.BOLD, fontSize));
         return label;
     }
@@ -413,7 +528,7 @@ public class BoggleView {
             if (i == 0) {
                 radioButton.setSelected(true);
             }
-            radioButton.setFont(Font.font(fontChoice, 20));
+            radioButton.setFont(Font.font(fontChoice, 16));
         }
 
         return selectVBox;
@@ -537,6 +652,7 @@ public class BoggleView {
 
         // root pane
         loadButton.setFont(Font.font(fontChoice));
+        setDefaultSize(loadButton);
         selectionPane.getChildren().add(loadButton);
         BorderPane mainPane = new BorderPane();
         Label title = new Label("Board Selection");
@@ -701,7 +817,7 @@ public class BoggleView {
         if (gameInputDisplay.getText().length() > 0) {
             gameInputDisplay.setText("");
             for (Button b: selectedButtons) {
-                b.setBackground(Background.fill(Color.LIGHTGREY));
+                b.setBackground(Background.fill(boggleStillColor));
             }
             selectedButtons.clear();
         }
@@ -996,12 +1112,13 @@ public class BoggleView {
         selectBoardButton.setId("ChangeBoard");
 
 
-        VBox selectBoardBox = new VBox(10, selectBoardLabel, boardsList, selectBoardButton);
+        VBox selectBoardBox = new VBox(20, selectBoardLabel, boardsList, selectBoardButton);
+        selectBoardBox.setPadding(new Insets(defaultPadding, 0, 0, 0));
         BorderPane LoadPane = new BorderPane();
         boardsList.setPrefHeight(200);
 
         selectBoardLabel.setStyle("-fx-text-fill: #000000");
-        selectBoardLabel.setFont(new Font(fontChoice, fontsize));
+        selectBoardLabel.setFont(new Font(fontChoice, 30));
 
         selectBoardButton.setStyle("-fx-background-color: #ffeb00; -fx-text-fill: black;");
         selectBoardButton.setPrefSize(200, 50);
@@ -1012,6 +1129,7 @@ public class BoggleView {
         bottomPanel.setPrefHeight(defButtonHeight + bottomPanel.getPadding().getBottom()*2);
         LoadPane.setBottom(bottomPanel);
         LoadPane.setTop(selectBoardBox);
+        LoadPane.setPadding(new Insets(defaultPadding));
         return LoadPane;
     }
 

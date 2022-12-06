@@ -1,22 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eb794e0c-9845-4a25-ae50-f92910bbd2e0" name="Changes" comment="[DEV-2.2,3.1] constructed basic color and font choice screen. Unified fonts and colors with class variables instead of hard coded values">
-      <change afterPath="$PROJECT_DIR$/views/basic.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boggle/BoggleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/boggle/BoggleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleBoardSelect.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleBoardSelect.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/saved/2022.12.04.08.04.39.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/saved/2022.12.04.1.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/saved/2022.12.04.17.55.20.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/saved/2022.12.04.17.57.49.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/saved/original.bbg" beforeDir="false" />
+    <list default="true" id="eb794e0c-9845-4a25-ae50-f92910bbd2e0" name="Changes" comment="[DEV-2.2,3.1] successfully updated fonts to be allowed to be changed at runtime">
+      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/views/BoggleView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/views/BoggleView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved/2022.12.04.08.04.39.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved/2022.12.04.1.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved/2022.12.04.17.55.20.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved/2022.12.04.17.57.49.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved/Wordhacks a.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved/original.bbg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/views/BoggleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/views/BoggleView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -125,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670252752196</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="[DEV-2.2,3.1] successfully updated fonts to be allowed to be changed at runtime">
+      <created>1670267452320</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1670267452320</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -159,19 +153,20 @@
     <MESSAGE value="[DEV-2.2,3.1] Visual adjustments. refactored some code in BoggleController" />
     <MESSAGE value="[DEV-2.2,3.1] adding unversioned files" />
     <MESSAGE value="[DEV-2.2,3.1] constructed basic color and font choice screen. Unified fonts and colors with class variables instead of hard coded values" />
-    <option name="LAST_COMMIT_MESSAGE" value="[DEV-2.2,3.1] constructed basic color and font choice screen. Unified fonts and colors with class variables instead of hard coded values" />
+    <MESSAGE value="[DEV-2.2,3.1] successfully updated fonts to be allowed to be changed at runtime" />
+    <option name="LAST_COMMIT_MESSAGE" value="[DEV-2.2,3.1] successfully updated fonts to be allowed to be changed at runtime" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/views/BoggleView.java</url>
-          <line>1017</line>
+          <line>1076</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/views/BoggleView.java</url>
-          <line>715</line>
+          <line>760</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
