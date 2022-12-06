@@ -61,6 +61,8 @@ public class BoggleView {
 
     ToggleGroup textReaderGroup; //toggle group housing whether the text reader is on or off
 
+    ToggleGroup timerGroup; //toggle group housing whether the timer is on or off
+
     private int minBoardSize; // a boggle board's minimum and maximum sizes, set by BoggleGame
     private int maxBoardSize;
 
@@ -135,6 +137,8 @@ public class BoggleView {
             fontsize = 30;
         //set text reader option
         changeTextReaderOption(this.getTextReaderOption().equals("Yes"));
+        //set the timer option
+        changeTimerOption(!this.getTimerOption().equals("No timer"));
         // construct menu bar at the top
         MenuBar menuBar = new MenuBar();
         Menu newGame = new Menu();
@@ -297,7 +301,13 @@ public class BoggleView {
         timerGraphic.setAlignment(Pos.TOP_RIGHT);
 
         // forms the sidebar
-        VBox sidebar = new VBox(timerGraphic, vbox, roundFacts);
+        VBox sidebar;
+        if (timerEnabled) {
+            sidebar = new VBox(timerGraphic, vbox, roundFacts);
+        }
+        else {
+            sidebar = new VBox(vbox, roundFacts);
+        }
         sidebar.setSpacing(20);
         sidebar.setAlignment(Pos.TOP_CENTER);
         return sidebar;
@@ -414,6 +424,21 @@ public class BoggleView {
         VBox optionSelection = new VBox(textReaderText, optionsBox);
         optionSelection.setSpacing(15);
         selectionPane.getChildren().add(optionSelection);
+        selectionPane.setSpacing(50);
+        selectionPane.setPadding(new Insets(40, 0, 0, 0));
+
+        //selection for timer
+        Text timerText = new Text(
+                "What kind of timer do you want to play with?");
+        timerText.setFont(textFont);
+
+        timerGroup = new ToggleGroup();
+        String[] timerOptions = {"30 sec", "1 min", "2 min", "3 min", "No timer"};
+        HBox timerBox = radioHBoxMaker(timerOptions, timerGroup);
+
+        VBox timerSelection = new VBox(timerText, timerBox);
+        timerSelection.setSpacing(15);
+        selectionPane.getChildren().add(timerSelection);
         selectionPane.setSpacing(50);
         selectionPane.setPadding(new Insets(40, 0, 0, 0));
 
@@ -744,6 +769,17 @@ public class BoggleView {
     }
 
     /**
+     * gets whether the player has selected to play with a timer
+     * @return the selected radio button text
+     */
+    public String getTimerOption() {
+        if (timerGroup != null) {
+            return ((RadioButton) timerGroup.getSelectedToggle()).getText();
+        }
+        return "No timer";
+    }
+
+    /**
      * getter for fontsize
      * @return String representation of fontsize
      */
@@ -773,6 +809,14 @@ public class BoggleView {
      */
     public void changeTextReaderOption(boolean bool) {
         textReaderEnabled = bool;
+    }
+
+    /**
+     * changes whether a player wants to continue playing with a text reader
+     * @param bool sets whether the text reader is active
+     */
+    public void changeTimerOption(boolean bool) {
+        timerEnabled = bool;
     }
 
 
