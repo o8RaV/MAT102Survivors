@@ -28,8 +28,8 @@ public class TimerView {
     }
 
     public String get_secs() {
-        if (curr_num_secs >= 10) {
-            return Integer.toString(curr_num_secs%60);
+        if (curr_num_secs % 60 >= 10) {
+            return Integer.toString(curr_num_secs % 60);
         }
         else {
             return "0"+ curr_num_secs % 60;
@@ -43,6 +43,9 @@ public class TimerView {
             Platform.runLater(() -> {
                 curr_num_secs--;
                 boggleController.getBoggleView().setTimerTextCurrTime(get_mins(), get_secs());
+                if (curr_num_secs == 10) {
+                    boggleController.getBoggleView().changeTimerColour();
+                }
             });
         }
     };
@@ -52,14 +55,14 @@ public class TimerView {
         public void run() {
             Platform.runLater(() -> {
                 boggleController.endRound();
-                boggleController.getBoggleView().setTimerTextCustomMessage("Time is up!");
+                boggleController.getBoggleView().setTimerTextCustomMessage("End!");
             });
         }
     };
 
     public void stop() {
         timer.cancel();
-        boggleController.getBoggleView().setTimerTextCustomMessage("Timer Cancelled!");
+        boggleController.getBoggleView().setTimerTextCustomMessage("End!");
     }
 
     public void start() {

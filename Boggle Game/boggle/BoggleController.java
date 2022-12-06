@@ -62,18 +62,9 @@ public class BoggleController {
     }
 
     /**
-     * This method stops the timer if it is currently running.
+     * constructs and starts a new timer (fills in timerView attribute)
      */
-    public void stopTimer() {
-        if (boggleView.timerEnabled) {
-            timerView.stop();
-        }
-    }
-
-    /**
-     * constructs and starts a new timer
-     */
-    public void constructTimer() {
+    private void constructTimer() {
         if (boggleView.timerEnabled) {
             int num_secs = 0;
             String starting_mins = "";
@@ -87,6 +78,15 @@ public class BoggleController {
             boggleView.setTimerTextCurrTime(starting_mins, starting_secs);
             timerView = new TimerView(this, num_secs);
             timerView.start();
+        }
+    }
+
+    /**
+     * This method stops the timer if it is currently running.
+     */
+    private void stopTimer() {
+        if (boggleView.timerEnabled && timerView != null) {
+            timerView.stop();
         }
     }
 
@@ -331,6 +331,8 @@ public class BoggleController {
                 }
                 boggleView.setGameOn(true);
                 TextReaderView.playAudio("changeboard", boggleView.textReaderEnabled);
+                stopTimer();
+                constructTimer();
             }
         }
     }

@@ -265,12 +265,21 @@ public class BoggleView {
         scoreTitle.setPrefWidth(defButtonWidth);
         scoreDisplay.setText("0");
         setDefaultSize(scoreDisplay);
-        scoreDisplay.setFont(Font.font(18));
+        scoreDisplay.setFont(Font.font(fontsize));
         scoreDisplay.setAlignment(Pos.CENTER);
         scoreDisplay.setBackground(Background.fill(Color.LIGHTGREEN));
         VBox scoreGraphic = new VBox(scoreTitle, scoreDisplay);
         scoreGraphic.setAlignment(elementAlign);
         scoreGraphic.setSpacing(10);
+
+        //construct the timer (if timerEnabled is true)
+        setDefaultSize(timerDisplay);
+        timerDisplay.setFont(Font.font(fontsize));
+        timerDisplay.setAlignment(Pos.CENTER);
+        timerDisplay.setBackground(Background.fill(Color.YELLOW));
+        VBox timerGraphic = new VBox(timerDisplay);
+        timerGraphic.setAlignment(elementAlign);
+        timerGraphic.setSpacing(10);
 
         // initialize/resize submit and backspace buttons
         Button backspace = new Button("Backspace");
@@ -283,30 +292,22 @@ public class BoggleView {
         setDefaultSize(backspace);
         setDefaultSize(submitButton);
         setDefaultSize(endRoundButton);
-        VBox vbox = new VBox(scoreGraphic, submitButton, backspace, endRoundButton);
+        VBox vbox;
+        if (timerEnabled) {
+            vbox = new VBox(timerGraphic, scoreGraphic, submitButton, backspace, endRoundButton);
+        }
+        else {
+            vbox = new VBox(scoreGraphic, submitButton, backspace, endRoundButton);
+        }
+
         vbox.setSpacing(20);
         vbox.setAlignment(Pos.TOP_LEFT);
         vbox.setMinHeight(260);
         roundFacts.prefWidthProperty().bind(primaryStage.widthProperty());
         roundFacts.prefHeightProperty().bind(primaryStage.getScene().heightProperty());
 
-        //construct the timer (if timerEnabled is true)
-        timerDisplay.setFont(Font.font("Arial", FontWeight.BOLD, fontsize*1.5));
-        timerDisplay.setMinWidth(100);
-        timerDisplay.setMinHeight(50);
-        timerDisplay.setAlignment(Pos.CENTER);
-        timerDisplay.setBackground(Background.fill(Color.YELLOW));
-        VBox timerGraphic = new VBox(timerDisplay);
-        timerGraphic.setAlignment(Pos.TOP_RIGHT);
-
         // forms the sidebar
-        VBox sidebar;
-        if (timerEnabled) {
-            sidebar = new VBox(timerGraphic, vbox, roundFacts);
-        }
-        else {
-            sidebar = new VBox(vbox, roundFacts);
-        }
+        VBox sidebar = new VBox(vbox, roundFacts);
         sidebar.setSpacing(20);
         sidebar.setAlignment(Pos.TOP_CENTER);
         return sidebar;
@@ -365,6 +366,13 @@ public class BoggleView {
      */
     public void setTimerTextCustomMessage(String message) {
         timerDisplay.setText(message);
+    }
+
+    /**
+     * updates the timer with the correct amount of seconds remaining. Counts down by 1 second each time
+     */
+    public void changeTimerColour() {
+        timerDisplay.setBackground(Background.fill(Color.INDIANRED));
     }
 
     /**
@@ -446,7 +454,7 @@ public class BoggleView {
         timerText.setFont(textFont);
 
         timerGroup = new ToggleGroup();
-        String[] timerOptions = {"30 sec", "1 min", "2 min", "3 min", "No Timer"};
+        String[] timerOptions = {"No Timer", "30 sec", "1 min", "2 min", "3 min"};
         HBox timerBox = radioHBoxMaker(timerOptions, timerGroup);
 
         VBox timerSelection = new VBox(timerText, timerBox);
