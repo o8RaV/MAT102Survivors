@@ -1,0 +1,1 @@
+This readme file ensures that an empty "saved" folder can still be added to git.
