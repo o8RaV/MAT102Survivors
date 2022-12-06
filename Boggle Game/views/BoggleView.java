@@ -829,7 +829,7 @@ public class BoggleView {
             int length = gameInputDisplay.getText().length();
             gameInputDisplay.setText(gameInputDisplay.getText().substring(0, length-1));
             int lastIndex = selectedButtons.size()-1;
-            selectedButtons.get(lastIndex).setBackground(Background.fill(Color.LIGHTGREY));
+            selectedButtons.get(lastIndex).setBackground(Background.fill(boggleStillColor));
             selectedButtons.remove(lastIndex);
         }
     }

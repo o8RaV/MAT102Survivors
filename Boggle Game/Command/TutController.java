@@ -27,7 +27,7 @@ public class TutController extends BoggleController{
         changeEndRound();
     }
 
-    public void start(){
+    public void initiateApp(){
         this.view.startGame();
     }
 
