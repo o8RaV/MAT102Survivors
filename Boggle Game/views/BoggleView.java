@@ -16,7 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
-import javafx.scene.control.skin.VirtualFlow;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -27,7 +26,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -325,33 +323,33 @@ public class BoggleView {
         return sidebar;
     }
 
+    /**
+     *  constructs the scene that allows a player to select a font, and a color preset for the boggle board
+     * @return a Pane to serve as the root of a scene
+     */
     private Pane viewTypeMaker () {
+        // There are two main selections (font and color). So there's some default values to easily adjust them.
         int exampleWidth = 180;
         int defaultSpacing = 100;
         int selectionWidth = 350;
 
+        // root pane that will house all other nodes
         BorderPane mainHouse = new BorderPane();
 
         // Screen title
-        Label titleLabel = makeBasicLabel("Select Your View Type", 36);
+        Label titleLabel = makeTitleLabel("Select Your View Type", 36);
         titleLabel.setPrefHeight(90);
         titleLabel.setAlignment(Pos.BOTTOM_CENTER);
         mainHouse.setTop(titleLabel);
         BorderPane.setAlignment(titleLabel, Pos.CENTER);
 
-        /*
-         setting the borderpane insets. The right inset is set to -4*defaultPadding because the borderPane fills
-         the whole width of the scene. The padding is then added on top of that width, pushing the borderPane out of the
-         window. So it is adjusted to counter mainHouse's padding (-2*defaultPadding) and its own padding from the left.
-         */
-
-        // color selection screen
+        // color selection Pane
         HBox colorMainPane = new HBox();
-
 
         VBox colorSelections = new VBox();
         colorSelections.setSpacing(20);
-        Label colorTitle = makeBasicLabel("Color Preset", 30);
+
+        Label colorTitle = makeTitleLabel("Color Preset", 30);
         colorTitle.setAlignment(Pos.TOP_LEFT);
         colorTitle.setPrefHeight(40);
 
@@ -360,20 +358,20 @@ public class BoggleView {
                 new String[]{"Normal", "High Contrast", "Deuteranomaly (Color-blindness)"}, colorToggles);
 
         colorSelections.getChildren().addAll(colorTitle, colorPresets);
-//        colorSelections.setBackground(Background.fill(Color.ORANGE));
+
         Pane exampleButtons = generateExButtons(exampleWidth);
-//        exampleButtons.setBackground(Background.fill(Color.PINK));
         colorMainPane.getChildren().addAll(colorSelections, exampleButtons);
         colorMainPane.setAlignment(Pos.CENTER);
         colorMainPane.setSpacing(defaultSpacing);
         colorSelections.setPrefWidth(selectionWidth);
-//        colorMainPane.setBackground(Background.fill(Color.CYAN));
 
+        // this allows for the seamless adjustment of color presets as a user selects a differnet radio button
         colorToggles.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
             public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
                 RadioButton newPalette = (RadioButton) t1;
                 String selectedChoice = newPalette.getText();
+
                 if (selectedChoice.equalsIgnoreCase("Normal")) {
                     boggleStillColor = Color.LIGHTGREY;
                     highlightColor = Color.GOLD;
@@ -403,20 +401,20 @@ public class BoggleView {
                     scoreTextColor = Color.WHITE;
                 }
 
-
+                // update the example buttons
                 updateExButtons(exampleButtons);
             }
         });
 
 
 
-        // font selection screen
+        // font selection Pane
         HBox fontMainPane = new HBox();
 
         VBox fontSelections = new VBox();
         fontSelections.setSpacing(20);
-        Label fontTitle = makeBasicLabel("Font Pick", 30);
 
+        Label fontTitle = makeTitleLabel("Font Pick", 30);
         fontTitle.setAlignment(Pos.TOP_LEFT);
         fontTitle.setPrefHeight(40);
 
@@ -424,17 +422,20 @@ public class BoggleView {
         VBox fontPresets = radioVboxMaker(new String[]{"Arial", "Times New Roman", "Comic Sans MS", "Impact"}, fontToggles);
 
         fontSelections.getChildren().addAll(fontTitle, fontPresets);
-        fontMainPane.getChildren().add(fontSelections);
         fontSelections.setPrefWidth(selectionWidth);
+
+        fontMainPane.getChildren().add(fontSelections);
+
         Label sampleText = new Label("Sample Text");
-//        sampleText.setBackground(Background.fill(Color.GOLD));
         sampleText.setAlignment(Pos.CENTER);
         sampleText.setPrefWidth(exampleWidth);
         sampleText.setFont(Font.font(fontChoice, 30));
+
         fontMainPane.getChildren().add(sampleText);
         fontMainPane.setAlignment(Pos.CENTER);
         fontMainPane.setSpacing(defaultSpacing);
 
+        // allows for the seamless change of the application's font as a user selects different radio buttons
         fontToggles.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
             public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
@@ -442,9 +443,6 @@ public class BoggleView {
                 sampleText.setFont(Font.font(fontChoice, 30));
             }
         });
-//        fontSelections.setBackground(Background.fill(Color.RED));
-//        fontMainPane.setBackground(Background.fill(Color.RED));
-
 
         // bottom continue button box
         Button nextButton = new Button("Continue");
@@ -459,16 +457,21 @@ public class BoggleView {
         VBox totalSelectionArea = new VBox(colorMainPane, fontMainPane);
         totalSelectionArea.setAlignment(Pos.CENTER);
         totalSelectionArea.setSpacing(defaultPadding*2);
-//        totalSelectionArea.setBackground(Background.fill(Color.BLUE));
 
         mainHouse.setCenter(totalSelectionArea);
         mainHouse.setBottom(continueHBox);
+
         BorderPane.setMargin(totalSelectionArea, new Insets(defaultPadding));
         BorderPane.setMargin(continueHBox, new Insets(0, defaultPadding, defaultPadding, defaultPadding));
         BorderPane.setMargin(titleLabel, new Insets(0, 0, defaultPadding*1.5 , 0));
+
         return mainHouse;
     }
 
+    /**
+     * updates the example boggle board to reflect the newly selected color preset
+     * @param buttons a pane containing the example boggle board buttons
+     */
     private void updateExButtons (Pane buttons) {
         for (Node n: buttons.getChildren()) {
             Button pickedButton = (Button) n;
@@ -476,6 +479,12 @@ public class BoggleView {
             pickedButton.setTextFill(boggleLetterColor);
         }
     }
+
+    /**
+     * generates the example boggle board. It's a 3x3 boggle board
+     * @param paneSize sets the width (pixels) of the example boggle board
+     * @return a pane containing the example boggle board
+     */
     private Pane generateExButtons(int paneSize) {
         FlowPane flowPane = new FlowPane();
         double setWidth = paneSize;
@@ -490,6 +499,8 @@ public class BoggleView {
             sampleButton.prefHeightProperty().bind(sampleButton.widthProperty());
             sampleButton.setBackground(Background.fill(boggleStillColor));
             sampleButton.setFont(Font.font(fontChoice, FontWeight.BOLD, 16));
+
+            // when a user hovers over a button, reveal the highlighted color of the button
             sampleButton.hoverProperty().addListener(new ChangeListener<Boolean>() {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
@@ -507,13 +518,25 @@ public class BoggleView {
         return flowPane;
 
     }
-    
-    private Label makeBasicLabel (String text, int fontSize) {
+
+    /**
+     * generates a basic title label. Avoids repeated code
+     * @param text the text the label will be set to have
+     * @param fontSize the size of the text's font
+     * @return the label containing the text
+     */
+    private Label makeTitleLabel(String text, int fontSize) {
         Label label = new Label(text);
         label.setFont(Font.font(fontChoice, FontWeight.BOLD, fontSize));
         return label;
     }
 
+    /**
+     * generates a vertical list of radio buttons
+     * @param choices a string array representing the names of the radio buttons
+     * @param toggleGroup the toggleGroup the radioButtons will be added to
+     * @return a VBox containing the radio buttions
+     */
     private VBox radioVboxMaker(String[] choices, ToggleGroup toggleGroup) {
         VBox selectVBox = new VBox();
         selectVBox.setSpacing(20);
@@ -1092,7 +1115,7 @@ public class BoggleView {
         boardsList.setId("BoardsList");
         boardsList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        // changes the font based on what was selected
+        // changes the font based on what was selected in the View Select Screen
         boardsList.setCellFactory(listView -> new ListCell<String>() {
             @Override
             protected void updateItem(String s, boolean empty) {
