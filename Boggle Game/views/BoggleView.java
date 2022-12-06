@@ -207,11 +207,11 @@ public class BoggleView {
         // fontsize assigner
         int fontsize = 20;
         if (getfontsizeoption() == "Small")
-            fontsize = 15;
-        else if (getFontSizeOption() == "Medium")
             fontsize = 20;
-        else if (getFontSizeOption() == "Large")
+        else if (getFontSizeOption() == "Medium")
             fontsize = 25;
+        else if (getFontSizeOption() == "Large")
+            fontsize = 30;
 
         buttonsPane.setVgap(5);
         buttonsPane.setHgap(5);
@@ -276,11 +276,11 @@ public class BoggleView {
     private VBox initSidebar () {
         int fontsize = 20;
         if (getfontsizeoption() == "Small")
-            fontsize = 15;
+            fontsize = 18;
         else if (getFontSizeOption() == "Medium")
-            fontsize = 20;
+            fontsize = 23;
         else if (getFontSizeOption() == "Large")
-            fontsize = 25;
+            fontsize = 27;
         Pos elementAlign = Pos.CENTER_LEFT;
         // construct the score graphic; consists of the score, and its string title
         Label scoreTitle = new Label("Score:");
@@ -327,7 +327,7 @@ public class BoggleView {
 
     private Pane viewTypeMaker () {
         int exampleWidth = 180;
-        int defaultSpacing = 200;
+        int defaultSpacing = 100;
         int selectionWidth = 350;
 
         BorderPane mainHouse = new BorderPane();
@@ -452,7 +452,6 @@ public class BoggleView {
         nextButton.setOnAction(e -> {
             fontChoice = ((RadioButton) fontToggles.getSelectedToggle()).getText();
             displayScene(instrucSMaker());
-            System.out.println(fontChoice);
         });
         HBox continueHBox = contHBoxMaker(nextButton);
 
@@ -572,7 +571,7 @@ public class BoggleView {
 
 
         // lets the instructions text to wrap around the window when the window is resized
-        instructions.wrappingWidthProperty().bind(pane.widthProperty().add(-2*defaultPadding));
+        instructions.wrappingWidthProperty().bind(pane.widthProperty().add(-4*defaultPadding));
         return pane;
 
     }
@@ -618,7 +617,6 @@ public class BoggleView {
         VBox typeSelection = new VBox(typeText, typesBox);
         typeSelection.setSpacing(15);
         selectionPane.getChildren().add(typeSelection);
-        selectionPane.setSpacing(50);
         selectionPane.setPadding(new Insets(40, 0, 0, 0));
 
         // selection for font size
@@ -632,7 +630,6 @@ public class BoggleView {
         VBox fontselection = new VBox(fonttext, fontbox);
         fontselection.setSpacing(15);
         selectionPane.getChildren().add(fontselection);
-        selectionPane.setSpacing(50);
         selectionPane.setPadding(new Insets(40, 0, 0, 0));
 
         //selection for text reader
@@ -647,7 +644,7 @@ public class BoggleView {
         VBox optionSelection = new VBox(textReaderText, optionsBox);
         optionSelection.setSpacing(15);
         selectionPane.getChildren().add(optionSelection);
-        selectionPane.setSpacing(50);
+        selectionPane.setSpacing(defaultPadding*2);
         selectionPane.setPadding(new Insets(40, 0, 0, 0));
 
         // root pane
@@ -1109,9 +1106,6 @@ public class BoggleView {
         getFiles(boardsList); //get files for file selector
 
 
-        selectBoardButton.setId("ChangeBoard");
-
-
         VBox selectBoardBox = new VBox(20, selectBoardLabel, boardsList, selectBoardButton);
         selectBoardBox.setPadding(new Insets(defaultPadding, 0, 0, 0));
         BorderPane LoadPane = new BorderPane();
@@ -1121,7 +1115,7 @@ public class BoggleView {
         selectBoardLabel.setFont(new Font(fontChoice, 30));
 
         selectBoardButton.setStyle("-fx-background-color: #ffeb00; -fx-text-fill: black;");
-        selectBoardButton.setPrefSize(200, 50);
+        selectBoardButton.setPrefSize(250, 50);
         selectBoardButton.setFont(new Font(fontChoice, fontsize));
 
         selectBoardBox.setAlignment(Pos.CENTER);

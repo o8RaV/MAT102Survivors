@@ -90,6 +90,7 @@ public class TutView extends BoggleView{
      * @return an HBox housing continueButton
      */
     private HBox contHBoxMaker(Button continueButton) {
+        continueButton.setFont(Font.font(fontChoice));
         setDefaultSize(continueButton);
         HBox bottomBox = new HBox();
         bottomBox.getChildren().add(continueButton);
@@ -105,7 +106,7 @@ public class TutView extends BoggleView{
     public Pane instrucSMaker(int input){
         Text instructions = new Text(instructs.get(input));
         instructions.setLineSpacing(5);
-        instructions.setFont(Font.font("arial", FontWeight.BOLD, 16));
+        instructions.setFont(Font.font(fontChoice, FontWeight.BOLD, 16));
 
         BorderPane pane = new BorderPane();
         pane.setPadding(new Insets(defaultPadding));
