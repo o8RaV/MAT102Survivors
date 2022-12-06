@@ -302,7 +302,7 @@ public class BoggleView {
 
         vbox.setSpacing(20);
         vbox.setAlignment(Pos.TOP_LEFT);
-        vbox.setMinHeight(260);
+        vbox.setMinHeight(330);
         roundFacts.prefWidthProperty().bind(primaryStage.widthProperty());
         roundFacts.prefHeightProperty().bind(primaryStage.getScene().heightProperty());
 

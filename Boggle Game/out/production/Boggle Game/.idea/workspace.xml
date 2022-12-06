@@ -2,22 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f66bd1a7-ea6d-4181-80ba-1260712e5cfa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/javafx_swt.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Boggle Game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Boggle Game.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/boggle/BoggleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/boggle/BoggleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/.idea/libraries/javafx_swt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/.idea/libraries/javafx_swt.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/Boggle Game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/Boggle Game.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved/2022.12.06.01.47.12.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved/2022.12.06.01.47.15.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved/2022.12.06.01.47.17.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved/2022.12.06.01.47.20.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved/2022.12.06.02.25.37.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/saved/timersavetest.bbg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/BoggleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/views/BoggleView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../MAT102Survivors.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../MAT102Survivors.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,17 +20,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/magic/Desktop/CSC207/javafx-sdk-19/lib/javafx.web.jar",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.13333334"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/magic/Desktop/CSC207/MAT102Survivors/Boggle Game&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.13333334&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
