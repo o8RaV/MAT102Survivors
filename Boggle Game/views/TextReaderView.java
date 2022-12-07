@@ -21,9 +21,15 @@ public class TextReaderView {
     public static void playAudio(String str, Boolean textReaderEnabled) {
         if (textReaderEnabled) {
             String file_name = "audiofiles/" +  str + ".mp3";
-            textReaderMedia = new Media(new File(file_name).toURI().toString());
-            textReaderMediaPlayer = new MediaPlayer(textReaderMedia);
-            textReaderMediaPlayer.play();
+            try {
+                textReaderMedia = new Media(new File(file_name).toURI().toString());
+                textReaderMediaPlayer = new MediaPlayer(textReaderMedia);
+                textReaderMediaPlayer.play();
+            }
+            catch (IllegalAccessError e){
+                System.out.println("The text reader is not working! Add \",javafx.media\" to the end of the VM arguments to fix this!");
+            }
+
         }
     }
 

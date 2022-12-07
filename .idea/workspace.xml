@@ -2,11 +2,134 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="256fcee4-d2f9-4ccc-8128-7a9632be1863" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/javafx_swt.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Boggle Game/out/production/bogglegame/bogglegame.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Boggle Game/Boggle Game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Boggle Game/Boggle Game.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Boggle Game/out/production/Boggle Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Boggle Game/out/production/Boggle Game/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Boggle Game/out/production/Boggle Game/Boggle Game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Boggle Game/out/production/Boggle Game/Boggle Game.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MAT102Survivors.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MAT102Survivors.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/.idea/libraries/javafx_swt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/.idea/libraries/javafx_swt.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/Boggle Game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/Boggle Game.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/BoggleTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/BoggleTests.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/InsertCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/InsertCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/TutBase.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/TutBase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/TutController$handleEndRound.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/TutController$handleEndRound.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/TutController$handleSubmit.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/TutController$handleSubmit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/TutController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/TutController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/TutGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/TutGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/TutMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/TutMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/TutView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/Command/TutView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$HandleChangeBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$HandleChangeBoard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$HandleSaveBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$HandleSaveBoard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleBoardSelect.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleBoardSelect.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleCustomSelect.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleCustomSelect.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleEndRound.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleEndRound.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleLoadGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleLoadGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleNewGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleNewGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleSaveGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleSaveGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleSubmit.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleSubmit.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleloadback.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController$handleloadback.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleStats$Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleStats$Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleStats.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/boggle/BoggleStats.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/.idea/libraries/javafx_swt.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/.idea/libraries/javafx_swt.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/Boggle Game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/Boggle Game.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.11.26.15.24.01.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.11.26.15.25.39.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.11.26.16.15.26.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.11.26.16.16.12.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.11.26.16.42.31.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.02.14.02.08.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.03.18.55.41.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.03.18.56.44.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.03.18.58.24.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.03.19.09.49.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.03.19.17.37.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.03.22.35.38.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.03.22.46.36.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.03.22.54.35.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.03.23.01.29.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.03.23.11.28.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.04.00.51.04.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.04.00.51.06.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.04.00.51.18.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.04.00.51.21.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.04.00.51.28.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.04.00.53.42.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.04.00.53.hh2.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.04.00.54.11.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.04.00.54.19.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.04.00.54.28.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.04.00.54.31.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.04.00.55.17.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.04.00.55.59.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.05.00.23.54.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.05.00.24.06.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.05.17.19.23.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.05.19.32.27.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.05.20.00.57.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.05.20.00.59.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.06.01.47.12.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.06.01.47.15.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.06.01.47.17.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/2022.12.06.01.47.20.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/a.bbg" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/a.bbg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/ahjhbj.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/klk.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/original.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/save1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/save2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/save3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/savedddd.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/score2.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/out/production/Boggle Game/saved/timersavetest.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.02.14.02.08.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.03.18.55.41.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.03.18.56.44.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.03.18.58.24.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.03.19.09.49.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.03.19.17.37.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.03.22.35.38.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.03.22.46.36.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.03.22.54.35.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.03.23.01.29.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.03.23.11.28.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.51.04.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.51.06.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.51.18.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.51.21.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.51.28.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.53.42.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.53.hh2.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.54.11.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.54.19.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.54.28.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.54.31.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.55.17.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.55.59.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.57.07.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.04.00.57.46.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.05.00.23.54.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.05.00.24.06.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.05.17.19.23.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.05.19.32.27.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.05.20.00.57.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.05.20.00.59.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.06.01.47.12.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.06.01.47.15.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.06.01.47.17.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/2022.12.06.01.47.20.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/a.bbg" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/a.bbg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/ahjhbj.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/original.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/savedddd.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/score2.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/saved/timersavetest.bbg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/views/BoggleView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/views/BoggleView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/views/TimerView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/views/TimerView$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/views/TimerView$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/views/TimerView$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MAT102Survivors/views/TimerView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MAT102Survivors/views/TimerView.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,24 +156,36 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "C:/Users/magic/Desktop/MAT102Survivors/Boggle Game",
-    "project.structure.last.edited": "Libraries",
+    "last_opened_file_path": "C:/Users/Justin/Tutorial update/MAT102Survivors/Boggle Game",
+    "project.structure.last.edited": "Global Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.13333334"
   }
 }]]></component>
-  <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.New">
+    <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="MAT102Survivors" />
-      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\magic\Desktop\CSC207\javafx-sdk-19\lib&quot; --add-modules javafx.controls,javafx.fxml,javafx.media" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\Justin\javafx-sdk-19\lib&quot; --add-modules javafx.controls,javafx.fxml,javafx.media" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="New" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="MAT102Survivors" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\Justin\javafx-sdk-19\lib&quot; --add-modules javafx.controls,javafx.fxml,javafx.media" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.New" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.New" />
       </list>
     </recent_temporary>
   </component>
