@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
+<module version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="18" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="javafx-swt" level="project" />
     <orderEntry type="module-library">
       <library name="JUnit5.8.1">
         <CLASSES>
@@ -23,14 +24,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-<<<<<<< HEAD
-    <orderEntry type="library" name="Boggle Game" level="application" />
-    <orderEntry type="library" name="javafx-swt3" level="application" />
-    <orderEntry type="library" name="javafx-swt" level="application" />
-=======
-    <orderEntry type="library" name="javafx-swt" level="project" />
-    <orderEntry type="library" name="javafx-swt3" level="application" />
-    <orderEntry type="library" name="javafx.web1" level="application" />
->>>>>>> b99c0ea22a94dcbe38f4b97d9390b728d5fe7c2d
   </component>
 </module>
