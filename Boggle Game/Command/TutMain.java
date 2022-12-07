@@ -27,14 +27,6 @@ public class TutMain{
         // Sets up the Stage and Pane for use in the tutorial
         Stage tutStage = new Stage();
         tutStage.setTitle("Tutorial. It's dangerous to go alone");
-
-        Pane pane = new Pane();
-        Scene scene = new Scene(pane);
-        tutStage.setScene(scene);
-        tutStage.setMinWidth(windowMinWidth);
-        tutStage.setMinHeight(windowMinHeight);
-        tutStage.setWidth(windowMinWidth);
-        tutStage.setHeight(windowMinHeight);
         TutView view = new TutView(tutStage);
         view.startGame(0);
     }

@@ -69,6 +69,7 @@ public class BoggleGame {
         grid.initalizeBoard(letters);
         this.allWords.clear();
         findAllWords(dict, grid);
+        boggleboard = letters;
     }
 
     /*
@@ -105,7 +106,7 @@ public class BoggleGame {
         for (char i: random) {
             ans += i;
         }
-        boggleboard = ans;
+
         return ans;
     }
 

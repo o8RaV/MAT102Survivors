@@ -1,59 +1,313 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="b85929a1-8efb-4921-8d50-18efbc807ba3" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Boggle Game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Boggle Game.iml" afterDir="false" />
-    </list>
+    <list default="true" id="ef722d4f-407a-4666-b9bb-f74f4792f6fd" name="Changes" comment="DEV[1.1,1.2,1.3,2.3] Fond major bug of find all words, fixed that" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="1.2-Saved_board,1.1-JavaFX_UI,2.3-FontSize/Rav" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/boggle/BoggleGame.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2IZublZZETDC1gy8T9kJ7A9BsOp" />
+  <component name="ProjectId" id="2I5nos8Hweeeu4nkbbucJe2xWS4" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/magic/Desktop/TRY TO GET IT TO WORK/MAT102Survivors/Boggle Game/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/lib/javafx.web.jar",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.13333334"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/ragha/OneDrive/Desktop/MAT102Survivors/Boggle Game/openjfx-19_windows-x64_bin-sdk/javafx-sdk-19/lib/javafx-swt.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
-  <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="boggle" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Boggle">
+    <configuration name="Boggle" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Boggle Game" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\ragha\OneDrive\Desktop\MAT102Survivors\Boggle Game\openjfx-19_windows-x64_bin-sdk\javafx-sdk-19\lib&quot; --add-modules javafx.controls,javafx.fxml,javafx.media" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoggleGameTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Boggle Game" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="boggle.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="boggle" />
+      <option name="MAIN_CLASS_NAME" value="boggle.BoggleGameTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoggleTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Boggle Game" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="BoggleTests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.BoggleTests" />
+        <item itemvalue="JUnit.BoggleGameTest" />
+        <item itemvalue="JUnit.BoggleTests" />
+        <item itemvalue="JUnit.BoggleGameTest" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="b85929a1-8efb-4921-8d50-18efbc807ba3" name="Changes" comment="" />
-      <created>1670401502037</created>
+      <changelist id="ef722d4f-407a-4666-b9bb-f74f4792f6fd" name="Changes" comment="" />
+      <created>1669480493083</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1670401502037</updated>
+      <updated>1669480493083</updated>
+      <workItem from="1669480495347" duration="1675000" />
+      <workItem from="1669483396560" duration="10682000" />
+      <workItem from="1669499493274" duration="3885000" />
+      <workItem from="1669594121117" duration="36000" />
+      <workItem from="1669594188955" duration="64000" />
+      <workItem from="1669594266274" duration="10000" />
+      <workItem from="1669594308141" duration="2134000" />
+      <workItem from="1669642788631" duration="13816000" />
+      <workItem from="1669678314615" duration="669000" />
+      <workItem from="1669679566582" duration="716000" />
+      <workItem from="1669680480357" duration="131000" />
+      <workItem from="1669680628184" duration="1242000" />
+      <workItem from="1669781567866" duration="371000" />
+      <workItem from="1669823503923" duration="9138000" />
+      <workItem from="1670118084203" duration="55000" />
+      <workItem from="1670118373003" duration="464000" />
+      <workItem from="1670118860831" duration="13000" />
+      <workItem from="1670118886528" duration="15613000" />
+      <workItem from="1670202416316" duration="3431000" />
+      <workItem from="1670221023188" duration="81000" />
+      <workItem from="1670221139770" duration="124000" />
+      <workItem from="1670221322958" duration="990000" />
+      <workItem from="1670222343780" duration="108000" />
+      <workItem from="1670222471314" duration="5654000" />
+      <workItem from="1670357576513" duration="5891000" />
     </task>
+    <task id="LOCAL-00001" summary="1.2-Saved Boards, added button to the ui and added the event handlers(implementation of handlers still left)">
+      <created>1669490288176</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1669490288176</updated>
+    </task>
+    <task id="LOCAL-00002" summary="1.2-Saved Boards, added button to the ui and added the event handlers(implementation of handlers still left)">
+      <created>1669652971757</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1669652971757</updated>
+    </task>
+    <task id="LOCAL-00003" summary="1.2 - Saved Boards. The Save board UI updated. It works now. Load board is tied with the UI, but still produces some errors on loading.">
+      <created>1669665413516</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1669665413516</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Nothing major, sanity check">
+      <created>1669678608947</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1669678608947</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Nothing major, sanity check">
+      <created>1669678622760</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1669678622760</updated>
+    </task>
+    <task id="LOCAL-00006" summary="1.3 - Sizeable Boards, For some reason, the 6x6 board was not committing to develop branch, so I added it manually to the develop branch.">
+      <created>1669678947736</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1669678947736</updated>
+    </task>
+    <task id="LOCAL-00007" summary="1.3 - Sizeable Boards, For some reason, the 6x6 board was not committing to develop branch, so I added it manually to the develop branch.">
+      <created>1669679685705</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1669679685705</updated>
+    </task>
+    <task id="LOCAL-00008" summary="DEV[1.1,1.2,1.3,2.3]- Added the font change option and edited the load and save board UI to remove all the bugs and errors. Change the size of the application.">
+      <created>1670007173305</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1670007173305</updated>
+    </task>
+    <task id="LOCAL-00009" summary="DEV[1.1,1.2,1.3,2.3]- Error- when ending a loaded game, computer words came out to be empty, so had to save the allwords dict in the memento file too. Error fixed.">
+      <created>1670007813779</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1670007813779</updated>
+    </task>
+    <task id="LOCAL-00010" summary="DEV[1.1,1.2,1.3,2.3]- Error- when ending a loaded game, computer words came out to be empty, so had to save the allwords dict in the memento file too. Error fixed.">
+      <created>1670016020546</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1670016020546</updated>
+    </task>
+    <task id="LOCAL-00011" summary="DEV[1.1,1.2,1.3,2.3]- changed the position of Load Button">
+      <created>1670016901736</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1670016901736</updated>
+    </task>
+    <task id="LOCAL-00012" summary="DEV[1.1,1.2,1.3,2.3]- Made justin's code work with mine.">
+      <created>1670120009481</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1670120009481</updated>
+    </task>
+    <task id="LOCAL-00013" summary="DEV[1.1,1.2,1.3,2.3]- Added New button to change the back in the second usage of load button, so that it goes back to the board instead of the main screen">
+      <created>1670121810473</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1670121810473</updated>
+    </task>
+    <task id="LOCAL-00014" summary="DEV[1.1,1.2,1.3,2.3]- Added New button to change the back in the second usage of load button, so that it goes back to the board instead of the main screen">
+      <created>1670189441486</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1670189441486</updated>
+    </task>
+    <task id="LOCAL-00015" summary="DEV[1.1,1.2,1.3,2.3]- Added comments to construct javadoc">
+      <created>1670192296883</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1670192296883</updated>
+    </task>
+    <task id="LOCAL-00016" summary="DEV[1.1,1.2,1.3,2.3]- Added the explanations for all my classes and packages">
+      <created>1670194281176</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1670194281176</updated>
+    </task>
+    <task id="LOCAL-00017" summary="DEV[1.1,1.2,1.3,2.3] - Made the application fullscreen and added teh rest of the comments in my code.">
+      <created>1670198126406</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1670198126406</updated>
+    </task>
+    <task id="LOCAL-00018" summary="DEV[1.1,1.2,1.3,2.3]">
+      <created>1670198449167</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1670198449167</updated>
+    </task>
+    <task id="LOCAL-00019" summary="DEV[1.1,1.2,1.3,2.3]">
+      <created>1670199587613</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1670199587613</updated>
+    </task>
+    <task id="LOCAL-00020" summary="DEV[1.1,1.2,1.3,2.3] Fixed merge conflicts">
+      <created>1670203100313</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1670203100313</updated>
+    </task>
+    <task id="LOCAL-00021" summary="DEV[1.1,1.2,1.3,2.3] Text Reader wasn't working, so fixed that.">
+      <created>1670273491206</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1670273491206</updated>
+    </task>
+    <task id="LOCAL-00022" summary="DEV[1.1,1.2,1.3,2.3] changed the attribute of Memento">
+      <created>1670364517618</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1670364517618</updated>
+    </task>
+    <task id="LOCAL-00023" summary="DEV[1.1,1.2,1.3,2.3] Fond major bug of find all words, fixed that">
+      <created>1670368296627</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1670368296627</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -65,5 +319,26 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="1.2-Saved Boards, added button to the ui and added the event handlers(implementation of handlers still left)" />
+    <MESSAGE value="1.2 - Saved Boards. The Save board UI updated. It works now. Load board is tied with the UI, but still produces some errors on loading." />
+    <MESSAGE value="Nothing major, sanity check" />
+    <MESSAGE value="1.3 - Sizeable Boards, For some reason, the 6x6 board was not committing to develop branch, so I added it manually to the develop branch." />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3]- Added the font change option and edited the load and save board UI to remove all the bugs and errors. Change the size of the application." />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3]- Error- when ending a loaded game, computer words came out to be empty, so had to save the allwords dict in the memento file too. Error fixed." />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3]- changed the position of Load Button" />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3]- Made justin's code work with mine." />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3]- Added New button to change the back in the second usage of load button, so that it goes back to the board instead of the main screen" />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3]- Added comments to construct javadoc" />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3]- Added the explanations for all my classes and packages" />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3] - Made the application fullscreen and added teh rest of the comments in my code." />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3]" />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3] Fixed merge conflicts" />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3] Text Reader wasn't working, so fixed that." />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3] changed the attribute of Memento" />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3] Fond major bug of find all words, fixed that" />
+    <option name="LAST_COMMIT_MESSAGE" value="DEV[1.1,1.2,1.3,2.3] Fond major bug of find all words, fixed that" />
   </component>
 </project>

@@ -38,8 +38,8 @@ import java.util.List;
  *  displays the main game window, where the user selects a boggle board and plays boggle.
  */
 public class BoggleView {
-    protected final int windowMinWidth = 1000; // sets the window's minimum width and height
-    protected final int windowMinHeight = 800;
+    protected final int windowMinWidth = 900; // sets the window's minimum width and height
+    protected final int windowMinHeight = 700;
     MediaPlayer mediaPlayer;
     TextField cusLettersField; // textfield that allows user to input custom set of letters
     public Label saveFileErrorLabel = new Label(""); // error label for saveview
@@ -733,7 +733,7 @@ public class BoggleView {
         VBox timerSelection = new VBox(timerText, timerBox);
         timerSelection.setSpacing(15);
         selectionPane.getChildren().add(timerSelection);
-        selectionPane.setSpacing(50);
+        selectionPane.setSpacing(30);
         selectionPane.setPadding(new Insets(40, 0, 0, 0));
 
         // root pane

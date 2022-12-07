@@ -50,8 +50,6 @@ public class TutView extends BoggleView{
         tutStage.setScene(scene);
         tutStage.setMinWidth(windowMinWidth);
         tutStage.setMinHeight(windowMinHeight);
-        tutStage.setWidth(windowMinWidth);
-        tutStage.setHeight(windowMinHeight);
         wordsForCompletion = new ArrayList<>();
     }
 
