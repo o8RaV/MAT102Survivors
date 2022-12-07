@@ -44,7 +44,7 @@ public class TutView extends BoggleView{
         tutStage.setTitle("Tutorial. It's dangerous to go alone");
         this.game = new TutGame();
         this.place = 0;
-
+        this.changeTextReaderOption(false);
         Pane pane = new Pane();
         Scene scene = new Scene(pane, windowMinWidth, windowMinHeight);
         tutStage.setScene(scene);
