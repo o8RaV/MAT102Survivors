@@ -14,6 +14,7 @@ import views.BoggleView;
 import views.TimerView;
 
 import static org.junit.jupiter.api.Assertions.*;
+import Command.*;
 
 public class BoggleTests {
 
@@ -112,6 +113,44 @@ public class BoggleTests {
         game.setLetters("RHLDNHTGIPHSNMJO");
         allWords = game.getAllWords();
         assertEquals(3, allWords.size());
+    }
+
+    @Test
+    void baseCheck(){
+        ArrayList<String> test = new ArrayList<>();
+        test.add("marx");
+        test.add("magalor");
+        TutBase villains = new TutBase(test);
+
+        villains.addTo("marx");
+        assertFalse(villains.all_found());
+
+        ArrayList<String> missing = new ArrayList<>();
+        missing.add("magalor");
+        assertNotEquals(missing, villains.wordsNotFound());
+
+        villains.updateFoundWordCount("marx");
+        assertEquals(missing, villains.wordsNotFound());
+
+        villains.addTo("magalor");
+        assertTrue(villains.all_found());
+    }
+
+    @Test
+    void commandCheck(){
+        ArrayList<String> test = new ArrayList<>();
+        test.add("pikachu");
+        test.add("mimikyu");
+
+        TutBase box = new TutBase(test);
+        TutOperator move = new TutOperator();
+        move.acceptCommand(new InsertCommand(box, "pikachu"));
+        move.operateAll();
+        assertFalse(box.all_found());
+
+        move.acceptCommand(new InsertCommand(box, "mimikyu"));
+        move.operateAll();
+        assertTrue(box.all_found());
     }
 
 }
