@@ -78,7 +78,7 @@ public class BoggleController {
             }
 
             boggleView.setTimerTextCurrTime(starting_mins, starting_secs);
-            timerView = new TimerView(this, num_secs);
+            timerView = TimerView.getInstance(this, num_secs);
             timerView.start();
         }
     }
