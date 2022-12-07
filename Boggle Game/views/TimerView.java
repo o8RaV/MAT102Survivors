@@ -7,26 +7,38 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- *  A class with all methods for the timer.
+ *  A TimerView object facilitates the creation of a timer and all the methods associated with it for a Boggle game.
  */
 public class TimerView {
 
 
-    BoggleController boggleController;
-    int total_num_secs;
-    int curr_num_secs;
-    Timer timer = new Timer();
+    BoggleController boggleController; //the BoggleController being used for the timer
+    int total_num_secs; //the number of seconds the timer will start counting down from
+    int curr_num_secs; //the current number of seconds the timer is at. It decrements by 1 every second.
+    Timer timer = new Timer(); //Java's built in timer object
 
+
+    /**
+     * The constructor for a TimerView object.
+     * @param boggleController The BoggleController that will use the timer
+     * @param num_secs The number of seconds the timer will start counting down at
+     */
     public TimerView(BoggleController boggleController, int num_secs) {
         this.boggleController = boggleController;
         this.total_num_secs = num_secs;
         this.curr_num_secs = num_secs;
     }
 
+    /**
+     * @return a String of the floor of the number of minutes left on the timer
+     */
     public String get_mins() {
         return Integer.toString(curr_num_secs/60);
     }
 
+    /**
+     * @return the number of seconds remaining until there is a whole number of minutes left on the timer
+     */
     public String get_secs() {
         if (curr_num_secs % 60 >= 10) {
             return Integer.toString(curr_num_secs % 60);
@@ -36,7 +48,10 @@ public class TimerView {
         }
     }
 
-
+    /**
+     * A TimerTask that updates the GUI every second (decrementing the timer by 1).
+     * If there are 10 seconds left, the timer changes colour from yellow to red.
+     */
     TimerTask countDown = new TimerTask() {
         @Override
         public void run() {
@@ -50,6 +65,10 @@ public class TimerView {
         }
     };
 
+    /**
+     * A TimerTask that ends the round once 0 seconds are hit on the timer.
+     * The timer GUI is updated such that it displays the message "End!"
+     */
     TimerTask endRound = new TimerTask() {
         @Override
         public void run() {
@@ -60,11 +79,18 @@ public class TimerView {
         }
     };
 
+    /**
+     * Stops the timer when a new game or a new board is loaded, or the end round button is clicked on.
+     * The timer GUI is updated such that it displays the message "End!"
+     */
     public void stop() {
         timer.cancel();
         boggleController.getBoggleView().setTimerTextCustomMessage("End!");
     }
 
+    /**
+     * Starts the countdown for a timer in a Boggle game
+     */
     public void start() {
         timer.schedule(endRound, total_num_secs*1000L);
         timer.scheduleAtFixedRate(countDown, 1000, 1000);

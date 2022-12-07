@@ -69,12 +69,15 @@ public class BoggleController {
             int num_secs = 0;
             String starting_mins = "";
             String starting_secs = "";
+
+            //switch statements for the various timer options the user can choose
             switch (boggleView.getTimerOption()) {
                 case "30 sec": num_secs = 30; starting_mins = "0"; starting_secs = "30"; break;
                 case "1 min": num_secs = 60; starting_mins = "1"; starting_secs = "00"; break;
                 case "2 min": num_secs = 120; starting_mins = "2"; starting_secs = "00"; break;
                 case "3 min": num_secs = 180; starting_mins = "3"; starting_secs = "00"; break;
             }
+
             boggleView.setTimerTextCurrTime(starting_mins, starting_secs);
             timerView = new TimerView(this, num_secs);
             timerView.start();
