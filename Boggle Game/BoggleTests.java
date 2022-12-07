@@ -1,35 +1,42 @@
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Field;
-
 import boggle.*;
 import boggle.Dictionary;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import views.BoggleView;
+import views.TimerView;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoggleTests {
 
+    //Timer Test
+    @Test
+    void timer_test() { //test to see if get_mins and get_secs works properly
+        TimerView timerView = new TimerView(null, 80);
+        assertEquals(timerView.get_mins(), "1");
+        assertEquals(timerView.get_secs(), "20");
+    }
+
     //BoggleGame  Test
     @Test
     void findAllWords_small() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         BoggleGame game = new BoggleGame();
-        Method method = game.getClass().getDeclaredMethod("findAllWords", Map.class, Dictionary.class, BoggleGrid.class);
+        Method method = game.getClass().getDeclaredMethod("findAllWords", Dictionary.class, BoggleGrid.class);
         method.setAccessible(true);
 
         Dictionary boggleDict = new Dictionary("wordlist.txt");
-        Map<String, ArrayList<Position>> allWords = new HashMap<>();
         BoggleGrid grid = new BoggleGrid(4);
         grid.initalizeBoard("RHLDNHTGIPHSNMJO");
-        Object r = method.invoke(game, allWords, boggleDict, grid);
+        method.invoke(game, boggleDict, grid);
+        Map<String, ArrayList<Position>> allWords = game.getAllWords();
 
         Set<String> expected = new HashSet<>(Arrays.asList("GHOST", "HOST", "THIN"));
         assertEquals(expected, allWords.keySet());
@@ -69,6 +76,36 @@ public class BoggleTests {
         stats.endRound();
         stats.endRound();
         assertEquals(3, stats.getRound());
+    }
+
+    @Test
+        void repeatedWordTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+            BoggleGame game = new BoggleGame();
+            Method method = game.getClass().getDeclaredMethod("findAllWords", Dictionary.class, BoggleGrid.class);
+            method.setAccessible(true);
+
+            Dictionary boggleDict = new Dictionary("wordlist.txt");
+            Map<String, ArrayList<Position>> allWords = new HashMap<>();
+            BoggleGrid grid = new BoggleGrid(4);
+            grid.initalizeBoard("RHLDNHTGIPHSNMJO");
+            Object r = method.invoke(game, boggleDict, grid);
+
+            game.humanMove("GHOST");
+            game.humanMove("GHOST");
+            assertEquals(game.getGameStats().getScore(), 2);
+    }
+
+    @Test
+    void findAllWords_size() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        BoggleGame game = new BoggleGame();
+
+        Dictionary boggleDict = new Dictionary("wordlist.txt");
+        game.setLetters("heabstualcsetsam");
+        Map<String, ArrayList<Position>> allWords = game.getAllWords();
+
+        game.setLetters("RHLDNHTGIPHSNMJO");
+        allWords = game.getAllWords();
+        assertEquals(3, allWords.size());
     }
 
 }
