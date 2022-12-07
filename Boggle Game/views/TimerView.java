@@ -17,11 +17,11 @@ public class TimerView {
     int curr_num_secs; //the current number of seconds the timer is at. It decrements by 1 every second.
     Timer timer = new Timer(); //Java's built in timer object
 
-    private static TimerView timerView;
+    private static TimerView timerView; //TimerView object (is private to adhere to Singleton design pattern).
 
 
     /**
-     * The constructor for a TimerView object.
+     * The constructor for a TimerView object (is private to adhere to Singleton design pattern).
      * @param boggleController The BoggleController that will use the timer
      * @param num_secs The number of seconds the timer will start counting down at
      */
@@ -31,6 +31,11 @@ public class TimerView {
         this.curr_num_secs = num_secs;
     }
 
+    /**
+     * The getter method for a TimerView object (is public adhere to Singleton design pattern).
+     * @param boggleController The BoggleController that will use the timer
+     * @param num_secs The number of seconds the timer will start counting down at
+     */
     public static TimerView getInstance(BoggleController boggleController, int num_secs) {
         timerView = new TimerView(boggleController, num_secs);
         return timerView;
