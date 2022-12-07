@@ -64,6 +64,7 @@ public class Dictionary {
         String lower =this.legalWords.ceiling(str.toLowerCase());
         if(lower == null)
             return false;
+
         return lower.toLowerCase().startsWith(str.toLowerCase());
     }
 }
