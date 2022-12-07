@@ -3,11 +3,27 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import boggle.*;
 import boggle.Dictionary;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import views.BoggleView;
+import views.TimerView;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoggleTests {
+
+    //Timer Test
+    @Test
+    void timer_test() { //test to see if get_mins and get_secs works properly
+        TimerView timerView = new TimerView(null, 80);
+        assertEquals(timerView.get_mins(), "1");
+        assertEquals(timerView.get_secs(), "20");
+    }
 
     //BoggleGame  Test
     @Test

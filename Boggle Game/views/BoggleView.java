@@ -38,8 +38,8 @@ import java.util.List;
  *  displays the main game window, where the user selects a boggle board and plays boggle.
  */
 public class BoggleView {
-    protected final int windowMinWidth = 900; // sets the window's minimum width and height
-    protected final int windowMinHeight = 700;
+    protected final int windowMinWidth = 1000; // sets the window's minimum width and height
+    protected final int windowMinHeight = 800;
     MediaPlayer mediaPlayer;
     TextField cusLettersField; // textfield that allows user to input custom set of letters
     public Label saveFileErrorLabel = new Label(""); // error label for saveview
@@ -58,6 +58,8 @@ public class BoggleView {
     ToggleGroup boardTypeGroup; // toggle group housing the board type toggles
 
     ToggleGroup textReaderGroup; //toggle group housing whether the text reader is on or off
+
+    ToggleGroup timerGroup; //toggle group housing whether the timer is on or off
 
     private int minBoardSize; // a boggle board's minimum and maximum sizes, set by BoggleGame
     private int maxBoardSize;
@@ -79,6 +81,8 @@ public class BoggleView {
     
     Label scoreDisplay = new Label(); // displays the current score
 
+    Label timerDisplay = new Label(); //timer display
+
     Button newGameButton = new Button("New Game"); // button that allows user to start a new game
 
     Button endRoundButton = new Button("End Round");
@@ -89,6 +93,7 @@ public class BoggleView {
 
     public boolean textReaderEnabled;
 
+    public boolean timerEnabled;
     protected String fontChoice = "Arial";
     protected Color boggleStillColor = Color.LIGHTGREY;
     protected Color highlightColor = Color.GOLD;
@@ -139,7 +144,9 @@ public class BoggleView {
         else if (getFontSizeOption() == "Large")
             fontsize = 30;
         //set text reader option
-        textReaderEnabled = getTextReaderOption().equals("yes");
+        changeTextReaderOption(this.getTextReaderOption().equals("Yes"));
+        //set the timer option
+        changeTimerOption(!this.getTimerOption().equals("No Timer"));
         // construct menu bar at the top
         MenuBar menuBar = new MenuBar();
         Menu newGame = new Menu();
@@ -257,21 +264,6 @@ public class BoggleView {
         }
     }
 
-
-    /**
-     * This method allows the program to read aloud the sound of the letter that corresponds to parameter c
-     * (iff textReaderEnabled is set to true).
-     * @param c The letter to be read by text to speech
-     */
-    private void textReader(Character c) {
-        if (textReaderEnabled) {
-            String file_name = "./audiofiles/" + Character.toUpperCase(c) + ".mp3";
-            Media media = new Media(new File(file_name).toURI().toString());
-            mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.play();
-        }
-    }
-
     /**
      * Initializes the methods needed to begin the tutorial
      */
@@ -292,6 +284,7 @@ public class BoggleView {
         else if (getFontSizeOption() == "Large")
             fontsize = 27;
         Pos elementAlign = Pos.CENTER_LEFT;
+
         // construct the score graphic; consists of the score, and its string title
         Label scoreTitle = new Label("Score:");
         scoreTitle.setFont(Font.font(fontChoice, FontWeight.BOLD, fontsize));
@@ -301,12 +294,21 @@ public class BoggleView {
         scoreDisplay.setText("0");
         scoreDisplay.setTextFill(scoreTextColor);
         setDefaultSize(scoreDisplay);
-        scoreDisplay.setFont(Font.font(fontChoice, 18));
+        scoreDisplay.setFont(Font.font(fontChoice, fontsize));
         scoreDisplay.setAlignment(Pos.CENTER);
         scoreDisplay.setBackground(Background.fill(scoreColor));
         VBox scoreGraphic = new VBox(scoreTitle, scoreDisplay);
         scoreGraphic.setAlignment(elementAlign);
         scoreGraphic.setSpacing(10);
+
+        //construct the timer (if timerEnabled is true)
+        setDefaultSize(timerDisplay);
+        timerDisplay.setFont(Font.font(fontsize));
+        timerDisplay.setAlignment(Pos.CENTER);
+        timerDisplay.setBackground(Background.fill(Color.YELLOW));
+        VBox timerGraphic = new VBox(timerDisplay);
+        timerGraphic.setAlignment(elementAlign);
+        timerGraphic.setSpacing(10);
 
         // initialize/resize submit and backspace buttons
         Button backspace = new Button("Backspace");
@@ -319,13 +321,20 @@ public class BoggleView {
         setDefaultSize(backspace);
         setDefaultSize(submitButton);
         setDefaultSize(endRoundButton);
-        VBox vbox = new VBox(scoreGraphic, submitButton, backspace, endRoundButton);
+        VBox vbox;
+        if (timerEnabled) {
+            vbox = new VBox(timerGraphic, scoreGraphic, submitButton, backspace, endRoundButton);
+        }
+        else {
+            vbox = new VBox(scoreGraphic, submitButton, backspace, endRoundButton);
+        }
         submitButton.setFont(Font.font(fontChoice));
         endRoundButton.setFont(Font.font(fontChoice));
         backspace.setFont(Font.font(fontChoice));
+        timerDisplay.setFont(Font.font(fontChoice, fontsize));
         vbox.setSpacing(20);
         vbox.setAlignment(Pos.TOP_LEFT);
-        vbox.setMinHeight(260);
+        vbox.setMinHeight(330);
         roundFacts.prefWidthProperty().bind(primaryStage.widthProperty());
         roundFacts.prefHeightProperty().bind(primaryStage.getScene().heightProperty());
 
@@ -621,6 +630,27 @@ public class BoggleView {
     }
 
     /**
+     * updates the timer with the correct amount of seconds remaining. Counts down by 1 second each time
+     */
+    public void setTimerTextCurrTime(String mins, String secs) {
+        timerDisplay.setText(mins + ":" + secs);
+    }
+
+    /**
+     * updates the timer with the correct amount of seconds remaining. Counts down by 1 second each time
+     */
+    public void setTimerTextCustomMessage(String message) {
+        timerDisplay.setText(message);
+    }
+
+    /**
+     * updates the timer with the correct amount of seconds remaining. Counts down by 1 second each time
+     */
+    public void changeTimerColour() {
+        timerDisplay.setBackground(Background.fill(Color.INDIANRED));
+    }
+
+    /**
      * Constructs a pane with toggles that allows user to select the type of boggle board.
      * @return the root pane of the board select scene
      */
@@ -689,6 +719,21 @@ public class BoggleView {
         optionSelection.setSpacing(15);
         selectionPane.getChildren().add(optionSelection);
         selectionPane.setSpacing(defaultPadding*2);
+        selectionPane.setPadding(new Insets(40, 0, 0, 0));
+
+        //selection for timer
+        Text timerText = new Text(
+                "What kind of timer do you want to play with?");
+        timerText.setFont(textFont);
+
+        timerGroup = new ToggleGroup();
+        String[] timerOptions = {"No Timer", "30 sec", "1 min", "2 min", "3 min"};
+        HBox timerBox = radioHBoxMaker(timerOptions, timerGroup);
+
+        VBox timerSelection = new VBox(timerText, timerBox);
+        timerSelection.setSpacing(15);
+        selectionPane.getChildren().add(timerSelection);
+        selectionPane.setSpacing(50);
         selectionPane.setPadding(new Insets(40, 0, 0, 0));
 
         // root pane
@@ -1028,6 +1073,17 @@ public class BoggleView {
     }
 
     /**
+     * gets whether the player has selected to play with a timer
+     * @return the selected radio button text
+     */
+    public String getTimerOption() {
+        if (timerGroup != null) {
+            return ((RadioButton) timerGroup.getSelectedToggle()).getText();
+        }
+        return "No Timer";
+    }
+
+    /**
      * getter for fontsize
      * @return String representation of fontsize
      */
@@ -1057,6 +1113,14 @@ public class BoggleView {
      */
     public void changeTextReaderOption(boolean bool) {
         textReaderEnabled = bool;
+    }
+
+    /**
+     * changes whether a player wants to continue playing with a text reader
+     * @param bool sets whether the text reader is active
+     */
+    public void changeTimerOption(boolean bool) {
+        timerEnabled = bool;
     }
 
 
@@ -1109,7 +1173,7 @@ public class BoggleView {
     public Pane LoadView(){
         boardsList.getItems().clear();
         int fontsize = 20;
-        if (getFontSizeOption() == "small")
+        if (getFontSizeOption() == "Small")
             fontsize = 15;
         else if (getFontSizeOption() == "Large")
             fontsize = 30;
