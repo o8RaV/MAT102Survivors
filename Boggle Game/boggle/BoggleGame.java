@@ -59,6 +59,11 @@ public class BoggleGame {
         this.dict = new Dictionary("wordlist.txt");
         this.allWords = new HashMap<>();
     }
+
+    /**
+     * Sets the letters of the boggle board as a value in the model.
+     * @param letters the string of letters passed in
+     */
     public void setLetters(String letters) {
         BoggleGrid grid  = new BoggleGrid((int) Math.sqrt(letters.length()));
         grid.initalizeBoard(letters);
@@ -163,7 +168,8 @@ public class BoggleGame {
      * @param allWords A mutable list of all legal words that can be found, given the boggleGrid grid letters
      */
     public int humanMove(String word){
-            if (word.length() > 0 && allWords.containsKey(word.toUpperCase()) && !gameStats.getPlayerWords().contains(word)) {
+            if (word.length() > 0 && allWords.containsKey(word.toUpperCase())
+                    && !gameStats.getPlayerWords().contains(word)) {
                 gameStats.addWord(word.toUpperCase(), BoggleStats.Player.Human);
             }
             return this.gameStats.getScore();
@@ -218,9 +224,8 @@ public class BoggleGame {
     }
 
     /**
-     * returns the memento of the current game
-     * @param name
-     * @return Memento of the current game
+     * Memento of the current game
+     * @return the memento of the current game
      */
     public Memento getaMemento(){
         return new Memento(gameStats, boggleboard, allWords);
