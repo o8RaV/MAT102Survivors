@@ -19,10 +19,17 @@ public class BoggleTests {
 
     //Timer Test
     @Test
-    void timer_test() { //test to see if get_mins and get_secs works properly
+    void timer_test_two_digit_seconds() { //test to see if get_mins and get_secs works properly
         TimerView timerView = TimerView.getInstance(null, 80);
         assertEquals(timerView.get_mins(), "1");
         assertEquals(timerView.get_secs(), "20");
+    }
+
+    @Test
+    void timer_test_one_digit_seconds() { //test to see if get_mins and get_secs works properly
+        TimerView timerView = TimerView.getInstance(null, 121);
+        assertEquals(timerView.get_mins(), "2");
+        assertEquals(timerView.get_secs(), "01");
     }
 
     //BoggleGame  Test
