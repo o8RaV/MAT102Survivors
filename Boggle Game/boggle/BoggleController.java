@@ -63,7 +63,7 @@ public class BoggleController {
     /**
      * constructs and starts a new timer (fills in timerView attribute)
      */
-    public void constructTimer() {
+    private void constructTimer() {
         if (boggleView.timerEnabled) {
             int num_secs = 0;
             String starting_mins = "";
