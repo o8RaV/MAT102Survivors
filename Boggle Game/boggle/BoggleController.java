@@ -1,7 +1,6 @@
 package boggle;
 
 import Memento.src.*;
-import boggle.BoggleGame;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import views.BoggleView;
@@ -12,7 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TransferQueue;
 
 
 /**
@@ -44,7 +42,7 @@ public class BoggleController {
     /**
      * Starts up the game (loads up the window)
      */
-    public void start(){
+    public void initiateApp(){
         this.boggleView.startGame();
     }
 
@@ -54,6 +52,7 @@ public class BoggleController {
      * @param boardSize the size of the boggle board
      */
     public void constructGame(String letters, int boardSize) {
+        boggleView.changeTextReaderOption(boggleView.getTextReaderOption().equals("Yes"));
         boggleView.displayScene(boggleView.playSMaker(boardSize, letters));
         boggleGame.setLetters(letters);
         boggleView.setGameOn(true);
@@ -116,6 +115,7 @@ public class BoggleController {
     public class handleBoardSelect implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
+            boggleView.changeTextReaderOption(boggleView.getTextReaderOption().equals("Yes"));
             if (boggleView.getBoardType().equals("Custom")) {
                 boggleView.displayScene(boggleView.customSMaker());
             } else {
@@ -131,6 +131,7 @@ public class BoggleController {
     public class handleCustomSelect implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
+            boggleView.changeTextReaderOption(boggleView.getTextReaderOption().equals("Yes"));
             int boardSize = boggleView.getBoardSize();
             String inputtedLetters = boggleView.getCusLettersField();
             if (checkString(inputtedLetters, boardSize)) {
@@ -162,7 +163,7 @@ public class BoggleController {
     public class handleSubmit implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
-
+            boggleView.changeTextReaderOption(boggleView.getTextReaderOption().equals("Yes"));
             if (boggleView.isGameOn()) {
                 String word = boggleView.getGameInputDisplay();
                 int newScore = boggleGame.humanMove(word);
@@ -179,6 +180,7 @@ public class BoggleController {
     public class handleloadback implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
+            boggleView.changeTextReaderOption(boggleView.getTextReaderOption().equals("Yes"));
             boggleView.displayScene(boggleView.playSMaker(boggleView.getBoardSize(), boggleGame.boggleboard));
             boggleView.setGameOn(true);
         }
@@ -190,6 +192,8 @@ public class BoggleController {
     public class handleNewGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
+            boggleView.changeTextReaderOption(boggleView.getTextReaderOption().equals("Yes"));
+            System.out.println(boggleView.textReaderEnabled);
             boggleView.displayScene(boggleView.boardSMaker());
             boggleGame.getGameStats().endRound();
             boggleView.clearValues();
@@ -231,6 +235,7 @@ public class BoggleController {
     public class handleSaveGame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent actionEvent) {
+            boggleView.changeTextReaderOption(boggleView.getTextReaderOption().equals("Yes"));
             boggleView.displayScene(boggleView.SaveView());
             TextReaderView.playAudio("save", boggleView.textReaderEnabled);
         }
@@ -245,7 +250,7 @@ public class BoggleController {
         public void handle(ActionEvent actionEvent) {
             if (boggleView.getsaveFileNameTextField().endsWith(".bbg") && boggleView.getsaveFileNameTextField() != null
             && !containsAnyOf(boggleView.getsaveFileNameTextField(), "\\/:|*?\"<>")) {
-
+                boggleView.changeTextReaderOption(boggleView.getTextReaderOption().equals("Yes"));
                 String name = boggleView.getsaveFileNameTextField();
                 if (name.contains("PointHack") && name.length() > 13){
                     boggleGame.gameStats.setpScore(1000);
@@ -255,7 +260,7 @@ public class BoggleController {
                     name = name.replace("WordHack", "");
                     boggleView.sendwordhack(boggleGame.getAllWords());
                 }
-                Caretaker.save(name, boggleGame.getaMemento(name));
+                Caretaker.save(name, boggleGame.getaMemento());
                 List loaded = null;
                 Memento temp = null;
                 try {
@@ -288,7 +293,6 @@ public class BoggleController {
             for (char c: charsToFind.toCharArray()) {
                 if (sourceString.indexOf(c) != -1) {
                     return true;
-
                 }
             }
             return false;

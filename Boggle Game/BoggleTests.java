@@ -1,12 +1,6 @@
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Field;
-
 import boggle.*;
 import boggle.Dictionary;
 import javafx.application.Application;
@@ -84,22 +78,22 @@ public class BoggleTests {
         assertEquals(3, stats.getRound());
     }
 
-   @Test
-   void repeatedWordTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-       BoggleGame game = new BoggleGame();
-       Method method = game.getClass().getDeclaredMethod("findAllWords", Dictionary.class, BoggleGrid.class);
-       method.setAccessible(true);
+    @Test
+        void repeatedWordTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+            BoggleGame game = new BoggleGame();
+            Method method = game.getClass().getDeclaredMethod("findAllWords", Dictionary.class, BoggleGrid.class);
+            method.setAccessible(true);
 
-       Dictionary boggleDict = new Dictionary("wordlist.txt");
-       Map<String, ArrayList<Position>> allWords = new HashMap<>();
-       BoggleGrid grid = new BoggleGrid(4);
-       grid.initalizeBoard("RHLDNHTGIPHSNMJO");
-       Object r = method.invoke(game, boggleDict, grid);
+            Dictionary boggleDict = new Dictionary("wordlist.txt");
+            Map<String, ArrayList<Position>> allWords = new HashMap<>();
+            BoggleGrid grid = new BoggleGrid(4);
+            grid.initalizeBoard("RHLDNHTGIPHSNMJO");
+            Object r = method.invoke(game, boggleDict, grid);
 
-       game.humanMove("GHOST");
-       game.humanMove("GHOST");
-       assertEquals(game.getGameStats().getScore(), 2);
-   }
+            game.humanMove("GHOST");
+            game.humanMove("GHOST");
+            assertEquals(game.getGameStats().getScore(), 2);
+    }
 
     @Test
     void findAllWords_size() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
