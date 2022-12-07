@@ -85,30 +85,29 @@ public class BoggleTests {
         assertEquals(3, stats.getRound());
     }
 
+    // checks if a repeatedly submitted word will not count for any more points
     @Test
-        void repeatedWordTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-            BoggleGame game = new BoggleGame();
-            Method method = game.getClass().getDeclaredMethod("findAllWords", Dictionary.class, BoggleGrid.class);
-            method.setAccessible(true);
-
-            Dictionary boggleDict = new Dictionary("wordlist.txt");
-            Map<String, ArrayList<Position>> allWords = new HashMap<>();
-            BoggleGrid grid = new BoggleGrid(4);
-            grid.initalizeBoard("RHLDNHTGIPHSNMJO");
-            Object r = method.invoke(game, boggleDict, grid);
-
-            game.humanMove("GHOST");
-            game.humanMove("GHOST");
-            assertEquals(game.getGameStats().getScore(), 2);
-    }
-
-    @Test
-    void findAllWords_size() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    void repeatedWordTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         BoggleGame game = new BoggleGame();
+        Method method = game.getClass().getDeclaredMethod("findAllWords", Dictionary.class, BoggleGrid.class);
+        method.setAccessible(true);
 
         Dictionary boggleDict = new Dictionary("wordlist.txt");
-        game.setLetters("heabstualcsetsam");
-        Map<String, ArrayList<Position>> allWords = game.getAllWords();
+        Map<String, ArrayList<Position>> allWords = new HashMap<>();
+        BoggleGrid grid = new BoggleGrid(4);
+        grid.initalizeBoard("RHLDNHTGIPHSNMJO");
+        Object r = method.invoke(game, boggleDict, grid);
+
+        game.humanMove("GHOST");
+        game.humanMove("GHOST");
+        assertEquals(game.getGameStats().getScore(), 2);
+    }
+
+    // checks if the method is appropriately setting the attribute allWords with all the words found from a given string
+    @Test
+    void setLetters() {
+        BoggleGame game = new BoggleGame();
+        Map<String, ArrayList<Position>> allWords;
 
         game.setLetters("RHLDNHTGIPHSNMJO");
         allWords = game.getAllWords();

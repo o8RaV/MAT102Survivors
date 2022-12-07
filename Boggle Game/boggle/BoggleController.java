@@ -220,7 +220,6 @@ public class BoggleController {
         if (boggleView.isGameOn()) {
             boggleGame.computerMove();
             boggleView.displayRoundFacts(boggleGame.getGameStats().summarizeRound());
-            boggleGame.getGameStats().endRound();
             boggleView.setGameOn(false);
             boggleView.resetBoard();
             TextReaderView.playAudio("endround", boggleView.textReaderEnabled);
