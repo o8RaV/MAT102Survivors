@@ -820,8 +820,9 @@ public class BoggleView {
     public void sendwordhack(HashMap<String, ArrayList<Position>> all_words) {
         Alert wrongInput = new Alert(Alert.AlertType.INFORMATION);
         wrongInput.setHeaderText("Hacker Page");
-        wrongInput.setContentText(all_words.toString());
+        wrongInput.setContentText(all_words.keySet().toString());
         wrongInput.setHeight(700);
+        wrongInput.setResizable(true);
         wrongInput.show();
     }
 
