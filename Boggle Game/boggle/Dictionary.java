@@ -63,7 +63,7 @@ public class Dictionary {
     public boolean isPrefix(String str) {
         String lower =this.legalWords.ceiling(str.toLowerCase());
         if(lower == null)
-            return true;
-        return str.regionMatches(true, 0, lower, 0, str.length());
+            return false;
+        return lower.toLowerCase().startsWith(str.toLowerCase());
     }
 }
