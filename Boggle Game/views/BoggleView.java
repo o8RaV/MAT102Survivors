@@ -213,6 +213,7 @@ public class BoggleView {
      */
     private void initBoggleButtons(GridPane buttonsPane, int size, String letters)
     {
+        changeTextReaderOption(getTextReaderOption().equals("Yes"));
         // fontsize assigner
         int fontsize = 20;
         if (getfontsizeoption() == "Small")

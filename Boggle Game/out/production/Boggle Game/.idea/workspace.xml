@@ -4,44 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ef722d4f-407a-4666-b9bb-f74f4792f6fd" name="Changes" comment="DEV[1.1,1.2,1.3,2.3] changed the attribute of Memento">
-      <change beforePath="$PROJECT_DIR$/boggle/BoggleGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/boggle/BoggleGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Boggle Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/BoggleTests.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/Command/InsertCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/Command/TutBase.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/Command/TutCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/Command/TutController$handleEndRound.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/Command/TutController$handleSubmit.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/Command/TutController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/Command/TutGame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/Command/TutMain.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/Command/TutOperator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/Command/TutView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/DeletedCodeDepot.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/Memento/src/Caretaker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/Memento/src/Memento.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$HandleChangeBoard.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$HandleSaveBoard.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleBoardSelect.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleCustomSelect.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleEndRound.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleLoadGame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleNewGame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleSaveGame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleSubmit.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController$handleloadback.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleGame.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleGrid.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleStats$Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/BoggleStats.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/Dictionary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/boggle/Position.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/views/BoggleView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Boggle Game/views/TextReaderView.class" beforeDir="false" />
-    </list>
+    <list default="true" id="ef722d4f-407a-4666-b9bb-f74f4792f6fd" name="Changes" comment="DEV[1.1,1.2,1.3,2.3] Fond major bug of find all words, fixed that" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -58,7 +21,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="develop" />
+        <entry key="$PROJECT_DIR$/.." value="1.2-Saved_board,1.1-JavaFX_UI,2.3-FontSize/Rav" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -177,7 +140,7 @@
       <workItem from="1670221322958" duration="990000" />
       <workItem from="1670222343780" duration="108000" />
       <workItem from="1670222471314" duration="5654000" />
-      <workItem from="1670357576513" duration="4834000" />
+      <workItem from="1670357576513" duration="5891000" />
     </task>
     <task id="LOCAL-00001" summary="1.2-Saved Boards, added button to the ui and added the event handlers(implementation of handlers still left)">
       <created>1669490288176</created>
@@ -333,7 +296,14 @@
       <option name="project" value="LOCAL" />
       <updated>1670364517618</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="DEV[1.1,1.2,1.3,2.3] Fond major bug of find all words, fixed that">
+      <created>1670368296627</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1670368296627</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -368,6 +338,7 @@
     <MESSAGE value="DEV[1.1,1.2,1.3,2.3] Fixed merge conflicts" />
     <MESSAGE value="DEV[1.1,1.2,1.3,2.3] Text Reader wasn't working, so fixed that." />
     <MESSAGE value="DEV[1.1,1.2,1.3,2.3] changed the attribute of Memento" />
-    <option name="LAST_COMMIT_MESSAGE" value="DEV[1.1,1.2,1.3,2.3] changed the attribute of Memento" />
+    <MESSAGE value="DEV[1.1,1.2,1.3,2.3] Fond major bug of find all words, fixed that" />
+    <option name="LAST_COMMIT_MESSAGE" value="DEV[1.1,1.2,1.3,2.3] Fond major bug of find all words, fixed that" />
   </component>
 </project>
