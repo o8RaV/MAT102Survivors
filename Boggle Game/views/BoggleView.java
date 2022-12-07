@@ -287,7 +287,11 @@ public class BoggleView {
 
         // construct the score graphic; consists of the score, and its string title
         Text scoreTitle = new Text(countDisplay());
+        VBox scoreTitleBox = new VBox(scoreTitle);
+        scoreTitleBox.setMaxWidth(defButtonWidth);
+        scoreTitleBox.setAlignment(Pos.CENTER);
         scoreTitle.setFont(Font.font(fontChoice, FontWeight.BOLD, fontsize));
+
         // construct the score graphic; consists of the score, and its string title
         scoreDisplay.setText("0");
         scoreDisplay.setTextFill(scoreTextColor);
@@ -295,7 +299,7 @@ public class BoggleView {
         scoreDisplay.setFont(Font.font(fontChoice, fontsize));
         scoreDisplay.setAlignment(Pos.CENTER);
         scoreDisplay.setBackground(Background.fill(scoreColor));
-        VBox scoreGraphic = new VBox(scoreTitle, scoreDisplay);
+        VBox scoreGraphic = new VBox(scoreTitleBox, scoreDisplay);
         scoreGraphic.setAlignment(elementAlign);
         scoreGraphic.setSpacing(10);
 
@@ -766,7 +770,7 @@ public class BoggleView {
             fontsize = 30;
 
         Label prompt = new Label("Please input the letters you would like to use on your Boggle Board.");
-        prompt.setFont(Font.font(fontChoice, FontWeight.BOLD, fontsize));
+        prompt.setFont(Font.font(fontChoice, FontWeight.BOLD, 25));
         prompt.setPrefWidth(primaryStage.getWidth());
         prompt.setAlignment(Pos.BOTTOM_CENTER);
         cusLettersField = new TextField();
@@ -1178,15 +1182,17 @@ public class BoggleView {
 
         Button customBack = new Button("Back");
         customBack.setFont(Font.font(fontChoice));
-        customBack.setOnAction(e -> displayScene(boardSMaker()));
+        customBack.setOnAction(e -> newGameButton.fire());
 
         setDefaultSize(customBack); setDefaultSize(cusCont);
         setDefaultSize(loadback);
 
         if (isGameOn())
             bottomPanel.setLeft(loadback);
-        else if (!isGameOn())
+        else if (!isGameOn()) {
             bottomPanel.setLeft(customBack);
+
+        }
 
 
         selectBoardLabel.setId("CurrentBoard");
