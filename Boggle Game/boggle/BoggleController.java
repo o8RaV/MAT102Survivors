@@ -78,7 +78,7 @@ public class BoggleController {
             }
 
             boggleView.setTimerTextCurrTime(starting_mins, starting_secs);
-            timerView = new TimerView(this, num_secs);
+            timerView = TimerView.getInstance(this, num_secs);
             timerView.start();
         }
     }
@@ -220,7 +220,6 @@ public class BoggleController {
         if (boggleView.isGameOn()) {
             boggleGame.computerMove();
             boggleView.displayRoundFacts(boggleGame.getGameStats().summarizeRound());
-            boggleGame.getGameStats().endRound();
             boggleView.setGameOn(false);
             boggleView.resetBoard();
             TextReaderView.playAudio("endround", boggleView.textReaderEnabled);

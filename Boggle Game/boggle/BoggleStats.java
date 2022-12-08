@@ -45,7 +45,9 @@ public class BoggleStats implements Serializable {
     /**
      * the current round being played
      */  
-    private int round; 
+    private int round;
+
+    private int lastRoundPScore;
 
     /**
      * enumarable types of players (human or computer)
@@ -72,6 +74,7 @@ public class BoggleStats implements Serializable {
         this.cScoreTotal = 0;
         this.pScoreTotal = 0;
         this.pAverageWords = 0;
+        this.lastRoundPScore = 0;
         this.playerWords = new HashSet<>();
         this.computerWords = new HashSet<>();
     }
@@ -111,8 +114,8 @@ public class BoggleStats implements Serializable {
         this.cScoreTotal += this.cScore;
         this.pAverageWords = this.playerWords.size()/this.round;
         this.cAverageWords = this.computerWords.size()/this.round;
-        this.computerWords.clear();
         this.playerWords.clear();
+        this.computerWords.clear();
         this.pScore = 0;
         this.cScore = 0;
     }

@@ -14,15 +14,23 @@ import views.BoggleView;
 import views.TimerView;
 
 import static org.junit.jupiter.api.Assertions.*;
+import Command.*;
 
 public class BoggleTests {
 
     //Timer Test
     @Test
-    void timer_test() { //test to see if get_mins and get_secs works properly
-        TimerView timerView = new TimerView(null, 80);
+    void timer_test_two_digit_seconds() { //test to see if get_mins and get_secs works properly
+        TimerView timerView = TimerView.getInstance(null, 80);
         assertEquals(timerView.get_mins(), "1");
         assertEquals(timerView.get_secs(), "20");
+    }
+
+    @Test
+    void timer_test_one_digit_seconds() { //test to see if get_mins and get_secs works properly
+        TimerView timerView = TimerView.getInstance(null, 121);
+        assertEquals(timerView.get_mins(), "2");
+        assertEquals(timerView.get_secs(), "01");
     }
 
     //BoggleGame  Test
@@ -78,34 +86,71 @@ public class BoggleTests {
         assertEquals(3, stats.getRound());
     }
 
+    // checks if a repeatedly submitted word will not count for any more points
     @Test
-        void repeatedWordTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-            BoggleGame game = new BoggleGame();
-            Method method = game.getClass().getDeclaredMethod("findAllWords", Dictionary.class, BoggleGrid.class);
-            method.setAccessible(true);
-
-            Dictionary boggleDict = new Dictionary("wordlist.txt");
-            Map<String, ArrayList<Position>> allWords = new HashMap<>();
-            BoggleGrid grid = new BoggleGrid(4);
-            grid.initalizeBoard("RHLDNHTGIPHSNMJO");
-            Object r = method.invoke(game, boggleDict, grid);
-
-            game.humanMove("GHOST");
-            game.humanMove("GHOST");
-            assertEquals(game.getGameStats().getScore(), 2);
-    }
-
-    @Test
-    void findAllWords_size() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    void repeatedWordTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         BoggleGame game = new BoggleGame();
+        Method method = game.getClass().getDeclaredMethod("findAllWords", Dictionary.class, BoggleGrid.class);
+        method.setAccessible(true);
 
         Dictionary boggleDict = new Dictionary("wordlist.txt");
-        game.setLetters("heabstualcsetsam");
-        Map<String, ArrayList<Position>> allWords = game.getAllWords();
+        Map<String, ArrayList<Position>> allWords = new HashMap<>();
+        BoggleGrid grid = new BoggleGrid(4);
+        grid.initalizeBoard("RHLDNHTGIPHSNMJO");
+        Object r = method.invoke(game, boggleDict, grid);
+
+        game.humanMove("GHOST");
+        game.humanMove("GHOST");
+        assertEquals(game.getGameStats().getScore(), 2);
+    }
+
+    // checks if the method is appropriately setting the attribute allWords with all the words found from a given string
+    @Test
+    void setLetters() {
+        BoggleGame game = new BoggleGame();
+        Map<String, ArrayList<Position>> allWords;
 
         game.setLetters("RHLDNHTGIPHSNMJO");
         allWords = game.getAllWords();
         assertEquals(3, allWords.size());
+    }
+
+    @Test
+    void baseCheck(){
+        ArrayList<String> test = new ArrayList<>();
+        test.add("marx");
+        test.add("magalor");
+        TutBase villains = new TutBase(test);
+
+        villains.addTo("marx");
+        assertFalse(villains.all_found());
+
+        ArrayList<String> missing = new ArrayList<>();
+        missing.add("magalor");
+        assertNotEquals(missing, villains.wordsNotFound());
+
+        villains.updateFoundWordCount("marx");
+        assertEquals(missing, villains.wordsNotFound());
+
+        villains.addTo("magalor");
+        assertTrue(villains.all_found());
+    }
+
+    @Test
+    void commandCheck(){
+        ArrayList<String> test = new ArrayList<>();
+        test.add("pikachu");
+        test.add("mimikyu");
+
+        TutBase box = new TutBase(test);
+        TutOperator move = new TutOperator();
+        move.acceptCommand(new InsertCommand(box, "pikachu"));
+        move.operateAll();
+        assertFalse(box.all_found());
+
+        move.acceptCommand(new InsertCommand(box, "mimikyu"));
+        move.operateAll();
+        assertTrue(box.all_found());
     }
 
 }

@@ -38,8 +38,8 @@ import java.util.List;
  *  displays the main game window, where the user selects a boggle board and plays boggle.
  */
 public class BoggleView {
-    protected final int windowMinWidth = 1000; // sets the window's minimum width and height
-    protected final int windowMinHeight = 800;
+    protected final int windowMinWidth = 900; // sets the window's minimum width and height
+    protected final int windowMinHeight = 700;
     MediaPlayer mediaPlayer;
     TextField cusLettersField; // textfield that allows user to input custom set of letters
     public Label saveFileErrorLabel = new Label(""); // error label for saveview
@@ -111,7 +111,7 @@ public class BoggleView {
      */
     public BoggleView(Stage stage) {
         primaryStage = stage;
-        primaryStage.setTitle("and his name is JOOOHHHN CENAAAA");
+        primaryStage.setTitle("Superior Boggle");
 
         Pane pane = new Pane();
         Scene scene = new Scene(pane, windowMinWidth, windowMinHeight);
@@ -275,7 +275,7 @@ public class BoggleView {
      * Initializes the game sidebar which contains the game control buttons and score
      * @return a vbox that contains the game sidebar
      */
-    private VBox initSidebar () {
+    protected VBox initSidebar () {
         int fontsize = 20;
         if (getfontsizeoption() == "Small")
             fontsize = 18;
@@ -286,10 +286,12 @@ public class BoggleView {
         Pos elementAlign = Pos.CENTER_LEFT;
 
         // construct the score graphic; consists of the score, and its string title
-        Label scoreTitle = new Label("Score:");
+        Text scoreTitle = new Text(countDisplay());
+        VBox scoreTitleBox = new VBox(scoreTitle);
+        scoreTitleBox.setMaxWidth(defButtonWidth);
+        scoreTitleBox.setAlignment(Pos.CENTER);
         scoreTitle.setFont(Font.font(fontChoice, FontWeight.BOLD, fontsize));
-        scoreTitle.setAlignment(Pos.CENTER);
-        scoreTitle.setPrefWidth(defButtonWidth);
+
         // construct the score graphic; consists of the score, and its string title
         scoreDisplay.setText("0");
         scoreDisplay.setTextFill(scoreTextColor);
@@ -297,7 +299,7 @@ public class BoggleView {
         scoreDisplay.setFont(Font.font(fontChoice, fontsize));
         scoreDisplay.setAlignment(Pos.CENTER);
         scoreDisplay.setBackground(Background.fill(scoreColor));
-        VBox scoreGraphic = new VBox(scoreTitle, scoreDisplay);
+        VBox scoreGraphic = new VBox(scoreTitleBox, scoreDisplay);
         scoreGraphic.setAlignment(elementAlign);
         scoreGraphic.setSpacing(10);
 
@@ -733,7 +735,7 @@ public class BoggleView {
         VBox timerSelection = new VBox(timerText, timerBox);
         timerSelection.setSpacing(15);
         selectionPane.getChildren().add(timerSelection);
-        selectionPane.setSpacing(50);
+        selectionPane.setSpacing(30);
         selectionPane.setPadding(new Insets(40, 0, 0, 0));
 
         // root pane
@@ -768,7 +770,7 @@ public class BoggleView {
             fontsize = 30;
 
         Label prompt = new Label("Please input the letters you would like to use on your Boggle Board.");
-        prompt.setFont(Font.font(fontChoice, FontWeight.BOLD, fontsize));
+        prompt.setFont(Font.font(fontChoice, FontWeight.BOLD, 25));
         prompt.setPrefWidth(primaryStage.getWidth());
         prompt.setAlignment(Pos.BOTTOM_CENTER);
         cusLettersField = new TextField();
@@ -822,8 +824,9 @@ public class BoggleView {
     public void sendwordhack(HashMap<String, ArrayList<Position>> all_words) {
         Alert wrongInput = new Alert(Alert.AlertType.INFORMATION);
         wrongInput.setHeaderText("Hacker Page");
-        wrongInput.setContentText(all_words.toString());
+        wrongInput.setContentText(all_words.keySet().toString());
         wrongInput.setHeight(700);
+        wrongInput.setResizable(true);
         wrongInput.show();
     }
 
@@ -1123,11 +1126,6 @@ public class BoggleView {
         timerEnabled = bool;
     }
 
-
-    public void runTextReader(Character c) { //helper method for text reader testing
-        TextReaderView.playAudio(Character.toString(c), textReaderEnabled);
-    }
-
     /**
      * gets the selected size of the boggle board
      * @return the int size of the boggle board
@@ -1184,15 +1182,17 @@ public class BoggleView {
 
         Button customBack = new Button("Back");
         customBack.setFont(Font.font(fontChoice));
-        customBack.setOnAction(e -> displayScene(boardSMaker()));
+        customBack.setOnAction(e -> newGameButton.fire());
 
         setDefaultSize(customBack); setDefaultSize(cusCont);
         setDefaultSize(loadback);
 
         if (isGameOn())
             bottomPanel.setLeft(loadback);
-        else if (!isGameOn())
+        else if (!isGameOn()) {
             bottomPanel.setLeft(customBack);
+
+        }
 
 
         selectBoardLabel.setId("CurrentBoard");
